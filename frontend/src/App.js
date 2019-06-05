@@ -1,0 +1,54 @@
+import React from 'react';
+// import './assets/css/material-dashboard-react.css';
+import Master from "./layouts/Master"
+import SignIn from "./views/Auth/SignIn"
+import SignUp from "./views/Auth/SignUp"
+import { Route, Switch } from 'react-router-dom'
+import { connect } from "react-redux";
+import { Redirect , withRouter } from "react-router-dom";
+import { compose } from "redux";
+// import {createMuiTheme} from '@material-ui/core/styles';
+// import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { BrowserRouter } from "react-router-dom";
+import Public from "./layouts/Public" 
+import AppRoute from "./layouts/AppRoute"
+import Plane from "./layouts/Plane"
+import Home from "./views/Dashboard/Home"
+// import IndexCompany from "./views/Company/index"
+
+function App(props) {
+  return (
+    <BrowserRouter>
+      <div className="App">
+        <Switch>
+        <AppRoute exact path="/signIn" layout={Plane} component={SignIn} />
+        <AppRoute exact path="/signUp" layout={Plane} component={SignUp} />
+        <AppRoute exact path="/" layout={Master} component={Home} />
+        {/* <AppRoute exact path="/company" layout={Master} component={IndexCompany} /> */}
+          
+        </Switch>
+        
+      </div>
+      </BrowserRouter>
+  );
+}
+
+const mapStateToProps = (state, ownProps) => {
+  console.log(state);
+  // const accessId =(accId) => {accId};
+  // const companies = state.firestore.data.companies;
+  // const event = companies ? companies[accessId] : null
+  return {
+    // companies: companies,
+    // auth: state.firebase.auth,
+   
+  };
+};
+
+export default compose(
+  // connect(
+  //   mapStateToProps,
+  //   {}
+  // )
+  
+) (App);
