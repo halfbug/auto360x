@@ -14,6 +14,7 @@ import Public from "./layouts/Public"
 import AppRoute from "./layouts/AppRoute"
 import Plane from "./layouts/Plane"
 import Home from "./views/Dashboard/Home"
+import OpenHome from "./views/LandingPage/Home"
 // import IndexCompany from "./views/Company/index"
 
 function App(props) {
@@ -23,7 +24,8 @@ function App(props) {
         <Switch>
         <AppRoute exact path="/signIn" layout={Plane} component={SignIn} />
         <AppRoute exact path="/signUp" layout={Plane} component={SignUp} />
-        <AppRoute exact path="/" layout={Master} component={Home} />
+        <AppRoute exact path="/" layout={Public} component={OpenHome} />
+        <AppRoute exact path="/admin" layout={Master} component={Home} />
         {/* <AppRoute exact path="/company" layout={Master} component={IndexCompany} /> */}
           
         </Switch>

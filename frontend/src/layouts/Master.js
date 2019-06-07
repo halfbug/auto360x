@@ -16,18 +16,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './../components/sidebar/listIems';
-
-function MadeWithLove() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Built with love by the '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Material-UI
-      </Link>
-      {' team.'}
-    </Typography>
-  );
-}
+import Footer from "./Footer"
 
 const drawerWidth = 240;
 
@@ -166,7 +155,7 @@ export default function Dashboard(props) {
         <Container maxWidth="lg" className={classes.container}>
           {props.children}
         </Container>
-        <MadeWithLove />
+        <Footer />
       </main>
     </div>
   );

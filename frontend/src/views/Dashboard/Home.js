@@ -29,10 +29,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Home(props) {
-  
-  
-
-    //  if (!this.props.auth.isloged) {
+      //  if (!this.props.auth.isloged) {
     //   return <Redirect to="/signin" />;
     // }
     const classes = useStyles();
@@ -71,7 +68,7 @@ const mapStateToProps = (state, ownProps) => {
   // const event = companies ? companies[accessId] : null
   return {
     // companies: companies,
-    auth: state.firebase.auth,
+    // auth: state.firebase.auth,
    
   };
 };
