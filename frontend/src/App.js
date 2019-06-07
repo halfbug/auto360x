@@ -1,5 +1,5 @@
 import React from 'react';
-// import './assets/css/material-dashboard-react.css';
+import './assets/css/custom.css';
 import Master from "./layouts/Master"
 import SignIn from "./views/Auth/SignIn"
 import SignUp from "./views/Auth/SignUp"

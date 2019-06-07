@@ -9,36 +9,47 @@ import PeopleIcon from '@material-ui/icons/AttachMoney';
 import BarChartIcon from '@material-ui/icons/Layers';
 import LayersIcon from '@material-ui/icons/ListAlt';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import Avatar from '@material-ui/core/Avatar';
 
 export const mainListItems = (
   <div>
     <ListItem button>
       <ListItemIcon>
+      <Avatar className="Orangegradient">
         <DashboardIcon />
+        </Avatar>
       </ListItemIcon>
       <ListItemText primary="Used Cars" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
+      <Avatar className="Bluegradient">
         <ShoppingCartIcon />
+        </Avatar>
       </ListItemIcon>
       <ListItemText primary="New Cars" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
+      <Avatar className="Greengradient">
         <PeopleIcon />
+        </Avatar>
       </ListItemIcon>
       <ListItemText primary="Sell Car" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
+      <Avatar className="Inkgradient">
         <BarChartIcon />
+        </Avatar>
       </ListItemIcon>
       <ListItemText primary="Compare" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
+      <Avatar className="Pinkgradient">
         <LayersIcon />
+        </Avatar>
       </ListItemIcon>
       <ListItemText primary="News & Reviews" />
     </ListItem>
