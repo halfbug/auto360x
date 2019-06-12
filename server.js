@@ -18,7 +18,7 @@ mongoose
     .then(()=> console.log("MongoDB Connected..."))
     .catch(err => console.log("E R R O R   A   H E A D -->  "+err));
     
-app.get('/', function (req, res) {
+app.get('/api/test', function (req, res) {
         res.send('hello world')
       });
 
