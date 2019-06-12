@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-Parser')
+const path = require('path');
 
 const vehicles_routes = require('./routes/api/Vehical_Controller')
 
@@ -24,6 +25,15 @@ app.get('/', function (req, res) {
 app.use('/api/vehicles', vehicles_routes);
 
 // console.log(vehicles_routes)
+// serve static assetps if in production
+if(process.env.NODE_ENV == 'production') {
+    // set static folder
+    app.use(express.static('forntend/build'));
+    app.get('*',(req,res) => {
+        res.sendFile(path.resolve(__dirname,'frontend','build','index.html'));
+    } );
+}
+
 
     const port = process.env.PORT || 5000;
 
