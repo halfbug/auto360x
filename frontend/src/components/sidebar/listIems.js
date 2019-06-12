@@ -10,6 +10,10 @@ import BarChartIcon from '@material-ui/icons/Layers';
 import LayersIcon from '@material-ui/icons/ListAlt';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import Avatar from '@material-ui/core/Avatar';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
+
+
 
 export const mainListItems = (
   <div>
@@ -29,6 +33,8 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="New Cars" />
     </ListItem>
+    
+    <Link component={RouterLink} color="inherit"  to="/sell">
     <ListItem button>
       <ListItemIcon>
       <Avatar className="Greengradient">
@@ -37,6 +43,8 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Sell Car" />
     </ListItem>
+    </Link>
+    
     <ListItem button>
       <ListItemIcon>
       <Avatar className="Inkgradient">

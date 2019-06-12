@@ -1,0 +1,33 @@
+{
+  "name": "Auto360x",
+  "version": "1.0.0",
+  "description": "A MERN Stack App",
+  "main": "server.js",
+  "scripts": {
+    "client-install":"npm install --prefix frontend",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client" : "npm start --prefix frontend",
+    "dev" : "concurrently \"npm run server \"  \" npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/halfbug/auto360x.git"
+  },
+  "keywords": [],
+  "author": "Sadaf Siddiqui",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/halfbug/auto360x/issues"
+  },
+  "homepage": "https://github.com/halfbug/auto360x#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^4.1.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.5.13"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}

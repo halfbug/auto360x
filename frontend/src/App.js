@@ -15,7 +15,8 @@ import AppRoute from "./layouts/AppRoute"
 import Plane from "./layouts/Plane"
 import Home from "./views/Dashboard/Home"
 import OpenHome from "./views/LandingPage/Home"
-// import IndexCompany from "./views/Company/index"
+import Wizard from "./views/SellForm/Wizard"
+
 
 function App(props) {
   return (
@@ -26,6 +27,7 @@ function App(props) {
         <AppRoute exact path="/signUp" layout={Plane} component={SignUp} />
         <AppRoute exact path="/" layout={Public} component={OpenHome} />
         <AppRoute exact path="/admin" layout={Master} component={Home} />
+        <AppRoute exact path="/sell" layout={Public} component={Wizard} />
         {/* <AppRoute exact path="/company" layout={Master} component={IndexCompany} /> */}
           
         </Switch>
