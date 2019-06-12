@@ -39,9 +39,9 @@ export default function Review() {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Order summary
+        Preview -- Add preview
       </Typography>
-      <List disablePadding>
+      {/* <List disablePadding>
         {products.map(product => (
           <ListItem className={classes.listItem} key={product.name}>
             <ListItemText primary={product.name} secondary={product.desc} />
@@ -80,7 +80,7 @@ export default function Review() {
             ))}
           </Grid>
         </Grid>
-      </Grid>
+      </Grid> */}
     </React.Fragment>
   );
 }
