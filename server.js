@@ -1,6 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const bodyParser = require('body-Parser')
+// const bodyParser = require('body-Parser')
 const path = require('path');
 
 const vehicles_routes = require('./routes/api/Vehical_Controller')
@@ -8,7 +8,7 @@ const vehicles_routes = require('./routes/api/Vehical_Controller')
 const app = express();
 
 //Bodyparser Middleware
-app.use(bodyParser.json())
+app.use(express.json())
 
 // DB Config
 const db = require ('./config/keys').mongoURI;
