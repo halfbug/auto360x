@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-Parser')
 
 const vehicles_routes = require('./routes/api/Vehical_Controller')
+const packages_routes = require('./routes/api/Package_Controller')
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.get('/', function (req, res) {
       });
 
 app.use('/api/vehicles', vehicles_routes);
+app.use('/api/packages', packages_routes)
 
 // console.log(vehicles_routes)
 
