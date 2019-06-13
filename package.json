@@ -1,6 +1,9 @@
 {
   "name": "Auto360x",
   "version": "1.0.0",
+  "engines": {
+    "node": "v10.16.0"
+  },
   "description": "A MERN Stack App",
   "main": "server.js",
   "scripts": {
