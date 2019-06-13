@@ -24,19 +24,16 @@ app.get('/api/test', function (req, res) {
 
 app.use('/api/vehicles', vehicles_routes);
 
-// console.log(vehicles_routes)
-// serve static assetps if in production
-// if(process.env.NODE_ENV == 'production') {
-//     // set static folder
-//     app.use(express.static('frontend/build'));
-//     app.get('*',(req,res) => {
-//         res.sendFile(path.resolve(__dirname,'frontend','build','index.html'));
-//     } );
-// }
-
-app.get('/', function(req, res){
-    res.redirect('/api');
- });
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static('frontend/build'));
+  
+    app.get('*', (req, res) => {
+      res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+    });
+  }
+  
 
 
     const port = process.env.PORT || 5000;
