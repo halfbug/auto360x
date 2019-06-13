@@ -34,6 +34,10 @@ app.use('/api/vehicles', vehicles_routes);
 //     } );
 // }
 
+app.get('/', function(req, res){
+    res.redirect('/api');
+ });
+
 
     const port = process.env.PORT || 5000;
 
