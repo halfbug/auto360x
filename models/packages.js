@@ -13,10 +13,10 @@ const PackageSchema = new Schema({
         required: true
     },
     start_date: {
-        type: Date
+      type: Date,
     },
     end_date: {
-        type: Date
+      type: Date,
     },
     description: {
         type: String,
@@ -29,7 +29,26 @@ const PackageSchema = new Schema({
     create_at: {
         type: Date,
         default: Date.now
-    }
+    },
+     
 })
 
+// // describe your schema    
+// var schema = new Schema({
+//     time: Date
+//   }, {
+//     toObject: { getters: true }
+//   });
+  
+  // schema.formatted_time -> DD/MM/YYYY
+  // PackageSchema.virtual('formatted_start_date').get(function() {
+  //   var start_date = new Date(this.start_date);
+  //   return ((start_date.getMonth() + 1) + '/' + start_date.getDate() + '/' +  start_date.getFullYear());
+  // });
+
+  // PackageSchema.virtual('formatted_end_date').get(function() {
+  //   var end_date = new Date(this.end_date);
+  //   return ((end_date.getMonth() + 1) + '/' + end_date.getDate() + '/' +  end_date.getFullYear());
+  // });
+  
 module.exports = Package = mongoose.model('Package', PackageSchema);
