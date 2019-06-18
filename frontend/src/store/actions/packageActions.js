@@ -5,12 +5,13 @@ import { returnErrors } from './errorActions';
 export const GET_PACKAGES = 'GET_PACKAGES';
 export const ADD_PACKAGE = 'ADD_PACKAGE';
 export const DELETE_PACKAGE = 'DELETE_PACKAGE';
+export const UPDATE_PACKAGE = 'UPDATE_PACKAGE';
 export const PACKAGE_LOADING = 'PACKAGE_LOADING';
 
 export const getPackages = () => dispatch => {
   dispatch(setPackagesLoading());
   axios
-    .get('/api/packages')
+    .get('http://localhost:5000/api/packages')
     .then(res =>
       dispatch({
         type: GET_PACKAGES,
@@ -38,7 +39,7 @@ export const addPackage = pkg => (dispatch) => {
 
 export const deletePackage = id => (dispatch) => {
   axios
-    .delete(`/api/packages/${id}`)
+    .delete(`http://localhost:5000/api/packages/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_PACKAGE,
@@ -50,13 +51,13 @@ export const deletePackage = id => (dispatch) => {
     );
 };
 
-export const updatePackage = id => (dispatch) => {
+export const updatePackage = (id, pkg) => (dispatch) => {
     axios
-      .put(`/api/packages/${id}`)
+      .put(`http://localhost:5000/api/packages/${id}`, pkg)
       .then(res =>
         dispatch({
-          type: DELETE_PACKAGE,
-          payload: id
+          type: UPDATE_PACKAGE,
+          payload: res.data
         })
       )
       .catch(err =>

@@ -9,16 +9,17 @@ import Button from '@material-ui/core/Button';
 import { FormGroup } from '@material-ui/core';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment'
 import { addPackage } from '../../../store/actions/packageActions'
 
 class AddPackage extends Component {
   state = {
-    checked: false,
+    checkedA: false,
     title: '',
     price: '',
-    start_date: null,
-    end_date: null,
-    description: ''
+    start_date: '2017-05-24',
+    end_date: '2018-07-20',
+    description: '',
   }
 
   static propTypes = {
@@ -26,124 +27,121 @@ class AddPackage extends Component {
     addPackage: PropTypes.func.isRequired
   };
 
-  // componentDidMount(){
-  //   console.log(this.state.checked)
-  // }
-
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+    // console.log("text changed")
+    // console.log(this.state.start_date)
+    // console.log(moment( this.state.start_date).format("YYYY-MM-DD"))
+    // console.log(this.state.end_date)
+    // console.log(moment( this.state.end_date).format("YYYY-MM-DD"))
   };
-  
+
   handleChange = name => event => {
+   // console.log(this.state.checkedA)
     this.setState({ ...this.state, [name]: event.target.checked });
-    console.log(!this.state.checked)
+
   };
 
   onSubmit = e => {
     e.preventDefault();
 
     const newPackage = {
-      checked: this.state.checked,
+      is_active: this.state.checkedA,
       title: this.state.title,
       price: this.state.price,
-      start_date: this.state.start_date,
-      end_date: this.state.end_date,
+      start_date: moment( this.state.start_date).format("YYYY-MM-DD"),
+      end_date: moment( this.state.end_date).format("YYYY-MM-DD"),
       description: this.state.description
     };
 
     // Add item via addItem action
     this.props.addPackage(newPackage);
+    window.location.reload()
+    //console.log("package added")
   };
 
   render() {
     return (
       <Fragment>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom style={{textAlign: "center"}}>
           Add Package
         </Typography>
         <form onSubmit={this.onSubmit}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="title"
-              name="title"
-              label="Title"
-              onChange={this.onChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="price"
-              name="price"
-              label="Price"
-              onChange={this.onChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <form noValidate>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="title"
+                name="title"
+                label="Title"
+                onChange={this.onChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="price"
+                name="price"
+                label="Price"
+                onChange={this.onChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
               <TextField
                 id="start_date"
                 label="Start date"
                 type="date"
-                defaultValue="2017-05-24"
+                name="start_date"
+                value={this.state.start_date}
                 onChange={this.onChange}
                 InputLabelProps={{
                   shrink: true,
                 }}
               />
-            </form>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <form noValidate>
+            </Grid>
+            <Grid item xs={12} sm={6}>
               <TextField
                 id="end_date"
                 label="End date"
                 type="date"
-                defaultValue="2017-06-27"
+                name="end_date"
+                value={this.state.end_date}
                 onChange={this.onChange}
                 InputLabelProps={{
                   shrink: true,
                 }}
               />
-            </form>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="description"
-              name="description"
-              label="Description"
-              onChange={this.onChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Checkbox 
-                    checked={this.state.checked} 
-                    onChange={this.handleChange('checked')} 
-                    value="checked" 
-                  />
-                }
-                label="Is active"
-                labelPlacement="start"
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="description"
+                name="description"
+                label="Description"
+                onChange={this.onChange}
+                fullWidth
               />
-            </FormGroup>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormGroup row>
+                <FormControlLabel
+                  control={
+                    <Checkbox checked={this.state.checkedA} onChange={this.handleChange('checkedA')} value="checkedA" />
+                  }
+                  label="Is active"
+                />
+              </FormGroup>
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <label htmlFor="outlined-button">
+                <Button type="submit" variant="outlined" >
+                  Add Package <AddIcon />
+                </Button>
+              </label>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={12}>
-            <label htmlFor="outlined-button">
-              <Button variant="outlined" component="span">
-                Add Package <AddIcon />
-              </Button>
-            </label>
-           </Grid>
-        </Grid>
         </form>
       </Fragment>
     );

@@ -2,6 +2,7 @@ import {
     GET_PACKAGES,
     ADD_PACKAGE,
     DELETE_PACKAGE,
+    UPDATE_PACKAGE,
     PACKAGE_LOADING
   } from '../actions/packageActions';
   
@@ -21,13 +22,18 @@ import {
       case DELETE_PACKAGE:
         return {
           ...state,
-          packages: state.packages.filter(packag => packag._id !== action.payload)
+          packages: state.packages.filter(pkg => pkg._id !== action.payload)
         };
       case ADD_PACKAGE:
         return {
           ...state,
           packages: [action.payload, ...state.packages]
         };
+      case UPDATE_PACKAGE:
+          return {
+            ...state,
+            packages: [action.payload, ...state.packages]
+          };
       case PACKAGE_LOADING:
         return {
           ...state,

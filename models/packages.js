@@ -24,7 +24,7 @@ const PackageSchema = new Schema({
     },
     is_active: {
         type: Boolean,
-        default: false
+        required: true
     },
     create_at: {
         type: Date,

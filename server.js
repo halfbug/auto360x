@@ -1,14 +1,16 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-Parser')
-
+const cors = require('cors')
 const vehicles_routes = require('./routes/api/Vehical_Controller')
 const packages_routes = require('./routes/api/Package_Controller')
 
 const app = express();
 
+app.use(cors());
+
 //Bodyparser Middleware
-app.use(bodyParser.json())
+app.use(express.json())
 
 // DB Config
 const db = require ('./config/keys').mongoURI;

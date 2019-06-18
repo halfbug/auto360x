@@ -17,7 +17,6 @@ router.use(function(req, res, next) {
 router.get('/', (req,res) => {
     Package.find()
     .then(packages => res.json(packages));
-
 });
 
 // @route POST api/packages
@@ -31,7 +30,7 @@ router.post('/',(req,res) => {
 console.log( "sending... to mongo db...."
 
 );
-   newPackage.save().then(package => res.json(package)).catch((err)=> res.json(err));
+   newPackage.save().then(package => res.json(package)).catch((err)=> res.status(400).json(err));
 
 });
 
@@ -41,7 +40,7 @@ console.log( "sending... to mongo db...."
 router.delete('/:id', (req, res) => {
     Package.findById(req.params.id)
       .then(package => package.remove().then(() => res.json({ success: true })))
-      .catch(err => res.status(404).json({ success: false, err }));
+      .catch(err => res.status(404).json({ success: false, err: "Record not found!" }));
   });
 
 // @route   UPDATE api/packages/:id
@@ -49,7 +48,7 @@ router.delete('/:id', (req, res) => {
 // @access  Public
 router.put('/:id', (req, res) => {
     const fieldsToUpdate = Object.keys(req.body)
-    const fieldsInModel = ['title', 'price', 'start_date', 'end_date', 'description', 'is_active', 'create_at']
+    const fieldsInModel = ['title', 'price', 'start_date', 'end_date', 'description', 'is_active']
     const isUpdateAllowed = fieldsToUpdate.every((field) => fieldsInModel.includes(field))
 
     if(!isUpdateAllowed){
