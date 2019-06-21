@@ -14,9 +14,11 @@ const PackageSchema = new Schema({
     },
     start_date: {
       type: Date,
+      required: true
     },
     end_date: {
       type: Date,
+      required: true
     },
     description: {
         type: String,
@@ -24,7 +26,7 @@ const PackageSchema = new Schema({
     },
     is_active: {
         type: Boolean,
-        required: true
+        default: false
     },
     create_at: {
         type: Date,

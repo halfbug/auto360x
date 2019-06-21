@@ -3,7 +3,11 @@ import {
     ADD_PACKAGE,
     DELETE_PACKAGE,
     UPDATE_PACKAGE,
-    PACKAGE_LOADING
+    PACKAGE_LOADING,
+    GET_PACKAGE_FAIL,
+    ADD_PACKAGE_FAIL,
+    UPDATE_PACKAGE_FAIL,
+    DELETE_PACKAGE_FAIL,
   } from '../actions/packageActions';
   
   const initialState = {
@@ -19,6 +23,14 @@ import {
           packages: action.payload,
           loading: false
         };
+      case GET_PACKAGE_FAIL:
+      case ADD_PACKAGE_FAIL:
+      case DELETE_PACKAGE_FAIL:
+      case UPDATE_PACKAGE_FAIL: 
+        return {
+          ...state,
+          loading: false
+        }
       case DELETE_PACKAGE:
         return {
           ...state,
@@ -27,12 +39,12 @@ import {
       case ADD_PACKAGE:
         return {
           ...state,
-          packages: [action.payload, ...state.packages]
+          packages: [ ...state.packages, action.payload]
         };
       case UPDATE_PACKAGE:
           return {
             ...state,
-            packages: [action.payload, ...state.packages]
+            packages: [action.payload]
           };
       case PACKAGE_LOADING:
         return {
