@@ -24,7 +24,9 @@ class AddPackage extends Component {
 
   static propTypes = {
     pkg: PropTypes.object.isRequired,
-    addPackage: PropTypes.func.isRequired
+    error: PropTypes.object.isRequired,
+    addPackage: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired
   };
 
   onChange = e => {
@@ -44,7 +46,6 @@ class AddPackage extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-
     const newPackage = {
       is_active: this.state.checkedA,
       title: this.state.title,
@@ -56,9 +57,21 @@ class AddPackage extends Component {
 
     // Add item via addItem action
     this.props.addPackage(newPackage);
-    window.location.reload()
-    //console.log("package added")
+   
+    this.setState({
+      checkedA: false,
+      title: '',
+      price: '',
+      start_date: '2017-05-24',
+      end_date: '2018-07-20',
+      description: '',
+    })
+    //window.location.reload()
+  // this.forceUpdate()
+    //console.log("package added", this.state)
+
   };
+  
 
   render() {
     return (
@@ -90,6 +103,7 @@ class AddPackage extends Component {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                required
                 id="start_date"
                 label="Start date"
                 type="date"
@@ -103,6 +117,7 @@ class AddPackage extends Component {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                required
                 id="end_date"
                 label="End date"
                 type="date"
@@ -150,7 +165,7 @@ class AddPackage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  pkg: state.pkg
+  pkg: state.pkg,
 })
 
 export default connect(mapStateToProps, { addPackage })(AddPackage)

@@ -24,13 +24,21 @@ router.get('/', (req,res) => {
 // @access Public
 router.post('/',(req,res) => {
     console.log(req.body);
+    
+    const { title, price, start_date, end_date, description } = req.body;
+
+    // Simple validation
+    if(!title || !price || !start_date || !end_date || !description) {
+      return res.status(400).json({ msg: 'Please enter all fields' });
+    }
+    
    const newPackage = new Package({
     ...req.body
    });
 console.log( "sending... to mongo db...."
 
 );
-   newPackage.save().then(package => res.json(package)).catch((err)=> res.status(400).json(err));
+   newPackage.save().then(package => res.json(package)).catch((err)=> res.status(400).json({ msg: "Please enter correct information"}));
 
 });
 
@@ -54,7 +62,7 @@ router.put('/:id', (req, res) => {
     if(!isUpdateAllowed){
         return res.status(400).json({ error: 'Invalid field!'})
     }
-
+  
     Package.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then((package) => {
         if(!package){

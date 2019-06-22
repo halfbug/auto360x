@@ -4,9 +4,11 @@ const bodyParser = require('body-Parser')
 const cors = require('cors')
 const vehicles_routes = require('./routes/api/Vehical_Controller')
 const packages_routes = require('./routes/api/Package_Controller')
+const news_routes = require('./routes/api/News_Controller')
+
 
 const app = express();
-
+app.use('/uploads', express.static('uploads'))
 app.use(cors());
 
 //Bodyparser Middleware
@@ -26,9 +28,10 @@ app.get('/', function (req, res) {
 
 app.use('/api/vehicles', vehicles_routes);
 app.use('/api/packages', packages_routes)
+app.use('/api/news', news_routes)
 
 // console.log(vehicles_routes)
-
+ 
     const port = process.env.PORT || 5000;
 
 app.listen(port, ()=>console.log(`Server started on port ${port}`))
