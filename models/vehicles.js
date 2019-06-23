@@ -8,16 +8,16 @@ const Schema = mongoose.Schema;
 const VehiclesSchema = new Schema ({
 make : {
     type : String,
-    required : true
+   //required : true
 
 },
 seller_type :{
     type : String,
-    required: true
+   //required : true
 },
 license_plate : {
     type : String,
-    required: true
+   //required : true
 },
 registration_year : {
     type : Date,
@@ -25,7 +25,7 @@ registration_year : {
 },
 transmission : {
     type : String,
-    required : true
+   //required : true
 },
 engine : { type : String},
 milage_km : {
@@ -46,7 +46,41 @@ package: {
 zip : {
     type : Number,
 },
-
+interior_color : {
+    type : String
+},
+exterior_color : {
+    type : String,
+    
+},
+is_active : {
+    type: Boolean,
+    default : true
+},
+style : {
+    type : String
+},
+posted_by : {
+    type : String
+},
+description : {
+    type: String
+},
+year : {
+    type : String
+},
+front_view : {
+    type : String
+},
+back_view : {
+    type :String
+},
+side_view: {
+    type :String
+},
+interior_view: {
+    type :String
+},
 
 });
 

@@ -9,8 +9,28 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Sell from './../../store/reducers/sellReducer';
 
-export default function ListingForm() {
+
+export default function ListingForm(props) {
+  const [values,setvalues] = React.useState({});
+  const [state, dispatch] = React.useReducer(Sell);
+  
+
+  function handleChange(event) {
+    event.persist();
+    setvalues(oldValues => ({
+      ...oldValues,
+      [event.target.id]: event.target.value,
+    }));
+    props.saveAdvertHof({values})
+    console.log(state)
+  }
+
+  React.useEffect(() => {
+    // props.saveAdvertHof({values})
+  });
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -18,8 +38,7 @@ export default function ListingForm() {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} >
-        <FormControl component="fieldset" 
-        >
+        <FormControl component="fieldset" >
         <FormLabel component="legend">Seller Type</FormLabel>
         <RadioGroup
           aria-label="seller_type"
@@ -27,14 +46,17 @@ export default function ListingForm() {
           id="seller_type"
           required
           row
+          onChange={handleChange}
         >
           <FormControlLabel value="individual" 
            label="Individual"
+           id="seller_type"
           control={<Radio color="primary" />}
           labelPlacement="end"
            />
           <FormControlLabel value="dealer" 
-           label="Dealer" 
+           label="Dealer"
+           id="seller_type" 
            control={<Radio color="primary" />}
           labelPlacement="end"
             />
@@ -44,12 +66,12 @@ export default function ListingForm() {
       </FormControl>
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="license_plate" 
-          label="License Plate" fullWidth />
+          <TextField required id="Vin Number" 
+          label="Vin Number" fullWidth onChange={handleChange} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <TextField required id="registration_year" label="Registration Year" fullWidth />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} md={6}>
           <TextField
             required
@@ -57,25 +79,32 @@ export default function ListingForm() {
             label="Owner"
             helperText="if you are first or sencond owner of the car"
             fullWidth
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField required id="zipcode" 
           label="Zip Code"
           helperText="Where is this car currently located?"
-           fullWidth />
+           fullWidth
+           onChange={handleChange}
+            />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField required id="price"
            label="Enter your Car Price ( USD )" fullWidth />
         </Grid>
-        <Grid item xs={12} md={6}>
+        
+        <Grid item xs={12} md={12}>
           <TextField
             required
-            id="owner"
-            label="Owner"
-            helperText="if you are first or sencond owner of the car"
+            id="description"
+            label="Description"
+            rowsMax="4"
+            multiline
+            helperText="Describe your car in more detaial"
             fullWidth
+            onChange={handleChange}
           />
         </Grid>
         
@@ -87,6 +116,7 @@ export default function ListingForm() {
           aria-label="package"
           name="package"
           id = "package"
+          onChange={handleChange}
         >
           <FormControlLabel
             value="packid"
@@ -121,7 +151,7 @@ export default function ListingForm() {
         <Grid item xs={12}>
           <FormControlLabel
             control={<Checkbox color="secondary" name="tandc" value="yes" />}
-            label="Agreed to Terms & Conditions"
+            label="Agreed to Terms & Conditions" onChange={handleChange}
           />
         </Grid>
       </Grid>

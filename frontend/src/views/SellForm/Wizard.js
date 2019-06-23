@@ -9,7 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import VehicleForm from './VehicleForm';
 import ListingForm from './ListingForm';
 import Review from './Review';
-
+import Sell from './../../store/reducers/sellReducer';
+import {addSell} from './../../store/actions/sellActions';
+import useThunkReducer from 'react-hook-thunk-reducer';
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -48,32 +50,70 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const steps = ['Vehicle details', 'Listing details', 'Preview your listing'];
+const steps = ['Vehicle details', 'Listing details', 'Contact detail', 'Preview your listing'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <VehicleForm />;
-    case 1:
-      return <ListingForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
+// function getStepContent(step) {
+//   switch (step) {
+//     case 0:
+//       return <VehicleForm saveAdvert={saveAdvert} />;
+//     case 1:
+//       return <ListingForm />;
+//     case 2:
+//       return <Review />;
+//     default:
+//       throw new Error('Unknown step');
+//   }
+// }
 
 export default function Wizard() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [state, dispatch] = React.useReducer(Sell);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
+    addSell(advert,dispatch);
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  const [advert,setadvert]=React.useState({});
+
+  const saveAdvert = (nadvert) => {
+    console.log(advert)
+    setadvert({
+      ...advert,
+      nadvert
+    })
+        console.log("wizard state : advert :")
+    console.log(advert)
+    // dispatch({
+    //   type: 'GET_SELL',
+    //   payload:advert
+    // })
+
+    // getSells(advert,dispatch);//.then(console.log(state));
+// console.log ("state")
+    console.log(state)
+    
+  };
+
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return <VehicleForm saveAdvertHof={saveAdvert} />;
+      case 1:
+        return <ListingForm saveAdvertHof={saveAdvert} />;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error('Unknown step');
+    }
+  };
+
+
 
   return (
     <React.Fragment>

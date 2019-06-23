@@ -1,6 +1,6 @@
 const initState = {}
 
-const eventReducer = (state = initState, action) => {
+const companyReducer = (state = initState, action) => {
   console.log("reducer receive action "+Object.keys(action))
 
 
@@ -36,4 +36,4 @@ const eventReducer = (state = initState, action) => {
   }
 };
 
-export default eventReducer;
+export default companyReducer;
