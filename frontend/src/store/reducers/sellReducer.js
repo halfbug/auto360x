@@ -14,10 +14,11 @@ import {
   
   export default function sell(state = initialState, action) {
     console.log("reducer sell receive action "+Object.keys(action))
-    // console.log(state);
+    console.log(state);
     switch (action.type) {
       case GET_SELL:
         console.log(action.payload);
+        
         return {
           ...state,
           sell: action.payload,
@@ -29,7 +30,8 @@ import {
           sell: state.sells.filter(packag => packag._id !== action.payload)
         };
       case ADD_SELL:
-        return {
+      console.log(action)  
+      return {
           ...state,
           sell: [action.payload, ...state.sell]
         };

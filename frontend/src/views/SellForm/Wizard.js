@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const steps = ['Vehicle details', 'Listing details', 'Contact detail', 'Preview your listing'];
+const steps = ['Vehicle details', 'Listing details', 'Contact detail', 'Preview listing'];
 
 // function getStepContent(step) {
 //   switch (step) {
@@ -72,7 +72,8 @@ export default function Wizard() {
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
-    addSell(advert,dispatch);
+    addSell(values,dispatch);
+    console.log(state)
   };
 
   const handleBack = () => {
@@ -100,12 +101,40 @@ export default function Wizard() {
     
   };
 
+
+
+const [values,setValues] = React.useState({});
+
+// Handle fields change
+const handleChange =  e => {
+  
+  setValues({ 
+    ...values,
+    [(e.target.id=="")?e.target.name : e.target.id] : e.target.value });
+  console.log("wizard state : advert :")
+  console.log(values)
+};
+
+React.useEffect(() => {
+    if (values.count > 1) {
+      console.log("wizard effect : values :")
+  console.log(values)
+    } else {
+      // storeSell(values,dispatch);
+      console.log("wizard effect : values :")
+  console.log(values)
+    }
+  }, [values]);
+
+
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <VehicleForm saveAdvertHof={saveAdvert} />;
+        return <VehicleForm handleChange={handleChange}
+        values={values} />;
       case 1:
-        return <ListingForm saveAdvertHof={saveAdvert} />;
+        return <ListingForm handleChange={handleChange}
+        values={values} />;
       case 2:
         return <Review />;
       default:

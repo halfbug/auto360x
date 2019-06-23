@@ -13,23 +13,20 @@ import Sell from './../../store/reducers/sellReducer';
 
 
 export default function ListingForm(props) {
-  const [values,setvalues] = React.useState({});
-  const [state, dispatch] = React.useReducer(Sell);
-  
+   const { values, handleChange } = props;
+  // function handleChange(event) {
+  //   event.persist();
+  //   setvalues(oldValues => ({
+  //     ...oldValues,
+  //     [event.target.id]: event.target.value,
+  //   }));
+  //   props.saveAdvertHof({values})
+  //   console.log(state)
+  // }
 
-  function handleChange(event) {
-    event.persist();
-    setvalues(oldValues => ({
-      ...oldValues,
-      [event.target.id]: event.target.value,
-    }));
-    props.saveAdvertHof({values})
-    console.log(state)
-  }
-
-  React.useEffect(() => {
-    // props.saveAdvertHof({values})
-  });
+  // React.useEffect(() => {
+  //   // props.saveAdvertHof({values})
+  // });
 
   return (
     <React.Fragment>
@@ -97,7 +94,7 @@ export default function ListingForm(props) {
         
         <Grid item xs={12} md={12}>
           <TextField
-            required
+            
             id="description"
             label="Description"
             rowsMax="4"

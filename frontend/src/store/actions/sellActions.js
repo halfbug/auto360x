@@ -50,11 +50,13 @@ export const addSell = (sellrecord,dispatch) => {
   console.log("about to add new record")
   axios
     .post('/api/vehicles', sellrecord)
-    .then(res =>
+    .then(res =>{
       dispatch({
         type: ADD_SELL,
         payload: res.data
-      })
+      });
+      // console.log(res.data)
+    }
     )
     .catch(err =>
       //dispatch(returnErrors(err.response.data, err.response.status))  

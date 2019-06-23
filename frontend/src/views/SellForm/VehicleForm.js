@@ -81,7 +81,7 @@ const featurez = [
 
 export default function VehicleForm(props) { 
   const classes = useStyles();
-  const [values,setvalues] = React.useState({});
+  // const [values,setvalues] = React.useState({});
   const [lfeatures,setlfeatures] = React.useState([]);
   const errs = [] ;
   let target = "";
@@ -159,11 +159,9 @@ export default function VehicleForm(props) {
     
   }
 
-  const handleChange = (e) => {
+  const handleImageUpload = (e) => {
     // console.log(e.target);
     console.log(`t=${e.target.id}, val = ${e.target.value}`)
-const trgt = e.target.id;
-const val= e.target.value;
     if (e.target.files && true){
       // console.log(e.target.files)
       // const image = e.target.files[0]
@@ -187,6 +185,11 @@ const val= e.target.value;
       errs.push(`'${file.name}' is too large, please pick a smaller file`)
     }
 
+    if(values[e.target.id] !== "")
+    formData.append("delete_previous", values[e.target.id])
+    else
+    formData.append("delete_revious", false)
+
     formData.append([e.target.id], file)
 
     if (errs.length) {
@@ -204,48 +207,38 @@ const val= e.target.value;
         headers: {
           'Content-Type': 'multipart/form-data'
         }
-    }).then(res => {
+    }).then((res,e) => {
            console.log(res) 
            console.log("finished Progress : "+res.data[0].url)
-           setvalues({
-            ...values,
-            [target]: res.data[0].public_id
-            });
+    
       
            loadImg(target, res.data[0].url)
       toggleProgress(target, "none")
-
+      values[target] = res.data[0].public_id;
+       // props.handleChange()
     })
     .catch(err => console.log(err))
   }
     
-    if(e.target.name === "features"){
-    setlfeatures(e.target.value);
-    setvalues({
-      ...values,
-      [e.target.name]: e.target.value
-    });
-    }
-    else
-    setvalues({
-      ...values,
-      [e.target.id]: e.target.value
-    });
-
-
-  //  console.log(values)
     
-    // console.log(state)
   };
+
+  const handleFeatures = e => {
+   
+      setlfeatures(e.target.value);
+      values[e.target.name]= e.target.value;
+      
+      
+  }
  
-  React.useEffect(() => {
-    if (values.length > 1) {
-      console.log(values);
-    } else {
-      storeSell(values,dispatch);
-      console.log(state);
-    }
-  }, [state]);
+  // React.useEffect(() => {
+  //   if (values.length > 1) {
+  //     console.log(values);
+  //   } else {
+  //     storeSell(values,dispatch);
+  //     console.log(state);
+  //   }
+  // }, [state]);
 
   
   React.useEffect(() => {
@@ -259,7 +252,7 @@ const val= e.target.value;
 
     setOpen(false);
   }
-
+  const { values, handleChange } = props;
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -386,7 +379,7 @@ const val= e.target.value;
           name="features"
           id="features"
           value={lfeatures}
-          onChange={handleChange}
+          onChange={handleFeatures}
           input={<Input id="features" />}
           renderValue={selected => (
             <div className={classes.chips}>
@@ -424,7 +417,7 @@ const val= e.target.value;
         multiple
         type="file"
         ref={front}
-        onChange={handleChange}
+        onChange={handleImageUpload}
       />
       <label htmlFor="fornt_view">
        

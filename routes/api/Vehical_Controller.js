@@ -28,7 +28,7 @@ router.post('/',(req,res) => {
     console.log(req.body);
    const newVehicle = new Vehicles({
 
-    ...req.body.advert.values
+    ...req.body
     
    });
 
