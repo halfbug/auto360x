@@ -30,6 +30,16 @@ app.get('/api/test', function (req, res) {
 
 app.use('/api/vehicles', vehicles_routes);
 
+app.use(cors({ 
+  origin: config.clientOrigin
+})) 
+console.log("client at : "+config.clientOrigin )
+
+app.use(formData.parse())
+
+app.use('/api/storage', storage_routes);
+app.use('/api/detail', detail_routes);
+
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
     // Set static folder
@@ -40,15 +50,6 @@ if (process.env.NODE_ENV === 'production') {
     });
   }
   
-app.use(cors({ 
-    origin: config.clientOrigin
-  })) 
-  console.log("client at : "+config.clientOrigin )
-  
-app.use(formData.parse())
-
-app.use('/api/storage', storage_routes);
-app.use('/api/detail', detail_routes);
 
 
     const port = process.env.PORT || 5000;
