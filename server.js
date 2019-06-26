@@ -1,15 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
-<<<<<<< HEAD
 // const bodyParser = require('body-Parser')
 const path = require('path');
-=======
 const bodyParser = require('body-Parser')
 const cloudinary = require('cloudinary')
 const formData = require('express-form-data')
 const cors = require('cors')
 const config = require('./config/keys')
->>>>>>> dev
 
 const vehicles_routes = require('./routes/api/Vehical_Controller')
 const storage_routes = require('./routes/api/Storage_Controller')

@@ -10,18 +10,13 @@
     "client-install": "npm install --prefix frontend",
     "start": "node server.js",
     "server": "nodemon server.js",
-<<<<<<< HEAD
     "client" : "npm start --prefix frontend",
     "dev" : "concurrently \"npm run server \"  \" npm run client\"",
     "heroku-postbuild" : "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
-=======
-    "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server \"  \" npm run client\""
->>>>>>> dev
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/halfbug/auto360x.git"
+    "url": "https://github.com/halfbug/auto360x.git"
   },
   "keywords": [],
   "author": "Sadaf Siddiqui",
