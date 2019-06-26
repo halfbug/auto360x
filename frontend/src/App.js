@@ -39,14 +39,11 @@ function App(props) {
 
 const mapStateToProps = (state, ownProps) => {
   console.log(state);
-  // const accessId =(accId) => {accId};
-  // const companies = state.firestore.data.companies;
-  // const event = companies ? companies[accessId] : null
+  
   return {
     // companies: companies,
     // auth: state.firebase.auth,
-   
-  };
+     };
 };
 
 export default compose(

@@ -9,6 +9,11 @@ import Typography from '@material-ui/core/Typography';
 import VehicleForm from './VehicleForm';
 import ListingForm from './ListingForm';
 import Review from './Review';
+import Sell from './../../store/reducers/sellReducer';
+import {addSell} from './../../store/actions/sellActions';
+import useThunkReducer from 'react-hook-thunk-reducer';
+import axios from 'axios';
+import {serverURl} from '../../config/general'
 
 
 const useStyles = makeStyles(theme => ({
@@ -48,32 +53,229 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const steps = ['Vehicle details', 'Listing details', 'Preview your listing'];
-
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <VehicleForm />;
-    case 1:
-      return <ListingForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
+const steps = ['Vehicle details', 'Listing details', 'Contact detail', 'Preview listing'];
 
 export default function Wizard() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [state, dispatch] = React.useReducer(Sell);
+  const [list,setList] = React.useState({makes:[],models:[],trims:[],styles:[], years:[], drivetypes: []})
+  const [ignored, forceUpdate] = React.useReducer(x => x + 1, 0);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
+    addSell(values,dispatch);
+    console.log(state)
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+const getModelByMakeYear=(make,year=0)=>{
+  console.log(make)
+const url =(year===0)?`/api/detail/model/${make}`:`/api/detail/model/${make}/${year}`
+  axios.defaults.baseURL = serverURl
+  axios
+    .get(url)
+    .then(res => {
+      // console.log(res.data);
+      
+      setList({
+        ...list,
+        models: res.data})
+      // console.log(res.data);
+      // console.log(lmake);
+    })
+    .catch(err =>
+      //dispatch(returnErrors(err.response.data, err.response.status))  
+      console.log(err)
+    );    
+    }
+
+    const getTrim=(make,year,model)=>{
+      console.log(make)
+    const url =`/api/detail/trim/${year}/${make}/${model}`
+      axios.defaults.baseURL = serverURl
+      axios
+        .get(url)
+        .then(res => {
+          // console.log(res.data);
+          
+          setList({
+            ...list,
+            trims: res.data})
+          // console.log(res.data);
+          // console.log(lmake);
+        })
+        .catch(err =>
+          //dispatch(returnErrors(err.response.data, err.response.status))  
+          console.log(err)
+        );    
+        }
+        
+
+    const getAllYears=()=>{
+      
+      axios.defaults.baseURL = serverURl
+    axios
+        .get(`/api/detail/allyears`)
+        .then(res => {
+          console.log(res.data);
+          list["years"]=res.data
+          // setList({
+          //   ...list,
+          //   years: res.data})
+          // // console.log(res.data);
+          // console.log(lmake);
+  forceUpdate();
+        })
+        .catch(err =>
+          //dispatch(returnErrors(err.response.data, err.response.status))  
+          console.log(err)
+        );
+      
+
+}
+
+
+const getAllMakes=()=>{
+  // get all make
+  axios.defaults.baseURL = serverURl;
+  axios
+      .get('/api/detail/allmake')
+      .then(res => {
+        // console.log(res.data);
+        list["makes"]=res.data
+      //   setList({
+      //     ...list,
+      //     makes: res.data})
+      forceUpdate();
+      })
+      
+      .catch(err =>
+        //dispatch(returnErrors(err.response.data, err.response.status))  
+        console.log(err)
+      );
+  
+    }
+
+    const getBodyStyles=()=>{
+      // get all make
+      axios.defaults.baseURL = serverURl;
+      axios
+          .get('/api/detail/bodystyle')
+          .then(res => {
+            // console.log(res.data);
+            list["styles"]=res.data
+          //   setList({
+          //     ...list,
+          //     makes: res.data})
+          forceUpdate();
+          })
+          
+          .catch(err =>
+            //dispatch(returnErrors(err.response.data, err.response.status))  
+            console.log(err)
+          );
+      
+        }
+    
+
+        const getDriveTypes=()=>{
+          // get all make
+          axios.defaults.baseURL = serverURl;
+          axios
+              .get('/api/detail/drivetypes')
+              .then(res => {
+                // console.log(res.data);
+                list["drivetypes"]=res.data
+              //   setList({
+              //     ...list,
+              //     makes: res.data})
+              forceUpdate();
+              })
+              
+              .catch(err =>
+                //dispatch(returnErrors(err.response.data, err.response.status))  
+                console.log(err)
+              );
+          
+            }    
+    React.useEffect(() => {
+     //get all make for car
+     getAllMakes();
+     getAllYears(); 
+     getBodyStyles();
+     getDriveTypes();
+      
+    },[]); // Pass empty array to only run once on mount.
+  
+
+
+const [values,setValues] = React.useState({});
+
+// Handle fields change
+const handleChange =  e => {
+  console.log(e.target)
+  const field = (!e.target.id)?e.target.name : e.target.id;
+  setValues({ 
+    ...values,
+    [field] : e.target.value });
+  console.log("wizard state : advert :")
+  console.log(values)
+  switch(field){
+    case "make":
+      getModelByMakeYear(e.target.value);
+      break;
+    case "year":
+      if(list.makes.length >1)
+      getModelByMakeYear(values.make,e.target.value)
+      break; 
+    case "model":
+        if(values.make&& values.year)
+        getTrim(values.make,values.year,e.target.value)
+        break;  
+    default:
+      break;
+  }
+
+  
+};
+
+React.useEffect(() => {
+   
+ },[]); // Pass empty array to only run once on mount.
+
+
+React.useEffect(() => {
+    if (values.count > 1) {
+      console.log("wizard effect : values :")
+  console.log(values)
+    } else {
+      // storeSell(values,dispatch);
+      console.log("wizard effect : values :")
+  console.log(values)
+    }
+  }, [values]);
+
+
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return <VehicleForm handleChange={handleChange}
+        values={values} list={list} />;
+      case 1:
+        return <ListingForm handleChange={handleChange}
+        values={values} />;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error('Unknown step');
+    }
+  };
+
+
 
   return (
     <React.Fragment>

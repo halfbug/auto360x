@@ -1,9 +1,19 @@
 const express = require('express')
 const mongoose = require('mongoose')
+<<<<<<< HEAD
 // const bodyParser = require('body-Parser')
 const path = require('path');
+=======
+const bodyParser = require('body-Parser')
+const cloudinary = require('cloudinary')
+const formData = require('express-form-data')
+const cors = require('cors')
+const config = require('./config/keys')
+>>>>>>> dev
 
 const vehicles_routes = require('./routes/api/Vehical_Controller')
+const storage_routes = require('./routes/api/Storage_Controller')
+const detail_routes = require('./routes/api/Detail_Controller')
 
 const app = express();
 
@@ -11,7 +21,7 @@ const app = express();
 app.use(express.json())
 
 // DB Config
-const db = require ('./config/keys').mongoURI;
+const db = config.mongoURI;
 
 mongoose
     .connect(db,{ useNewUrlParser: true })
@@ -34,6 +44,15 @@ if (process.env.NODE_ENV === 'production') {
     });
   }
   
+app.use(cors({ 
+    origin: config.clientOrigin
+  })) 
+  console.log("client at : "+config.clientOrigin )
+  
+app.use(formData.parse())
+
+app.use('/api/storage', storage_routes);
+app.use('/api/detail', detail_routes);
 
 
     const port = process.env.PORT || 5000;

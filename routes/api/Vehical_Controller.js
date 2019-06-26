@@ -7,7 +7,7 @@ const Vehicle = require('../../models/vehicles.js');
 // middleware to use for all requests
 router.use(function(req, res, next) {
     // do logging
-    console.log('Something is happening.');
+    console.log('connecting to vehicle collection');
     next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -29,14 +29,15 @@ router.post('/',(req,res) => {
    const newVehicle = new Vehicles({
 
     ...req.body
-    // seller_type : req.body.sellerType,
-    // license_plate : req.body.licensePlate,
-    // registration_year : req.body.registrationYear
+    
    });
-console.log( "sending... to mongo db...."
 
-);
-   newVehicle.save().then(vehicle => res.json(vehicle)).catch((err)=> res.json(err));
+console.log( "sending... to mongo db....");
+   newVehicle.save().then(vehicle => {
+    res.json(vehicle);
+    // listing detail update here
+    
+   } ).catch((err)=> res.json(err));
 
 });
 
