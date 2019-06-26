@@ -185,9 +185,9 @@ export default function VehicleForm(props) {
       errs.push(`'${file.type}' is not a supported format`)
     }
 
-    if (file.size > 150000) {
-      errs.push(`'${file.name}' is too large, please pick a smaller file`)
-    }
+    // if (file.size > 150000) {
+    //   errs.push(`'${file.name}' is too large, please pick a smaller file`)
+    // }
 
     if(values[e.target.id] !== "")
     formData.append("delete_previous", values[e.target.id])
@@ -197,7 +197,7 @@ export default function VehicleForm(props) {
     formData.append([e.target.id], file)
 
     if (errs.length) {
-      return errs.forEach(err => display(msg))
+      return errs.forEach(err => display(err))
     }
     console.log(file)
 
