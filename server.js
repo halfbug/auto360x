@@ -2,7 +2,6 @@ const express = require('express')
 const mongoose = require('mongoose')
 // const bodyParser = require('body-Parser')
 const path = require('path');
-const bodyParser = require('body-Parser')
 const cloudinary = require('cloudinary')
 const formData = require('express-form-data')
 const cors = require('cors')
