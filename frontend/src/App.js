@@ -16,6 +16,10 @@ import Plane from "./layouts/Plane"
 import Home from "./views/Dashboard/Home"
 import OpenHome from "./views/LandingPage/Home"
 import Wizard from "./views/SellForm/Wizard"
+import PacakageManagement from './views/Admin/packages/index'
+import AddPackage from "./views/Admin/packages/addPackage"
+import ViewPackage from "./views/Admin/packages/viewPackage"
+import UpdatePackage from "./views/Admin/packages/updatePackage"
 
 
 function App(props) {
@@ -28,6 +32,8 @@ function App(props) {
         <AppRoute exact path="/" layout={Public} component={OpenHome} />
         <AppRoute exact path="/admin" layout={Master} component={Home} />
         <AppRoute exact path="/sell" layout={Public} component={Wizard} />
+        <AppRoute exact path="/packageManagement" layout={Public} component={PacakageManagement} />
+        <AppRoute exact path="/updatePackage" layout={Public} component={UpdatePackage} />
         {/* <AppRoute exact path="/company" layout={Master} component={IndexCompany} /> */}
           
         </Switch>

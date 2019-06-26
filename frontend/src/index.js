@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore, applyMiddleware, compose } from 'redux'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import  rootReducer  from './store/reducers/rootReducer'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
@@ -12,8 +13,10 @@ import thunk from 'redux-thunk'
 // import firebaseConfig from './config/firebaseCnfg'
 
 const state = { authState: {}, statCardState: {} }
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, state,
-  compose(
+  composeEnhancers(
     applyMiddleware(thunk),
     // reactReduxFirebase(firebaseConfig, {userProfile: 'users', useFirestoreForProfile: true, attachAuthIsReady: true}),
     // reduxFirestore(firebaseConfig) // redux bindingsr for firestore
