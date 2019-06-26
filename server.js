@@ -8,6 +8,7 @@ const config = require('./config/keys')
 
 const vehicles_routes = require('./routes/api/Vehical_Controller')
 const storage_routes = require('./routes/api/Storage_Controller')
+const detail_routes = require('./routes/api/Detail_Controller')
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(cors({
 app.use(formData.parse())
 
 app.use('/api/storage', storage_routes);
+app.use('/api/detail', detail_routes);
 
 
     const port = process.env.PORT || 5000;

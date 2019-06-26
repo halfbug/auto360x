@@ -29,6 +29,7 @@ import sideimg from '../../assets/images/side.png';
 import interiorimg from '../../assets/images/interior.png'
 import Sell from './../../store/reducers/sellReducer';
 import {storeSell} from './../../store/actions/sellActions';
+import { serverURl } from "../../config/general"
 
 
 
@@ -52,6 +53,9 @@ const useStyles = makeStyles(theme => ({
   },
   chip: {
     margin: 2,
+  },
+  formControl: {
+    width : "100%",
   },
 }));
 
@@ -96,7 +100,7 @@ export default function VehicleForm(props) {
   const [backImg,setBackImg] = React.useState(backimg);
   const [sideImg,setSideImg] = React.useState(sideimg);
   const [interiorImg,setInteriorImg] = React.useState(interiorimg);
-  const [state, dispatch] = React.useReducer(Sell);
+  const [lmake, setLmake] = React.useState([]);
 
 
 
@@ -239,12 +243,7 @@ export default function VehicleForm(props) {
   //     console.log(state);
   //   }
   // }, [state]);
-
-  
-  React.useEffect(() => {
-    // props.saveAdvertHof({values})
-  });
-
+ 
   function handleClose(event, reason) {
     if (reason === 'clickaway') {
       return;
@@ -252,7 +251,10 @@ export default function VehicleForm(props) {
 
     setOpen(false);
   }
-  const { values, handleChange } = props;
+ 
+
+  const { values, handleChange, list } = props;
+  console.log( list)
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -260,53 +262,127 @@ export default function VehicleForm(props) {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} >
-          <TextField  onChange={handleChange} 
-            required
-            id="make"
-            name="make"
-            label="Make"
-            fullWidth
-            autoComplete="make"
-          />
+          
+          <FormControl className={classes.formControl} >
+        <InputLabel htmlFor="make">Make</InputLabel>
+        <Select 
+        name="make"
+        id="make"
+          value={values.make}
+          onChange={handleChange}
+          input={<Input name="make" id="make" />}
+          
+         required
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {list.makes.map(name => (
+            <MenuItem key={name} value={name} >
+              {name}
+            </MenuItem>
+          ))}
+          
+        </Select>
+        <FormHelperText>Select the make of your vehicle</FormHelperText>
+      </FormControl>
+
+
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField onChange={handleChange} 
-            required
-            id="model"
-            name="model"
-            label="Model"
-            fullWidth
-            autoComplete="model"
-          />
+        <FormControl className={classes.formControl} >
+        <InputLabel htmlFor="year">year</InputLabel>
+        <Select 
+        name="year"
+        id="year"
+          value={values.year}
+          onChange={handleChange}
+          input={<Input name="year" id="year" />}
+          
+         required
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {list.years.map(name => (
+            <MenuItem key={name} value={name} >
+              {name}
+            </MenuItem>
+          ))}
+          
+        </Select>
+        <FormHelperText>Select the year </FormHelperText>
+      </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField onChange={handleChange} 
-            required
-            id="year"
-            name="year"
-            label="Year"
-            fullWidth
-            autoComplete="license"
-          />
+        <FormControl className={classes.formControl} >
+        <InputLabel htmlFor="model">Model</InputLabel>
+        <Select 
+        name="model"
+        id="model"
+          value={values.model}
+          onChange={handleChange}
+          input={<Input name="model" id="model" />}
+          
+         
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {list.models.map(name => (
+            <MenuItem key={name} value={name} >
+              {name}
+            </MenuItem>
+          ))}
+          
+        </Select>
+        <FormHelperText>Select the model </FormHelperText>
+      </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField onChange={handleChange} 
-            id="trim"
-            name="trim"
-            label="Trim"
-            fullWidth
-            autoComplete="trim"
-          />
+        <FormControl className={classes.formControl} >
+        <InputLabel htmlFor="trim">Trim</InputLabel>
+        <Select 
+        name="trim"
+        id="trim"
+          value={values.trim}
+          onChange={handleChange}
+          input={<Input name="trim" id="trim" />}
+          
+         
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {list.trims.map(name => (
+            <MenuItem key={name} value={name} >
+              {name}
+            </MenuItem>
+          ))}
+          
+        </Select>
+        <FormHelperText>Select the trim </FormHelperText>
+      </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField onChange={handleChange} 
-            required
-            id="transmission"
-            name="transmission"
-            label="Transmission"
-            fullWidth
-           
-          />
+        <FormControl className={classes.formControl}  fullWidth>
+        <InputLabel htmlFor="transmission">transmission</InputLabel>
+        <Select
+          native
+          value={values.transmission}
+          onChange={handleChange}
+          inputProps={{
+            name: 'transmission',
+            id: 'transmission',
+          }}
+         
+        >
+          <option value="" />
+         
+          <option value="automatic">Automatic</option>
+          <option value="manual">Manual</option>  
+        </Select>
+      </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField onChange={handleChange}  id="engine" name="engine" 
@@ -323,10 +399,10 @@ export default function VehicleForm(props) {
             
           />
         </Grid>
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12} sm={6}>
           
           <FormControl className={classes.formControl}  fullWidth>
-        <InputLabel htmlFor="style">Style</InputLabel>
+        <InputLabel htmlFor="style">Body Style</InputLabel>
         <Select
           native
           value={values.style}
@@ -338,19 +414,50 @@ export default function VehicleForm(props) {
          
         >
           <option value="" />
-          <option value="car">Car</option>
+          {list.styles.map(name => (
+            <option value="{name}">{name}</option>
+           
+          ))}
+          {/* <option value="car">Car</option> 
           <option value="suv">SUV</option>
           <option value="truck">Truck</option>
           <option value="van">Van</option>
           <option value="coupe">Coupe</option>
           <option value="convertible">Convertible</option>
           <option value="hatchback">Hatchback</option>
-          <option value="wagon">Wagon</option>
+          <option value="wagon">Wagon</option>  */}
+        </Select>
+      </FormControl>  
+
+
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          
+          <FormControl className={classes.formControl}  fullWidth>
+        <InputLabel htmlFor="drivetype">Drive Type</InputLabel>
+        <Select
+          native
+          value={values.drivetype}
+          onChange={handleChange}
+          inputProps={{
+            name: 'drivetype',
+            id: 'drivetype',
+          }}
+         
+        >
+          <option value="" />
+          {list.drivetypes.map(name => (
+            <option value="{name}">{name}</option>
+           
+          ))}
+         
         </Select>
       </FormControl>
 
 
         </Grid>
+
+
         <Grid item xs={12} sm={6}>
           <TextField onChange={handleChange} 
             required

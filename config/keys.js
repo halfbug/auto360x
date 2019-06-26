@@ -4,5 +4,6 @@ module.exports = {
     cloudinary : {cloud_name: "halfbug", 
     api_key: "247646453362736", 
     api_secret: "eRPeFUhw-U0xKtp4OJK8f_JqTlo"},
+    carmakemodeldb : { Tocken : "1gGosHOuHCXRCadP8Rl0rHnAQB6hpsVurQS7OPgcuY2ygduXPctXPKnoU46g" }, 
 }
 

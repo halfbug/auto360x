@@ -43,8 +43,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     // companies: companies,
     // auth: state.firebase.auth,
-   
-  };
+     };
 };
 
 export default compose(
