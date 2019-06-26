@@ -206,8 +206,9 @@ export default function VehicleForm(props) {
     target=e.target.id;
       
     toggleProgress(target, "block")
-
-      axios.post('http://localhost:5000/api/storage', formData, {
+    axios.defaults.baseURL = serverURl;
+  
+      axios.post('/api/storage', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
