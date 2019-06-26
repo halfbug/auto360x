@@ -551,7 +551,7 @@ export default function VehicleForm(props) {
         multiple
         type="file"
         ref={rare}
-        onChange={handleChange}
+        onChange={handleImageUpload}
       />
       <label htmlFor="back_view">
         {/* <Button variant="outlined" component="span" className={classes.button}>
@@ -580,7 +580,7 @@ export default function VehicleForm(props) {
         multiple
         type="file"
         ref={side}
-        onChange={handleChange}
+        onChange={handleImageUpload}
       />
       <label htmlFor="side_view">
         {/* <Button variant="outlined" component="span" className={classes.button}>
@@ -609,7 +609,7 @@ export default function VehicleForm(props) {
         multiple
         type="file"
         ref={interior}
-        onChange={handleChange}
+        onChange={handleImageUpload}
       />
       <label htmlFor="interior_view">
         {/* <Button variant="outlined" component="span" className={classes.button}>
