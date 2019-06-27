@@ -98,6 +98,9 @@ const useStyles = makeStyles(theme => ({
   fixedHeight: {
     height: 240,
   },
+  salogan: {
+    fontSize: "0.50rem !important",
+  }
 }));
 
 export default function Dashboard(props) {
@@ -125,7 +128,9 @@ export default function Dashboard(props) {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Auto360x
+            Auto360x &nbsp;&nbsp;<Typography  variant="caption" display="block" className={classes.salogan} gutterBottom>
+        SEE IT DRIVE IT BUY IT
+      </Typography>
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">

@@ -15,7 +15,7 @@ import { Redirect , withRouter } from "react-router-dom";
 import { compose } from "redux";
 
 import HeroUnit from "./../../components/HeroUnit"
-import SearchBox from "./../../components/SearchBox"
+import SearchForm from "./../../components/SearchForm"
 import Carousel from "./../../components/Carousel2"
 import car1 from "./../../assets/carousel/1.jpg"
 
@@ -67,10 +67,11 @@ export default function Home(props) {
     // }
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    
     return (
       <div>
      
-     <SearchBox></SearchBox>
+     <SearchForm  />
      <Carousel /> 
        
       <HeroUnit>

@@ -61,6 +61,7 @@ export default function Wizard() {
   const [state, dispatch] = React.useReducer(Sell);
   const [list,setList] = React.useState({makes:[],models:[],trims:[],styles:[], years:[], drivetypes: []})
   const [ignored, forceUpdate] = React.useReducer(x => x + 1, 0);
+  const [values,setValues] = React.useState({});
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -213,7 +214,7 @@ const getAllMakes=()=>{
   
 
 
-const [values,setValues] = React.useState({});
+
 
 // Handle fields change
 const handleChange =  e => {
