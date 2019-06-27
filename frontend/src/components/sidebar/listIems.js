@@ -53,6 +53,22 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="News & Reviews" />
     </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+      <Avatar className="Pinkgradient">
+        <LayersIcon />
+        </Avatar>
+      </ListItemIcon>
+      <ListItemText primary="Packages" />
+    </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+      <Avatar className="Pinkgradient">
+        <LayersIcon />
+        </Avatar>
+      </ListItemIcon>
+      <ListItemText primary="News" />
+    </ListItem>
   </div>
 );
 

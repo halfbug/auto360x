@@ -16,7 +16,8 @@ router.use(function(req, res, next) {
 //@access  Public
 router.get('/', (req,res) => {
     Package.find()
-    .then(packages => res.json(packages));
+    .then(packages => res.json(packages))
+    .catch(err => res.status(400).json({ msg: err }))
 });
 
 // @route POST api/packages
@@ -48,7 +49,7 @@ console.log( "sending... to mongo db...."
 router.delete('/:id', (req, res) => {
     Package.findById(req.params.id)
       .then(package => package.remove().then(() => res.json({ success: true })))
-      .catch(err => res.status(404).json({ success: false, err: "Record not found!" }));
+      .catch(err => res.status(404).json({ success: false, msg: "Record not found!" }));
   });
 
 // @route   UPDATE api/packages/:id
@@ -60,7 +61,7 @@ router.put('/:id', (req, res) => {
     const isUpdateAllowed = fieldsToUpdate.every((field) => fieldsInModel.includes(field))
 
     if(!isUpdateAllowed){
-        return res.status(400).json({ error: 'Invalid field!'})
+        return res.status(400).json({ msg: 'Invalid field!'})
     }
   
     Package.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -70,7 +71,7 @@ router.put('/:id', (req, res) => {
         }
         res.json(package)
     })
-    .catch(err => res.status(404).json({ success: false }));
+    .catch(err => res.status(404).json({ success: false, msg: 'Please enter correct information' }));
   });
 
 
