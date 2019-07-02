@@ -38,7 +38,7 @@ class ViewNews extends Component {
                          News
                     </Typography>
                     <Button variant="contained" style={{marginLeft: "80%", marginBottom: "20px"}} onClick={() => {this.props.history.push('/addNews')}}>
-                        Add New News  <AddIcon />
+                        Add News  <AddIcon />
                     </Button>
                     <hr/>
                     <List component="nav" aria-label="Main mailbox folders">

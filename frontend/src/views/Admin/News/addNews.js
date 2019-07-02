@@ -20,7 +20,7 @@ class AddNews extends Component {
         title: '',
         content: '',
         post_date: '2017-05-24',
-        status: '',
+        status: 'Draft',
         author: '',
         update_at: '2017-05-24',
         image: '',
@@ -31,6 +31,7 @@ class AddNews extends Component {
 
     static propTypes = {
         news: PropTypes.object.isRequired,
+        addNews: PropTypes.func.isRequired
     };
 
     handleChange = (event) => {
@@ -69,7 +70,7 @@ class AddNews extends Component {
     onSubmit = e => {
         e.preventDefault();
         if ((this.state.imageType) !== ('image/jpeg' || 'image/jpg' || 'image/png')) {
-            swal("This is not a supported format!")
+            swal("This is not a supported image format!")
         }
         else if (this.state.imageSize > 1000000) {
             swal("File size is too large, please pick a smaller file!")
@@ -211,8 +212,8 @@ class AddNews extends Component {
                                         id: 'status-simple',
                                     }}
                                 >
-                                    <MenuItem value={"draft"}>Draft</MenuItem>
-                                    <MenuItem value={"published"}>Published</MenuItem>
+                                    <MenuItem value={"Draft"}>Draft</MenuItem>
+                                    <MenuItem value={"Published"}>Published</MenuItem>
                                 </Select>
                             </FormGroup>
                         </Grid>
@@ -256,6 +257,11 @@ class AddNews extends Component {
                         </Grid>
                     </Grid>
                 </form>
+                <Grid item xs={12} sm={12}>
+                    <Button variant="contained" color="primary" style={{marginTop: "10px"}} onClick={() => {this.props.history.push('/viewNews')}}>
+                        Go back
+                    </Button>
+                </Grid>
             </Fragment>
         );
     }

@@ -26,10 +26,10 @@ router.get('/', (req,res) => {
 router.post('/', (req, res, next) => {
     console.log(req.body);
   //  console.log(req.file)
-    const { title, content, status, author, update_at } = req.body;
+    const { title, content, status, author, update_at, image } = req.body;
 
     // Simple validation
-    if(!title || !content || !status || !author || !update_at) {
+    if(!title || !content || !status || !author || !update_at, !image) {
       return res.status(400).json({ msg: 'Please enter all fields' });
     }
     

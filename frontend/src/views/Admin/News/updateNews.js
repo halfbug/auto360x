@@ -5,7 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import { FormGroup } from '@material-ui/core';
 import { connect } from 'react-redux';
@@ -51,9 +50,6 @@ class UpdateNews extends Component {
         // console.log(this.state.end_date)
         // console.log(moment( this.state.end_date).format("YYYY-MM-DD"))
     };
-    componentDidMount() {
-        console.log(this.state.imageType)
-    }
 
     componentWillMount(){
         const { news } = this.props.history.location.state
@@ -85,10 +81,11 @@ class UpdateNews extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-      //  is_image_uploaded ? () : ()
+        const id = this.props.history.location.state.news._id
+        
       if(this.state.is_image_uploaded){
         if ((this.state.imageType) !== ('image/jpeg' || 'image/jpg' || 'image/png')) {
-            swal("This is not a supported format!")
+            swal("This is not a supported image format!")
         }
         else if (this.state.imageSize > 1000000) {
             swal("File size is too large, please pick a smaller file!")
@@ -111,7 +108,7 @@ class UpdateNews extends Component {
                     image: res.data[0].url
                 })
                 console.log("post setState image id : " + this.state.image)
-                const id = this.props.history.location.state.news._id
+
                 const updatedNews = {
                     title: this.state.title,
                     content: this.state.content,
@@ -133,7 +130,6 @@ class UpdateNews extends Component {
         }
       }
       else{
-        const id = this.props.history.location.state.news._id
         const updatedNews = {
             title: this.state.title,
             content: this.state.content,
@@ -150,8 +146,8 @@ class UpdateNews extends Component {
     }
 
     render() {
-       console.log(this.props.history.location.state)
-       const {news} = this.props.history.location.state
+      // console.log(this.props.history.location.state)
+       //const {news} = this.props.history.location.state
        const { title, content, post_date, status, author, update_at, image } = this.state
          console.log(this.state)
         return (
@@ -235,8 +231,8 @@ class UpdateNews extends Component {
                                         id: 'status-simple',
                                     }}
                                 >
-                                    <MenuItem value={"draft"}>Draft</MenuItem>
-                                    <MenuItem value={"published"}>Published</MenuItem>
+                                    <MenuItem value={"Draft"}>Draft</MenuItem>
+                                    <MenuItem value={"Published"}>Published</MenuItem>
                                 </Select>
                             </FormGroup>
                         </Grid>
@@ -269,12 +265,17 @@ class UpdateNews extends Component {
                         <Grid item xs={12} sm={12}>
                             <label htmlFor="outlined-button">
                                 <Button type="submit" variant="outlined" >
-                                    Update News <AddIcon />
+                                    Update News
                                 </Button>
                             </label>
                         </Grid>
                     </Grid>
                 </form>
+                <Grid item xs={12} sm={12}>
+                    <Button variant="contained" color="primary" style={{marginTop: "10px"}} onClick={() => {this.props.history.push('/viewNews')}}>
+                        Go back
+                    </Button>
+                </Grid>
             </Fragment>
         );
     }

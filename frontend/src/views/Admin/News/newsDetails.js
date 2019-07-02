@@ -33,13 +33,18 @@ class NewsDetails extends Component {
                 <Paper>
                     <Card>
                         <CardActionArea>
-                            <CardMedia
+                            <center>
+                                <div style={{width: "50%", height: "50%", marginBottom: "10px"}}>
+                                    <img src={news.image} style={{width: "100%", height: "100%"}}/>
+                                </div>
+                            </center>
+                            {/* <CardMedia
                                 //component="img"
                                 alt={news.title}
-                                style={{height: 0, paddingTop: '56.25%', marginTop:'30'}}
+                                style={{height: 0, paddingTop: '56.25%',}}
                                 image={news.image}
                                 title={news.title}
-                            />
+                            /> */}
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="h2">
                                     {news.title}

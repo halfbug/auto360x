@@ -24,6 +24,9 @@ import AddNews from "./views/Admin/News/addNews"
 import ViewNews from './views/Admin/News/viewNews'
 import NewsDetails from './views/Admin/News/newsDetails'
 import UpdateNews from './views/Admin/News/updateNews'
+import AddUser from './views/Admin/Users/addUser'
+import ViewUser from './views/Admin/Users/viewUser'
+import UpdateUser from './views/Admin/Users/updateUser'
 
 function App(props) {
   return (
@@ -41,6 +44,9 @@ function App(props) {
         <AppRoute exact path="/viewNews" layout={Master} component={ViewNews} />
         <AppRoute exact path="/newsDetails" layout={Master} component={NewsDetails} />
         <AppRoute exact path="/updateNews" layout={Master} component={UpdateNews} />
+        <AppRoute exact path="/addUser" layout={Master} component={AddUser} />
+        <AppRoute exact path="/viewUser" layout={Master} component={ViewUser} />
+        <AppRoute exact path="/updateUser" layout={Master} component={UpdateUser} />
         {/* <AppRoute exact path="/company" layout={Master} component={IndexCompany} /> */}
           
         </Switch>

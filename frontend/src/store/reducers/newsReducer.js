@@ -3,7 +3,6 @@ import {
     ADD_NEWS,
     DELETE_NEWS,
     UPDATE_NEWS,
-    PACKAGE_NEWS,
     GET_NEWS_FAIL,
     ADD_NEWS_FAIL,
     UPDATE_NEWS_FAIL,

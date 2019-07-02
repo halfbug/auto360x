@@ -165,6 +165,11 @@ class UpdatePackage extends Component {
                         </Grid>
                     </Grid>
                 </form>
+                <Grid item xs={12} sm={12}>
+                    <Button variant="contained" color="primary" style={{marginTop: "10px"}} onClick={() => {this.props.history.push('/package')}}>
+                        Go back
+                    </Button>
+                </Grid>
             </Fragment>
         );
     }
