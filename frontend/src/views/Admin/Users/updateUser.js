@@ -622,6 +622,9 @@ class UpdateUser extends Component {
                     <Button variant="contained" color="primary" style={{ marginTop: "10px" }} onClick={() => { this.props.history.push('/viewUser') }}>
                         Go back
                     </Button>
+                    <Button variant="contained" color="primary" style={{ marginTop: "10px", marginLeft: "10px" }} >
+                        Send Message
+                    </Button>
                 </Grid>
             </Fragment>
         );
