@@ -7,11 +7,18 @@ const formData = require('express-form-data')
 const cors = require('cors')
 const config = require('./config/keys')
 
+
+const cors = require('cors')
 const vehicles_routes = require('./routes/api/Vehical_Controller')
+const packages_routes = require('./routes/api/Package_Controller')
+const news_routes = require('./routes/api/News_Controller')
 const storage_routes = require('./routes/api/Storage_Controller')
 const detail_routes = require('./routes/api/Detail_Controller')
 
+
 const app = express();
+app.use('/uploads', express.static('uploads'))
+app.use(cors());
 
 //Bodyparser Middleware
 app.use(express.json())
@@ -37,8 +44,8 @@ app.get('/api/test', function (req, res) {
       });
 
 app.use('/api/vehicles', vehicles_routes);
-
-
+app.use('/api/packages', packages_routes)
+app.use('/api/news', news_routes)
 app.use('/api/storage', storage_routes);
 app.use('/api/detail', detail_routes);
 

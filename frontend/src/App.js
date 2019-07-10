@@ -18,9 +18,13 @@ import OpenHome from "./views/LandingPage/Home"
 import Wizard from "./views/SellForm/Wizard"
 import Search from "./views/Search/Search";
 import Detail from "./views/DetailPage/Main"
+import PacakageManagement from './views/Admin/packages/index'
+import AddPackage from "./views/Admin/packages/addPackage"
+import ViewPackage from "./views/Admin/packages/viewPackage"
+import UpdatePackage from "./views/Admin/packages/updatePackage"
 
 
-function App(props) {
+export default function App(props) {
   return (
     <BrowserRouter>
       <div className="App">
@@ -32,6 +36,8 @@ function App(props) {
         <AppRoute exact path="/sell" layout={Public} component={Wizard} />
         <AppRoute exact path="/search/:make?:view?" layout={Public} component={Search} />
         <AppRoute exact path="/vehicle/:id" layout={Public} component={Detail} />
+        <AppRoute exact path="/packageManagement" layout={Public} component={PacakageManagement} />
+        <AppRoute exact path="/updatePackage" layout={Public} component={UpdatePackage} />
         {/* <AppRoute exact path="/company" layout={Master} component={IndexCompany} /> */}
           
         </Switch>
@@ -41,19 +47,3 @@ function App(props) {
   );
 }
 
-const mapStateToProps = (state, ownProps) => {
-  console.log(state);
-  
-  return {
-    // companies: companies,
-    // auth: state.firebase.auth,
-     };
-};
-
-export default compose(
-  // connect(
-  //   mapStateToProps,
-  //   {}
-  // )
-  
-) (App);
