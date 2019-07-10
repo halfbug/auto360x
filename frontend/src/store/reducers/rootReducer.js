@@ -3,6 +3,8 @@ import companyReducer from './companyReducer'
 import { combineReducers } from 'redux'
 import packageReducer from './packageReducer'
 import errorReducer from './errorReducer'
+import newsReducer from './newsReducer'
+import userReducer from './userReducer'
 // import { firestoreReducer } from 'redux-firestore';
 // import { firebaseReducer } from 'react-redux-firebase'
 
@@ -11,6 +13,8 @@ const rootReducer = combineReducers({
   company: companyReducer,
   pkg: packageReducer,
   error: errorReducer,
+  news: newsReducer,
+  user: userReducer
   // firestore: firestoreReducer,
   // firebase: firebaseReducer
 });

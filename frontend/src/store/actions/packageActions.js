@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
-
+import swal from 'sweetalert';
 export const GET_PACKAGES = 'GET_PACKAGES';
 export const ADD_PACKAGE = 'ADD_PACKAGE';
 export const DELETE_PACKAGE = 'DELETE_PACKAGE';
@@ -26,23 +26,26 @@ export const getPackages = () => dispatch => {
       dispatch({
         type: GET_PACKAGE_FAIL
       })
+      swal("Error getting Packages!")
     });
 };
 
 export const addPackage = pkg => (dispatch) => {
   axios
     .post('http://localhost:5000/api/packages', pkg)
-    .then(res =>
+    .then(res => {
       dispatch({
         type: ADD_PACKAGE,
         payload: res.data
       })
-    )
+      swal("Package has been added successfully!")
+    })
     .catch(err => {
       dispatch(returnErrors(err.response.data, err.response.status, 'ADD_PACKAGE_FAIL'))
       dispatch({
         type: ADD_PACKAGE_FAIL
       })
+      swal("Error adding Package", err.response.data.msg)
     });
 };
 
@@ -60,23 +63,26 @@ export const deletePackage = id => (dispatch) => {
       dispatch({
         type: DELETE_PACKAGE_FAIL
       })
+      swal("Error deleting Package!")
     });
 };
 
 export const updatePackage = (id, pkg) => (dispatch) => {
     axios
       .put(`http://localhost:5000/api/packages/${id}`, pkg)
-      .then(res =>
+      .then(res => {
         dispatch({
           type: UPDATE_PACKAGE,
           payload: res.data
         })
-      )
+        swal("Package updated successfully!")
+      })
       .catch(err => {
         dispatch(returnErrors(err.response.data, err.response.status, 'UPDATE_PACKAGE_FAIL'))
         dispatch({
           type: UPDATE_PACKAGE_FAIL
         })
+        swal("Error updating Package!", err.response.data.msg)
       });
   };
 

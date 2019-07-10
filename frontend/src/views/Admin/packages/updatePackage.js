@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import swal from 'sweetalert'
 import Button from '@material-ui/core/Button';
 import { FormGroup } from '@material-ui/core';
 import { connect } from 'react-redux';
@@ -16,7 +15,7 @@ class UpdatePackage extends Component {
     state = {
         is_active: false,
         title: '',
-        price: '',
+        price: 0,
         start_date: '2017-05-24',
         end_date: '2018-07-20',
         description: '',
@@ -69,7 +68,6 @@ class UpdatePackage extends Component {
 
     // Update package via updatePackage action
     this.props.updatePackage(id, updatedPackage);
-    swal("Package updated successfully!")
    // this.props.history.push('/packageManagement')
     //window.location.reload()
     //console.log("package added")
@@ -167,14 +165,10 @@ class UpdatePackage extends Component {
                         </Grid>
                     </Grid>
                 </form>
-                <Grid container spacing={3}>
-                    <Grid item xs={12} sm={12}>
-                            <label htmlFor="outlined-button">
-                                <Button variant="outlined" onClick={() => {this.props.history.push('/packageManagement')}}>
-                                    Go back 
-                                </Button>
-                            </label>
-                    </Grid>
+                <Grid item xs={12} sm={12}>
+                    <Button variant="contained" color="primary" style={{marginTop: "10px"}} onClick={() => {this.props.history.push('/package')}}>
+                        Go back
+                    </Button>
                 </Grid>
             </Fragment>
         );

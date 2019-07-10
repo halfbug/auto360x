@@ -1,10 +1,16 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const bodyParser = require('body-Parser')
+// const bodyParser = require('body-Parser')
+// const cloudinary = require('cloudinary')
+const formData = require('express-form-data')
 const cors = require('cors')
 const vehicles_routes = require('./routes/api/Vehical_Controller')
 const packages_routes = require('./routes/api/Package_Controller')
 const news_routes = require('./routes/api/News_Controller')
+const users_routes = require('./routes/api/User_Controller')
+const messages_routes = require('./routes/api/Message_Controller')
+const storage_routes = require('./routes/api/Storage_Controller')
+const config = require('./config/keys')
 
 
 const app = express();
@@ -29,8 +35,12 @@ app.get('/', function (req, res) {
 app.use('/api/vehicles', vehicles_routes);
 app.use('/api/packages', packages_routes)
 app.use('/api/news', news_routes)
+app.use('/api/users', users_routes)
+app.use('/api/messages', messages_routes)
 
-// console.log(vehicles_routes)
+app.use(formData.parse())
+
+app.use('/api/storage', storage_routes);
  
     const port = process.env.PORT || 5000;
 

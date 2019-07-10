@@ -40,7 +40,7 @@ class ViewPackage extends Component {
                 <Paper>
                     <Typography variant="h6" gutterBottom style={{marginTop: "30px", textAlign: "center"}}> 
                         View and Edit Packages
-                </Typography>
+                    </Typography>
                     <Table>
                         <TableHead>
                             <TableRow>

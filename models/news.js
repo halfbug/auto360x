@@ -28,13 +28,13 @@ const NewsSchema = new Schema({
       type: String,
       required: true
     },
-    create_at: {
-        type: Date,
-        default: Date.now
-    },
     update_at: {
         type: Date,
         required: true
+    },
+    create_at: {
+        type: Date,
+        default: Date.now
     }
 })
   
