@@ -9,14 +9,14 @@ import Button from '@material-ui/core/Button';
 import { FormGroup } from '@material-ui/core';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import moment from 'moment'
-import { addPackage } from '../../../store/actions/packageActions'
+import moment from 'moment';
+import { addPackage } from '../../../store/actions/packageActions';
 
 class AddPackage extends Component {
   state = {
     checkedA: false,
     title: '',
-    price: '',
+    price: 0,
     start_date: '2017-05-24',
     end_date: '2018-07-20',
     description: '',
@@ -24,9 +24,7 @@ class AddPackage extends Component {
 
   static propTypes = {
     pkg: PropTypes.object.isRequired,
-    error: PropTypes.object.isRequired,
     addPackage: PropTypes.func.isRequired,
-    clearErrors: PropTypes.func.isRequired
   };
 
   onChange = e => {
@@ -57,15 +55,14 @@ class AddPackage extends Component {
 
     // Add item via addItem action
     this.props.addPackage(newPackage);
-   
-    this.setState({
-      checkedA: false,
-      title: '',
-      price: '',
-      start_date: '2017-05-24',
-      end_date: '2018-07-20',
-      description: '',
-    })
+    // this.setState({
+    //   checkedA: false,
+    //   title: '',
+    //   price: '',
+    //   start_date: '2017-05-24',
+    //   end_date: '2018-07-20',
+    //   description: '',
+    // })
     //window.location.reload()
   // this.forceUpdate()
     //console.log("package added", this.state)

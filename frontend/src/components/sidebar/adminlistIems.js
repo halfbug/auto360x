@@ -13,54 +13,6 @@ import Avatar from '@material-ui/core/Avatar';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 
-export const adminListItems = (
-  <div>
-  <Link component={RouterLink} color="inherit" to="/admin">
-      <ListItem button>
-        <ListItemIcon>
-          <Avatar className="Inkgradient">
-            <LayersIcon />
-          </Avatar>
-        </ListItemIcon>
-        <ListItemText primary="Dashboard" />
-      </ListItem>
-    </Link>
-
-    <Link component={RouterLink} color="inherit" to="/package">
-      <ListItem button>
-        <ListItemIcon>
-          <Avatar className="Orangegradient">
-            <LayersIcon />
-          </Avatar>
-        </ListItemIcon>
-        <ListItemText primary="Packages" />
-      </ListItem>
-    </Link>
-
-    <Link component={RouterLink} color="inherit" to="/viewNews">
-      <ListItem button>
-        <ListItemIcon>
-          <Avatar className="Pinkgradient">
-            <LayersIcon />
-          </Avatar>
-        </ListItemIcon>
-        <ListItemText primary="News" />
-      </ListItem>
-    </Link>
-
-    <Link component={RouterLink} color="inherit" to="/viewUser">
-      <ListItem button>
-        <ListItemIcon>
-          <Avatar className="Pinkgradient">
-            <LayersIcon />
-          </Avatar>
-        </ListItemIcon>
-        <ListItemText primary="Users" />
-      </ListItem>
-    </Link>
-
-  </div>
-);
 export const mainListItems = (
   <div>
   <Link component={RouterLink} color="inherit"  to="/search/used">
@@ -161,48 +113,12 @@ export const mainListItems = (
 export const secondaryListItems = (
   <div>
     <ListSubheader inset></ListSubheader>
-    <Link component={RouterLink} color="inherit" to="/">
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Home" />
-    </ListItem>
-    </Link>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="About us" />
     </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Terms & Conditions" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Contact Us" />
-    </ListItem>
-  </div>
-);
-
-export const secondaryadminListItems = (
-  <div>
-    <ListSubheader inset></ListSubheader>
-    
-    <Link component={RouterLink} color="inherit" to="/">
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Public Site" />
-    </ListItem>
-    </Link>
-
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
