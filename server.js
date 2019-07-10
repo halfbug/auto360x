@@ -6,9 +6,6 @@ const cloudinary = require('cloudinary')
 const formData = require('express-form-data')
 const cors = require('cors')
 const config = require('./config/keys')
-
-
-const cors = require('cors')
 const vehicles_routes = require('./routes/api/Vehical_Controller')
 const packages_routes = require('./routes/api/Package_Controller')
 const news_routes = require('./routes/api/News_Controller')

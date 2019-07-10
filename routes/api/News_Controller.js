@@ -1,33 +1,33 @@
 const express = require ('express');
 const router = express.Router();
-const multer = require('multer')
+// const multer = require('multer')
 
-const storage = multer.diskStorage({
-  destination: function(req, file, cb){
-    cb(null, './uploads')
-  },
-  filename: function(req, file, cb){
-    cb(null, new Date().toDateString() + file.originalname)
-  }
-})
+// const storage = multer.diskStorage({
+//   destination: function(req, file, cb){
+//     cb(null, './uploads')
+//   },
+//   filename: function(req, file, cb){
+//     cb(null, new Date().toDateString() + file.originalname)
+//   }
+// })
 
-const fileFilter = (req, file, cb) => {
-  //reject a file
-  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg'){
-    cb(null, true)
-  }
-  else{
-    cb(new Error('Please select correct file to upload.'), false)
-  }
-}
+// const fileFilter = (req, file, cb) => {
+//   //reject a file
+//   if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg'){
+//     cb(null, true)
+//   }
+//   else{
+//     cb(new Error('Please select correct file to upload.'), false)
+//   }
+// }
 
-const upload = multer({ 
-  storage: storage, 
-  limits: {
-  fileSize: 1024 * 1024 * 5
-  },
-  fileFilter: fileFilter
-})
+// const upload = multer({ 
+//   storage: storage, 
+//   limits: {
+//   fileSize: 1024 * 1024 * 5
+//   },
+//   fileFilter: fileFilter
+// })
 
 //News Model
 const News = require('../../models/news');
@@ -50,7 +50,8 @@ router.get('/', (req,res) => {
 // @route POST api/news
 // @desc  Create A News
 // @access Public
-router.post('/', upload.single('image'), (req, res, next) => {
+// router.post('/', upload.single('image'), (req, res, next) => {
+  router.post('/', (req, res, next) => {
     console.log(req.body);
    // console.log(req.file)
     const { title, content, status, author, update_at } = req.body;
@@ -111,36 +112,36 @@ router.put('/:id', (req, res) => {
 
 // -------- Image upload ----------------- //
 
-const fileUpload = multer({
-  //dest: 'uploadsFolder' /*folder name on the server */,
-  //storage,
-  limits: { //limits is in bytes
-      fileSize: 1000000 //for not more than 1MB
-  },
-  fileFilter(req, file, cb) {
-      //if(!file.originalname.endsWith('.jpg')) {
-      if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){ //we've used regular expression to allow for multiple file extensions
-          return cb(new Error('Please upload a jpg file!'))
-      }
+// const fileUpload = multer({
+//   //dest: 'uploadsFolder' /*folder name on the server */,
+//   //storage,
+//   limits: { //limits is in bytes
+//       fileSize: 1000000 //for not more than 1MB
+//   },
+//   fileFilter(req, file, cb) {
+//       //if(!file.originalname.endsWith('.jpg')) {
+//       if(!file.originalname.match(/\.(jpg|jpeg|png)$/)){ //we've used regular expression to allow for multiple file extensions
+//           return cb(new Error('Please upload a jpg file!'))
+//       }
 
-      cb(undefined, true) //undefined means no error & true is for carry on with file upload and false is for cancel file upload
-  }
-})
+//       cb(undefined, true) //undefined means no error & true is for carry on with file upload and false is for cancel file upload
+//   }
+// })
 
 
-router.post('/profiles/uploadfile', fileUpload.single('avatar'), async(req, res) => {
-  // req.profile.avatar /* avatar will be the key of profile object like other keys e.g. name, age, email */= req.file.buffer // this will be the value of that key. Jab bhi hum upload krte hain koi file tou req.body k bjae req.file use krte hain
-  // await req.profile.save()
+// router.post('/profiles/uploadfile', fileUpload.single('avatar'), async(req, res) => {
+//   // req.profile.avatar /* avatar will be the key of profile object like other keys e.g. name, age, email */= req.file.buffer // this will be the value of that key. Jab bhi hum upload krte hain koi file tou req.body k bjae req.file use krte hain
+//   // await req.profile.save()
 
-  const buffer = await sharp(req.file.buffer).resize({ width: 200, height: 200}).png().toBuffer()
-  req.profile.avatar = buffer
-  //req.profile.avatar = req.file.buffer
-  await req.profile.save()
+//   const buffer = await sharp(req.file.buffer).resize({ width: 200, height: 200}).png().toBuffer()
+//   req.profile.avatar = buffer
+//   //req.profile.avatar = req.file.buffer
+//   await req.profile.save()
 
-  res.send("Profile picture has been uploaded successfully!")
-},  (error, req, res, next) => { //error will be fall into the last callback of our route    
-  res.status(400).send({ error: error.message })
-})
+//   res.send("Profile picture has been uploaded successfully!")
+// },  (error, req, res, next) => { //error will be fall into the last callback of our route    
+//   res.status(400).send({ error: error.message })
+// })
 
 // ------------- To Delete an Image ----------------
 
