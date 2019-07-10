@@ -10,10 +10,24 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Sell from './../../store/reducers/sellReducer';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+  },
+  formControl: {
+    margin: theme.spacing(3),
+  },
+  group: {
+    margin: theme.spacing(1, 0),
+    display: "inline"
+  },
+}));
 
 export default function ListingForm(props) {
    const { values, handleChange } = props;
+   const classes = useStyles();
   // function handleChange(event) {
   //   event.persist();
   //   setvalues(oldValues => ({
@@ -145,6 +159,24 @@ export default function ListingForm(props) {
       </FormControl>
       </Grid>
         
+      <Grid item xs={12}>
+      <FormControl component="fieldset" >
+        <FormLabel component="legend">Condition</FormLabel>
+        <RadioGroup
+          aria-label="Condition"
+          name="condition"
+          className={classes.group}
+          value={values.condition}
+          onChange={handleChange}
+         
+          id= "condition"
+        >
+          <FormControlLabel value="New" control={<Radio />} label="New" />
+          <FormControlLabel value="Used" control={<Radio />} label="Used" />
+          
+        </RadioGroup>
+      </FormControl>
+        </Grid>
         <Grid item xs={12}>
           <FormControlLabel
             control={<Checkbox color="secondary" name="tandc" value="yes" />}

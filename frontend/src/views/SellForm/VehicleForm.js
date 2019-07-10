@@ -292,7 +292,7 @@ export default function VehicleForm(props) {
         </Grid>
         <Grid item xs={12} sm={6}>
         <FormControl className={classes.formControl} >
-        <InputLabel htmlFor="year">year</InputLabel>
+        <InputLabel htmlFor="year">Year</InputLabel>
         <Select 
         name="year"
         id="year"
@@ -416,7 +416,7 @@ export default function VehicleForm(props) {
         >
           <option value="" />
           {list.styles.map(name => (
-            <option value="{name}">{name}</option>
+            <option value={name}>{name}</option>
            
           ))}
           {/* <option value="car">Car</option> 
@@ -448,7 +448,7 @@ export default function VehicleForm(props) {
         >
           <option value="" />
           {list.drivetypes.map(name => (
-            <option value="{name}">{name}</option>
+            <option value={name}>{name}</option>
            
           ))}
          

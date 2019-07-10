@@ -4,21 +4,20 @@ import {
     DELETE_SELL,
     SELL_LOADING,
     STORE_SELL,
+    SELL_ERROR
     
   } from '../actions/sellActions';
   
-  const initialState = {
-    sell: [],
-    loading: false
-  };
   
-  export default function sell(state = initialState, action) {
+  
+  export default function sellReducer (state ={}, action) {
     console.log("reducer sell receive action "+Object.keys(action))
     console.log(state);
+    // console.log(action.payload)
     switch (action.type) {
       case GET_SELL:
         console.log(action.payload);
-        
+        console.log("inside reducer get sell")
         return {
           ...state,
           sell: action.payload,
@@ -45,6 +44,11 @@ import {
           ...state,
           loading: true
         };
+        case SELL_ERROR:
+          return {
+            ...state,
+            sell: [...state.sell, action.payload]
+          }; 
       default:
         return state;
     }

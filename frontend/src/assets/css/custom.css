@@ -52,3 +52,14 @@ background: -ms-linear-gradient(left, #d62857 0%, #db3362 59%, #e05c7b 100%);
 background: linear-gradient(to right, #d62857 0%, #db3362 59%, #e05c7b 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d62857', endColorstr='#e05c7b', GradientType=1 );
 }
+
+.Yellowgradient {
+    background: rgba(254,182,69,1);
+background: -moz-lin          nbn ear-gradient(left, rgba(254,182,69,1) 0%, rgba(241,231,103,1) 52%, rgba(254,182,69,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(254,182,69,1)), color-stop(52%, rgba(241,231,103,1)), color-stop(100%, rgba(254,182,69,1)));
+background: -webkit-linear-gradient(left, rgba(254,182,69,1) 0%, rgba(241,231,103,1) 52%, rgba(254,182,69,1) 100%);
+background: -o-linear-gradient(left, rgba(254,182,69,1) 0%, rgba(241,231,103,1) 52%, rgba(254,182,69,1) 100%);
+background: -ms-linear-gradient(left, rgba(254,182,69,1) 0%, rgba(241,231,103,1) 52%, rgba(254,182,69,1) 100%);
+background: linear-gradient(to right, rgba(254,182,69,1) 0%, rgba(241,231,103,1) 52%, rgba(254,182,69,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feb645', endColorstr='#feb645', GradientType=1 );
+}

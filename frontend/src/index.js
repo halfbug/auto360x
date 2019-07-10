@@ -10,8 +10,11 @@ import thunk from 'redux-thunk'
 // import { reduxFirestore } from 'redux-firestore';
 // import { reactReduxFirebase } from 'react-redux-firebase';
 // import firebaseConfig from './config/firebaseCnfg'
-
-const state = { authState: {}, statCardState: {} }
+const initialState = {
+  sell: [],
+  loading: false
+};
+const state = initialState;
 const store = createStore(rootReducer, state,
   compose(
     applyMiddleware(thunk),

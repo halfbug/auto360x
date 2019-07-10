@@ -14,11 +14,22 @@ router.use(function(req, res, next) {
 //@route Get api/vehicles
 //@desc Get All Items
 //@access  Public
-router.get('/', (req,res) => {
-    Vehicle.find()
+router.get('/:id?', (req,res) => {
+    console.log(req.params)
+    
+    console.log("iniside server call")
+    let query = {};
+    if(req.params.id !== undefined)
+    {
+        console.log("inside if")
+        query = { _id: req.params.id };
+    }
+    
+    console.log(query)
+    Vehicle.find(query, function (err, vehicle) {})
     .sort({ date : -1 })
-    .then(vehicles => res.json(vehicles));
-
+    .then(vehicles => res.send({vehicles}));
+// res.send("this")
 });
 
 // @route POST api/vehicle

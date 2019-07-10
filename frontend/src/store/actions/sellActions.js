@@ -1,4 +1,5 @@
 import axios from 'axios';
+// import {serverURl} from '../../config/general'
 // import { tokenConfig } from './authActions';
 // import { returnErrors } from './errorActions';
 
@@ -7,33 +8,29 @@ export const ADD_SELL = 'ADD_SELL';
 export const DELETE_SELL = 'DELETE_SELL';
 export const SELL_LOADING = 'SELL_LOADING';
 export const STORE_SELL = 'STORE_SELL';
+export const SELL_ERROR = 'SELL_ERROR';
 
-export const getSells = (info,dispatch) => {
-  console.log("inside action sell")
-  axios
-      .post('/api/vehicles').then(res =>
-        dispatch({
+
+export const getSells = async (info) => {
+  
+  try {
+      const result = await axios
+      .get('/api/vehicles' ).then((res) =>{
+        console.log(res.data)
+        return({
           type: GET_SELL,
           payload: res.data
         })
-      )
-  // return (dispatch, getState) => {
-  //   console.log("inside get sells");
-  //   // dispatch(setSellsLoading());
-  //   axios
-  //     .get('/api/vehicles')
-  //     .then(res =>
-  //       dispatch({
-  //         type: GET_SELL,
-  //         payload: res.data
-  //       })
-  //     )
-  //     .catch(err =>
-  //       //dispatch(returnErrors(err.response.data, err.response.status))  
-  //       dispatch({ type: 'CREATE_EVENT_ERROR' }, err)
-  //     );
-  // }
+      }).catch(err =>({ type: 'SELL_ERROR' , payload : err}));
+  
+      return result;
+      // dispatch(success(response));
+  } catch (e) {
+      return ({ type: 'SELL_ERROR' , payload : e})
+  }
+  
 };
+
 
 export const storeSell =(record,dispatch) => {
     console.log("store");

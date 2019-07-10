@@ -37,14 +37,15 @@ function getArray(obj,key){
 // @access Public
 router.get('/allmake', (req, res) => {
     let makeList = [];
-    axios.get('https://carmakemodeldb.com/api/v1/car-lists/get/all/makes?api_token='+config.carmakemodeldb.Tocken)
-    .then(response => {
+    // axios.get('https://carmakemodeldb.com/api/v1/car-lists/get/all/makes?api_token='+config.carmakemodeldb.Tocken)
+    // .then(response => {
         
-         res.send(getArray(response.data,"make"));
-    })
-    .catch(error => {
-       res.send({error : error});
-    });
+    //      res.send(getArray(response.data,"make"));
+    // })
+    // .catch(error => {
+    //    res.send({error : error});
+    // });
+  res.send(["AC","Acura","Alfa Romeo","Am General","American Motors","Aston Martin","Auburn","Audi","Austin","Austin-Healey","Avanti Motors","Bentley","BMW","Bricklin","Bugatti","Buick","Cadillac","Checker","Chevrolet","Chrysler","Citroen","Daewoo","Daihatsu","Datsun","Delahaye","Delorean","Desoto","DeTomaso","Dodge","Eagle","Edsel","Essex","Ferrari","FIAT","Fisker","Ford","Franklin","Genesis","Geo","GMC","Honda","Hudson","Hummer","Hupmobile","Hyundai","INFINITI","International","Isuzu","Jaguar","Jeep","Jensen","Kaiser","Karma","Kia","Koenigsegg","Lamborghini","Lancia","Land Rover","LaSalle","Lexus","Lincoln","Lotus","Maserati","Maybach","Mazda","McLaren","Mercedes-Benz","Mercury","Merkur","MG","MINI","Mitsubishi","Morgan","Morris","Nash","Nissan","Oldsmobile","Opel","Packard","Panoz","Peugeot","Plymouth","Pontiac","Porsche","Qvale","RAM","Renault","Rolls-Royce","Rover","Saab","Saleen","Saturn","Scion","smart","Spyker","Sterling","Studebaker","Subaru","Sunbeam","Suzuki","Tesla","Toyota","Triumph","TVR","Volkswagen","Volvo","Willys","Yugo"])
   });
 
 

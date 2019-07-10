@@ -17,6 +17,7 @@ import Link from '@material-ui/core/Link';
 
 export const mainListItems = (
   <div>
+  <Link component={RouterLink} color="inherit"  to="/search/used">
     <ListItem button>
       <ListItemIcon>
       <Avatar className="Orangegradient">
@@ -25,6 +26,8 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Used Cars" />
     </ListItem>
+    </Link>
+    <Link component={RouterLink} color="inherit"  to="/search/new">
     <ListItem button>
       <ListItemIcon>
       <Avatar className="Bluegradient">
@@ -33,7 +36,17 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="New Cars" />
     </ListItem>
-    
+    </Link>
+    <Link component={RouterLink} color="inherit"  to="/search/all">
+    <ListItem button>
+      <ListItemIcon>
+      <Avatar className="Yellowgradient">
+        <DashboardIcon />
+        </Avatar>
+      </ListItemIcon>
+      <ListItemText primary="All Cars" />
+    </ListItem>
+    </Link>
     <Link component={RouterLink} color="inherit"  to="/sell">
     <ListItem button>
       <ListItemIcon>

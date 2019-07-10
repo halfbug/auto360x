@@ -81,7 +81,14 @@ side_view: {
 interior_view: {
     type :String
 },
-
+condition: {
+    type :String,
+    default: "Used"
+},
+drivetype: {
+    type :String,
+   
+},
 });
 
 module.exports = Vehicles = mongoose.model('Vehicles', VehiclesSchema);

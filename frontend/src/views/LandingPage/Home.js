@@ -15,7 +15,7 @@ import { Redirect , withRouter } from "react-router-dom";
 import { compose } from "redux";
 
 import HeroUnit from "./../../components/HeroUnit"
-import SearchForm from "./../../components/SearchForm"
+import SearchBar from "./../../components/SearchBar"
 import Carousel from "./../../components/Carousel2"
 import car1 from "./../../assets/carousel/1.jpg"
 
@@ -71,7 +71,7 @@ export default function Home(props) {
     return (
       <div>
      
-     <SearchForm  />
+     <SearchBar />
      <Carousel /> 
        
       <HeroUnit>
@@ -82,22 +82,3 @@ export default function Home(props) {
   }
 
 
-const mapStateToProps = (state, ownProps) => {
-  console.log(state);
-  // const accessId =(accId) => {accId};
-  // const companies = state.firestore.data.companies;
-  // const event = companies ? companies[accessId] : null
-  return {
-    // companies: companies,
-    // auth: state.firebase.auth,
-   
-  };
-};
-
-// export default compose(
-//   // connect(
-//   //   mapStateToProps,
-//   //   {}
-//   // ),
-//   withRouter
-// ) (Home)

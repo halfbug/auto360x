@@ -23,6 +23,14 @@ mongoose
     .connect(db,{ useNewUrlParser: true })
     .then(()=> console.log("MongoDB Connected..."))
     .catch(err => console.log("E R R O R   A   H E A D -->  "+err));
+    app.use(cors({ 
+      origin: config.clientOrigin
+    })) 
+    
+    console.log("client at : "+config.clientOrigin )
+    
+    app.use(formData.parse())
+    
     
 app.get('/api/test', function (req, res) {
         res.send('hello world')
@@ -30,12 +38,6 @@ app.get('/api/test', function (req, res) {
 
 app.use('/api/vehicles', vehicles_routes);
 
-app.use(cors({ 
-  origin: config.clientOrigin
-})) 
-console.log("client at : "+config.clientOrigin )
-
-app.use(formData.parse())
 
 app.use('/api/storage', storage_routes);
 app.use('/api/detail', detail_routes);

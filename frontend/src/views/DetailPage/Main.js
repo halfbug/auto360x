@@ -1,0 +1,228 @@
+import React from 'react'
+import ImageGrid from '../../components/ImageGrid'
+import Sell from './../../store/reducers/sellReducer';
+import {getSells} from './../../store/actions/sellActions';
+import axios from 'axios';
+import {serverURl} from '../../config/general'
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Button from '@material-ui/core/Button';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import MailIcon from '@material-ui/icons/Mail';
+
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    
+  },
+  paper: {
+    padding: theme.spacing(2),
+    margin: 'auto',
+    height: "100vh",
+    // maxWidth: 500,
+  },
+  image: {
+    width: "100%",
+    // height: 128,
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+  button: {
+    margin: theme.spacing(1),
+    width: 150,
+  },
+}));
+
+
+export default function Main(props) {
+    const classes = useStyles();
+    const [vehicle, setVehicle] = React.useState({});
+    // const [state, dispatch] = React.useReducer(Sell);
+    const [isLoading, setIsLoading] = React.useState(true);
+    // console.log(props)
+    // const id =props.match.params.id;
+    const getById=(id=props.match.params.id)=>{
+        // get all make
+        axios.defaults.baseURL = serverURl;
+        console.log("id")
+        // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+        axios
+            .get(`/api/vehicles/${id}`)
+            .then(res => {
+              console.log(res);
+              // list["makes"]=res.data
+              setVehicle({
+               data:res.data.vehicles
+              })
+              setIsLoading(false);
+            // forceUpdate();
+            })
+            
+            .catch(err =>{
+              //dispatch(returnErrors(err.response.data, err.response.status))  
+              console.log(err)
+              return (err)
+            });
+        
+          }
+      
+        //   const [{ status, response }, makeRequest] = useApiRequest(
+        //     `/api/vehicles`,
+        //     {
+        //         verb: 'get',
+        //     }
+        // );
+    React.useEffect(() => {
+         //get all make for car
+         getById();
+        //  getSells({type:"new"},dispatch);
+        // makeRequest().then((res)=>{setIsLoading(false);})
+        // console.log(status)
+        // if(status === "useApiRequest/SUCCESS")
+        // {
+          
+        //   console.log(response.data)
+        // }
+        },[]); // Pass empty array to only run once on mount.
+      
+    return (
+       <div className={classes.root}>
+      <Paper className={classes.paper}>
+      {isLoading ? (
+        <div>Loading ...</div>
+      ) : (
+        
+        <Grid container spacing={2} >
+        <Grid item xs={12} >
+        <Typography variant="h5" gutterBottom>
+        
+        {vehicle.data[0].year} {vehicle.data[0].make} {vehicle.data[0].model} {vehicle.data[0].trim}  {vehicle.data[0].style}  {vehicle.data[0].drivetype}
+        
+      </Typography>
+          </Grid>
+          <Grid item xs={12} lg={6} >
+            <ButtonBase className={classes.image}>
+              <img className={classes.img} alt={vehicle.data[0].make} 
+              src={`https://res.cloudinary.com/auto360x/image/upload/c_scale,w_600/v1562565154/${vehicle.data[0].front_view}.jpg`} />
+            </ButtonBase>
+          </Grid>
+         
+          <Grid item xs={12} lg={6} container>
+            <Grid item xs={10} lg={9} container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="h6">
+                 Listing Detail
+                </Typography>
+                <Grid item xs={12}  container>
+                <Grid item xs={6} lg={6} container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle2">
+                 Estimate Price 
+                </Typography>
+                
+              </Grid>
+            </Grid>
+            <Grid item xs={6} lg={6}>
+              <Typography variant="body2" color="textSecondary">{vehicle.data[0].price} </Typography>
+            </Grid>
+            <Grid item xs={6} lg={6} container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle2">
+                 Make 
+                </Typography>
+                
+              </Grid>
+            </Grid>
+            <Grid item xs={6} lg={6}>
+              <Typography variant="body2" color="textSecondary">{vehicle.data[0].make} </Typography>
+            </Grid>
+            <Grid item xs={6} lg={6} container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle2">
+                 Model 
+                </Typography>
+                
+              </Grid>
+            </Grid>
+            <Grid item xs={6} lg={6}>
+              <Typography color="textSecondary" variant="body2">{vehicle.data[0].model} </Typography>
+            </Grid>
+            <Grid item xs={6} lg={6} container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle2">
+                 Trim 
+                </Typography>
+                
+              </Grid>
+            </Grid>
+            <Grid item xs={6} lg={6}>
+              <Typography color="textSecondary" variant="body2">{vehicle.data[0].trim} </Typography>
+            </Grid>
+            <Grid item xs={6} lg={6} container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle2">
+                 Year 
+                </Typography>
+                
+              </Grid>
+            </Grid>
+            <Grid item xs={6} lg={6}>
+              <Typography color="textSecondary" variant="body2">{vehicle.data[0].year} </Typography>
+            </Grid>
+            <Grid item xs={6} lg={6} container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle2">
+                 Body Style 
+                </Typography>
+                
+              </Grid>
+            </Grid>
+            <Grid item xs={6} lg={6}>
+              <Typography color="textSecondary" variant="body2">{vehicle.data[0].style} </Typography>
+            </Grid>
+            <Grid item xs={6} lg={6} container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle2">
+                 Condition 
+                </Typography>
+                
+              </Grid>
+            </Grid>
+            <Grid item xs={6} lg={6}>
+              <Typography color="textSecondary" variant="body2">{vehicle.data[0].condition} </Typography>
+            </Grid>
+            
+          </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={1}>
+            <Button variant="outlined" color="primary" className={classes.button} gutterBottom>
+            <MailIcon className={classes.extendedIcon} /> Message
+      </Button>
+      <Button variant="outlined" color="primary" className={classes.button} gutterBottom>
+      <FavoriteIcon className={classes.extendedIcon} /> Save
+      </Button>
+
+      <Button variant="outlined" color="primary" className={classes.button} gutterBottom>
+      <ShareIcon className={classes.extendedIcon} /> Share
+      </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+      )}
+      </Paper>
+    </div>
+  );
+}

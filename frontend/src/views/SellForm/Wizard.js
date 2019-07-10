@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const steps = ['Vehicle details', 'Listing details', 'Contact detail', 'Preview listing'];
+const steps = ['Vehicle details', 'Listing details', 'Preview listing'];
 
 export default function Wizard() {
   const classes = useStyles();
@@ -65,7 +65,10 @@ export default function Wizard() {
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
+
+   if ((steps.length - 1 ) === activeStep)
     addSell(values,dispatch);
+
     console.log(state)
   };
 
