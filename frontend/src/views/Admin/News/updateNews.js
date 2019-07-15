@@ -175,6 +175,7 @@ class UpdateNews extends Component {
                                 name="content"
                                 label="Content"
                                 multiline
+                                rowsMax="4"
                                 defaultValue={content}
                                 onChange={this.onChange}
                                 fullWidth
@@ -255,6 +256,7 @@ class UpdateNews extends Component {
                                 Update Photo
                             </Typography>
                             <input
+                                accept="image/*"
                                 type="file"
                                 id="newsimage"
                                 onChange={this.fileSelectedHandler}
@@ -265,14 +267,14 @@ class UpdateNews extends Component {
                         <Grid item xs={12} sm={12}>
                             <label htmlFor="outlined-button">
                                 <Button type="submit" variant="outlined" >
-                                    Update News
+                                    Update 
                                 </Button>
                             </label>
                         </Grid>
                     </Grid>
                 </form>
                 <Grid item xs={12} sm={12}>
-                    <Button variant="contained" color="primary" style={{marginTop: "10px"}} onClick={() => {this.props.history.push('/viewNews')}}>
+                    <Button variant="contained" color="primary" style={{marginTop: "10px"}} onClick={() => {this.props.history.push('/admin/viewNews')}}>
                         Go back
                     </Button>
                 </Grid>

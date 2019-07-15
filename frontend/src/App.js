@@ -29,6 +29,10 @@ import UpdateNews from './views/Admin/News/updateNews'
 import AddUser from './views/Admin/Users/addUser'
 import ViewUser from './views/Admin/Users/viewUser'
 import UpdateUser from './views/Admin/Users/updateUser'
+import AddVehicle from'./views/Admin/Vehicles/addVehicle'
+import ViewVehicle from './views/Admin/Vehicles/viewVehicle'
+import UpdateVehicle from './views/Admin/Vehicles/updateVehicle'
+import ContactUs from './views/ContactUs'
 
 export default function App(props) {
   return (
@@ -42,16 +46,20 @@ export default function App(props) {
         <AppRoute exact path="/sell" layout={Public} component={Wizard} />
         <AppRoute exact path="/search/:make?:view?" layout={Public} component={Search} />
         <AppRoute exact path="/vehicle/:id" layout={Public} component={Detail} />
+        <AppRoute exact path="/contactUs" layout={Public} component={ContactUs} />
 
-        <AppRoute exact path="/package" layout={Master} component={PacakageManagement} />
-        <AppRoute exact path="/updatePackage" layout={Master} component={UpdatePackage} />
-        <AppRoute exact path="/addNews" layout={Master} component={AddNews} />
-        <AppRoute exact path="/viewNews" layout={Master} component={ViewNews} />
-        <AppRoute exact path="/newsDetails" layout={Master} component={NewsDetails} />
-        <AppRoute exact path="/updateNews" layout={Master} component={UpdateNews} />
-        <AppRoute exact path="/addUser" layout={Master} component={AddUser} />
-        <AppRoute exact path="/viewUser" layout={Master} component={ViewUser} />
-        <AppRoute exact path="/updateUser" layout={Master} component={UpdateUser} />
+        <AppRoute exact path="/admin/package" layout={Master} component={PacakageManagement} />
+        <AppRoute exact path="/admin/updatePackage" layout={Master} component={UpdatePackage} />
+        <AppRoute exact path="/admin/addNews" layout={Master} component={AddNews} />
+        <AppRoute exact path="/admin/viewNews" layout={Master} component={ViewNews} />
+        <AppRoute exact path="/admin/newsDetails" layout={Master} component={NewsDetails} />
+        <AppRoute exact path="/admin/updateNews" layout={Master} component={UpdateNews} />
+        <AppRoute exact path="/admin/addUser" layout={Master} component={AddUser} />
+        <AppRoute exact path="/admin/viewUser" layout={Master} component={ViewUser} />
+        <AppRoute exact path="/admin/updateUser" layout={Master} component={UpdateUser} />
+        <AppRoute exact path="/admin/addVehicle" layout={Master} component={AddVehicle} />
+        <AppRoute exact path="/admin/viewVehicle" layout={Master} component={ViewVehicle} />
+        <AppRoute exact path="/admin/updateVehicle" layout={Master} component={UpdateVehicle} />
         {/* <AppRoute exact path="/company" layout={Master} component={IndexCompany} /> */}
           
         </Switch>

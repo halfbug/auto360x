@@ -360,7 +360,7 @@ class UpdateUser extends Component {
                 </Typography>
 
                 <Button color="primary" variant="contained" style={{ marginTop: "20px", marginBottom: "30px" }} onClick={() => { this.setState({ isEditing: true }) }}>
-                    Edit User
+                    Edit 
                     </Button>
 
                 <form onSubmit={this.onSubmit}>
@@ -420,7 +420,7 @@ class UpdateUser extends Component {
                                             Update Avatar
                                         </Typography>
                                         <input
-                                            //style={{  }}
+                                             accept="image/*"
                                             type="file"
                                             name="avatarImage"
                                             onChange={this.avatarSelectedHandler}
@@ -546,10 +546,12 @@ class UpdateUser extends Component {
                                     id="description"
                                     name="description"
                                     label="Description"
+                                    multiline
+                                    rowsMax="4"
                                     defaultValue={description}
                                     onChange={this.onChange}
                                     fullWidth
-                                /> : (<p style={{ fontSize: "17px" }}>Description : <i><u>{description}</u></i></p>)}
+                                /> : (<p style={{ fontSize: "17px" }}>Description : <i>{description}</i></p>)}
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             {isEditing ?
@@ -575,7 +577,7 @@ class UpdateUser extends Component {
                                             Update Logo
                                         </Typography>
                                         <input
-                                            //style={{  }}
+                                             accept="image/*"
                                             type="file"
                                             name="company_logoImage"
                                             onChange={this.logoSelectedHandler}
@@ -605,7 +607,7 @@ class UpdateUser extends Component {
                                 <Grid item xs={12} sm={12}>
                                     <label htmlFor="outlined-button">
                                         <Button type="submit" variant="outlined" style={{ marginRight: "10px" }} >
-                                            Update Package
+                                            Update 
                                         </Button>
                                     </label>
                                     <label htmlFor="outlined-button">
@@ -619,7 +621,7 @@ class UpdateUser extends Component {
                     </Grid>
                 </form>
                 <Grid item xs={12} sm={12}>
-                    <Button variant="contained" color="primary" style={{ marginTop: "10px" }} onClick={() => { this.props.history.push('/viewUser') }}>
+                    <Button variant="contained" color="primary" style={{ marginTop: "10px" }} onClick={() => { this.props.history.push('/admin/viewUser') }}>
                         Go back
                     </Button>
                     <Button variant="contained" color="primary" style={{ marginTop: "10px", marginLeft: "10px" }} >

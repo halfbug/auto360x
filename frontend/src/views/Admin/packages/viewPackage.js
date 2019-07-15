@@ -29,7 +29,7 @@ class ViewPackage extends Component {
     };
 
     onUpdateClick = (index, pkg) => {
-        this.props.history.push({pathname: '/updatePackage', state: {index, pkg} })
+        this.props.history.push({pathname: '/admin/updatePackage', state: {index, pkg} })
     }
          
     render() {
