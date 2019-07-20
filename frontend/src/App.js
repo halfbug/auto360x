@@ -7,6 +7,10 @@ import { Route, Switch } from 'react-router-dom'
 import { connect } from "react-redux";
 import { Redirect , withRouter } from "react-router-dom";
 import { compose } from "redux";
+import PropTypes from 'prop-types';
+import { loadUser } from './store/actions/authActions';
+
+
 // import {createMuiTheme} from '@material-ui/core/styles';
 // import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { BrowserRouter } from "react-router-dom";
@@ -15,7 +19,7 @@ import AppRoute from "./layouts/AppRoute"
 import Plane from "./layouts/Plane"
 import Home from "./views/Dashboard/Home"
 import OpenHome from "./views/LandingPage/Home"
-import Wizard from "./views/SellForm/Wizard"
+import Wizard from "./views/SellForm"
 import Search from "./views/Search/Search";
 import Detail from "./views/DetailPage/Main"
 import PacakageManagement from './views/Admin/packages/index'
@@ -30,9 +34,16 @@ import AddUser from './views/Admin/Users/addUser'
 import ViewUser from './views/Admin/Users/viewUser'
 import UpdateUser from './views/Admin/Users/updateUser'
 
-export default function App(props) {
-  return (
-    <BrowserRouter>
+
+
+export class App extends React.Component {
+  componentDidMount() {
+    this.props.loadUser();
+  }
+
+  render() {
+    return (
+       <BrowserRouter>
       <div className="App">
         <Switch>
         <AppRoute exact path="/signIn" layout={Plane} component={SignIn} />
@@ -58,6 +69,26 @@ export default function App(props) {
         
       </div>
       </BrowserRouter>
-  );
+    )
+  }
 }
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadUser: (userdata) => dispatch(loadUser())
+   
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps // { loginFromToken, clearErrors , addSell, register }
+)(App)
+
+
 

@@ -11,19 +11,19 @@ import thunk from 'redux-thunk'
 // import { reactReduxFirebase } from 'react-redux-firebase';
 // import firebaseConfig from './config/firebaseCnfg'
 const initialState = {
-  sell: [],
-  loading: false,
-  authState: {}
+
+  
 };
 const state = initialState;
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, state,
-  compose(
-    applyMiddleware(thunk),
+  // compose(
+    composeEnhancers(applyMiddleware(thunk)),
     // reactReduxFirebase(firebaseConfig, {userProfile: 'users', useFirestoreForProfile: true, attachAuthIsReady: true}),
     // reduxFirestore(firebaseConfig) // redux bindingsr for firestore
-  )
+  // ),
+  
 );
 
 // store.firebaseAuthIsReady.then(() => {

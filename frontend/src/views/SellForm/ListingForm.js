@@ -11,6 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Sell from './../../store/reducers/sellReducer';
 import { makeStyles } from '@material-ui/core/styles';
+import {FormatPrice, FormatZipCode} from '../../components/FormatedFields';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ListingForm(props) {
-   const { values, handleChange } = props;
+   const { values, handleChange , validator, errors} = props;
    const classes = useStyles();
   // function handleChange(event) {
   //   event.persist();
@@ -41,7 +42,8 @@ export default function ListingForm(props) {
   // React.useEffect(() => {
   //   // props.saveAdvertHof({values})
   // });
-
+console.log(validator.message('vin_num', values.vin_num, 'required|max:17'))
+console.log(validator.fieldValid('vin_num'))
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -57,6 +59,7 @@ export default function ListingForm(props) {
           id="seller_type"
           required
           row
+          value={values.seller_type}
           onChange={handleChange}
         >
           <FormControlLabel value="individual" 
@@ -77,8 +80,11 @@ export default function ListingForm(props) {
       </FormControl>
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="Vin Number" 
-          label="Vin Number" fullWidth onChange={handleChange} />
+          <TextField required id="vin_num" error={errors.listing.vin_num }
+          label="Vin Number" fullWidth value={values.vin_num} onChange={handleChange} 
+          helperText={validator.message('vin_num', values.vin_num, 'required|max:17')}
+ 
+          />
         </Grid>
         {/* <Grid item xs={12} md={6}>
           <TextField required id="registration_year" label="Registration Year" fullWidth />
@@ -91,6 +97,7 @@ export default function ListingForm(props) {
             helperText="if you are first or sencond owner of the car"
             fullWidth
             onChange={handleChange}
+            value={values.owner}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -99,11 +106,22 @@ export default function ListingForm(props) {
           helperText="Where is this car currently located?"
            fullWidth
            onChange={handleChange}
+           value={values.zipcode}
+           InputProps={{
+          inputComponent: FormatZipCode,
+        }}
             />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField required id="price"
-           label="Enter your Car Price ( USD )" fullWidth />
+            name="price"
+           label="Price ( USD )" fullWidth
+           value={values.price}
+           onChange={handleChange}
+           InputProps={{
+          inputComponent: FormatPrice,
+        }}
+            />
         </Grid>
         
         <Grid item xs={12} md={12}>
@@ -116,6 +134,7 @@ export default function ListingForm(props) {
             helperText="Describe your car in more detaial"
             fullWidth
             onChange={handleChange}
+            value={values.description}
           />
         </Grid>
         
@@ -128,6 +147,7 @@ export default function ListingForm(props) {
           name="package"
           id = "package"
           onChange={handleChange}
+          value={values.package}
         >
           <FormControlLabel
             value="packid"

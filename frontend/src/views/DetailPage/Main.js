@@ -115,12 +115,12 @@ export default function Main(props) {
           <Grid item xs={12} lg={6} >
             <ButtonBase className={classes.image}>
               <img className={classes.img} alt={vehicle.data[0].make} 
-              src={`https://res.cloudinary.com/auto360x/image/upload/c_scale,w_600/v1562565154/${vehicle.data[0].front_view}.jpg`} />
+              src={`https://res.cloudinary.com/auto360x/image/upload/c_scale,w_600/v1562565154/${vehicle.data[0].front_view}`} />
             </ButtonBase>
           </Grid>
          
           <Grid item xs={12} lg={6} container>
-            <Grid item xs={10} lg={9} container direction="column" spacing={2}>
+            <Grid item xs={9} lg={9} container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="h6">
                  Listing Detail

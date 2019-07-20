@@ -89,6 +89,13 @@ drivetype: {
     type :String,
    
 },
+vin_num : {
+    type : Number,
+},
+user_id : {
+    type: String,
+}
+
 });
 
 module.exports = Vehicles = mongoose.model('Vehicles', VehiclesSchema);

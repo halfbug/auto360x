@@ -11,8 +11,7 @@ import userReducer from './userReducer'
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  company: companyReducer,
-  sell : sellReducer,
+  vehicles : sellReducer,
   pkg: packageReducer,
   error: errorReducer,
   news: newsReducer,

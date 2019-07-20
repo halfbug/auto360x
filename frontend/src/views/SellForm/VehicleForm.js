@@ -219,7 +219,7 @@ export default function VehicleForm(props) {
       
            loadImg(target, res.data[0].url)
       toggleProgress(target, "none")
-      values[target] = res.data[0].public_id;
+      values[target] = `${res.data[0].public_id}.${res.data[0].format}`;
        // props.handleChange()
     })
     .catch(err => console.log(err))
@@ -255,7 +255,7 @@ export default function VehicleForm(props) {
  
 
   const { values, handleChange, list } = props;
-  console.log( list)
+  // console.log( list)
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -387,7 +387,7 @@ export default function VehicleForm(props) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField onChange={handleChange}  id="engine" name="engine" 
-          label="Engine Type" 
+          label="Engine Type" value={values.engine} 
           fullWidth />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -397,7 +397,7 @@ export default function VehicleForm(props) {
             name="mileage"
             label="Mileage (KM)"
             fullWidth
-            
+            value={values.mileage}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -416,7 +416,7 @@ export default function VehicleForm(props) {
         >
           <option value="" />
           {list.styles.map(name => (
-            <option value={name}>{name}</option>
+            <option key={name} value={name}>{name}</option>
            
           ))}
           {/* <option value="car">Car</option> 
@@ -448,7 +448,7 @@ export default function VehicleForm(props) {
         >
           <option value="" />
           {list.drivetypes.map(name => (
-            <option value={name}>{name}</option>
+            <option key={name} value={name}>{name}</option>
            
           ))}
          
@@ -466,7 +466,7 @@ export default function VehicleForm(props) {
             name="exterior_color"
             label="Exterior Color"
             fullWidth
-            
+            value={values.exterior_color}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -476,7 +476,7 @@ export default function VehicleForm(props) {
             name="interior_color"
             label="Interior Color"
             fullWidth
-            
+            value={values.interior_color}
           />
         </Grid>
         <Grid item xs={12} sm={12}>

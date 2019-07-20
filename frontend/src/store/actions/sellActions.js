@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { returnErrors } from './errorActions';
 // import {serverURl} from '../../config/general'
 // import { tokenConfig } from './authActions';
 // import { returnErrors } from './errorActions';
@@ -26,7 +27,7 @@ export const getSells = async (info) => {
       return result;
       // dispatch(success(response));
   } catch (e) {
-      return ({ type: 'SELL_ERROR' , payload : e})
+      return ({ type: SELL_ERROR , payload : e})
   }
   
 };
@@ -43,7 +44,7 @@ export const storeSell =(record,dispatch) => {
 };
 
 
-export const addSell = (sellrecord,dispatch) => {
+export const addSell = (sellrecord)=>(dispatch) => {
   console.log("about to add new record")
   axios
     .post('/api/vehicles', sellrecord)
@@ -55,10 +56,13 @@ export const addSell = (sellrecord,dispatch) => {
       // console.log(res.data)
     }
     )
-    .catch(err =>
-      //dispatch(returnErrors(err.response.data, err.response.status))  
-      dispatch({ type: 'CREATE_EVENT_ERROR' }, err)
-    );
+    .catch(err =>{
+      dispatch(returnErrors(err, err));
+      dispatch({
+        type: SELL_ERROR
+      });
+      
+    });
 };
 
 export const deleteSell = id => (dispatch) => {

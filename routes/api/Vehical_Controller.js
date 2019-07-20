@@ -36,6 +36,13 @@ router.get('/:id?', (req,res) => {
 // @desc  Create A Post
 // @access Public
 router.post('/',(req,res) => {
+
+
+// Simple validation
+if(!req.body.make && !req.body.model && !req.body.price && !req.body.zipcode ) {
+  return res.status(400).json({ msg: 'Please fill the required fields requied fields are make, model, price and zipcode' });
+}
+    
     console.log(req.body);
    const newVehicle = new Vehicles({
 

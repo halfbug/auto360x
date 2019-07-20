@@ -10,12 +10,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Notify() {
+export default function Notify(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [msg,setMsg] = React.useState("Some thing went wrong!");
-
-  function display(message) {
+  
+  function display(props.message) {
     setOpen(true);
     setMsg(message);
   }

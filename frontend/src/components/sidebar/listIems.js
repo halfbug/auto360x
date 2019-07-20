@@ -122,38 +122,6 @@ export const mainListItems = (
       <ListItemText primary="News & Reviews" />
     </ListItem>
 
-    <Link component={RouterLink} color="inherit" to="/package">
-      <ListItem button>
-        <ListItemIcon>
-          <Avatar className="Pinkgradient">
-            <LayersIcon />
-          </Avatar>
-        </ListItemIcon>
-        <ListItemText primary="Packages" />
-      </ListItem>
-    </Link>
-
-    <Link component={RouterLink} color="inherit" to="/viewNews">
-      <ListItem button>
-        <ListItemIcon>
-          <Avatar className="Pinkgradient">
-            <LayersIcon />
-          </Avatar>
-        </ListItemIcon>
-        <ListItemText primary="News" />
-      </ListItem>
-    </Link>
-
-    <Link component={RouterLink} color="inherit" to="/viewUser">
-      <ListItem button>
-        <ListItemIcon>
-          <Avatar className="Pinkgradient">
-            <LayersIcon />
-          </Avatar>
-        </ListItemIcon>
-        <ListItemText primary="Users" />
-      </ListItem>
-    </Link>
 
   </div>
 );
