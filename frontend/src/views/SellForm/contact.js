@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
     padding:0,
   },
 }));
+//function for contact
 export default function Contact(props) {
   const {handleChange, values, errors, validator } = props;
   const classes = useStyles();
