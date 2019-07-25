@@ -9,11 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import VehicleForm from './VehicleForm';
 import ListingForm from './ListingForm';
 import Review from './Review';
-import Sell from './../../store/reducers/sellReducer';
-import {addSell} from './../../store/actions/sellActions';
-import useThunkReducer from 'react-hook-thunk-reducer';
 import axios from 'axios';
-import {serverURl} from '../../config/general'
+import {serverURl} from '../../config/general';
+import Contact from './Contact'
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -55,21 +54,100 @@ const useStyles = makeStyles(theme => ({
 
 const steps = ['Vehicle details', 'Listing details', 'Preview listing'];
 
-export default function Wizard() {
+export default function Wizard(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const [state, dispatch] = React.useReducer(Sell);
   const [list,setList] = React.useState({makes:[],models:[],trims:[],styles:[], years:[], drivetypes: []})
   const [ignored, forceUpdate] = React.useReducer(x => x + 1, 0);
   const [values,setValues] = React.useState({});
+  const isContactStep = (steps[activeStep] === "Contact Details")?true:false;
+ const {validator}=props; 
+ const [errors,setErrors]=React.useState({})
+ 
+ const stepkey =()=>{
+  let vrname = steps[activeStep].split(" ")
+  return vrname[0].toLowerCase()
+ }
+ const saveStepwise=(field,value)=>{
+   const vrname= stepkey();
+       setValues({
+         ...values,
+         [vrname]:{...values[vrname], [field]:value}
+       })
 
+       setErrors({
+        ...errors,
+        [vrname]:{...errors[vrname], [field]:false}
+      })
+  
+ }
   const handleNext = () => {
+   
+  if (validator.allValid()) {
     setActiveStep(activeStep + 1);
 
-   if ((steps.length - 1 ) === activeStep)
-    addSell(values,dispatch);
+   if ((steps.length - 1 ) === activeStep){
+     console.log("--------------------------------------final values")
+     console.log(values)
+//add new user incase of first time vehicle incertion
+        if (steps.indexOf("Contact Details") !== -1) 
+        props.register(values.user).then((res)=>{
+          // console.log("promise resolved!!!!!!!!!!!!!!!!!")
+          // console.log(res);
+          values['user_id']=res.user.id
+          props.addSell(values)})
+        else{
+          // values['user_id']=res.user.id
+          props.addSell(values)
+        } 
+         
+    //.then((nuser => { console.log(nuser)}))
+    localStorage.removeItem('sellform');
+   }
+   else{
+    localStorage.setItem('sellform', JSON.stringify(values));
+    
+   }
+  }
+  else {
 
-    console.log(state)
+    validator.showMessages();
+    const skey = stepkey();
+console.log(validator.getErrorMessages())
+const emsges = validator.getErrorMessages();
+let errlist = {}
+for(var fname in emsges){
+  console.log(emsges[fname])
+  console.log(skey)
+      // if ( emsges[fname] != null ) {
+      //   console.log("inside if : "+fname)
+      console.log(errors)
+  errlist[fname]=!(validator.fields[fname])
+      // }
+      // else{
+      //   console.log("inside else : "+fname)
+      //   setErrors({
+      //     ...errors,
+      //     [skey]:{ ...errors[skey], [fname]:false}
+      //   })
+      // }
+    }
+console.log(errors)
+
+// if(values.seller_type == null)
+// errlist['seller_type'] = true;
+// else{
+// validator.fields['seller_type'] = true;
+// console.log(validator.fields['seller_type'] )
+// }
+setErrors({
+  ...errors,
+  ...errlist
+})
+    forceUpdate();
+  }
+
+    // console.log(state)
   };
 
   const handleBack = () => {
@@ -212,22 +290,52 @@ const getAllMakes=()=>{
      getAllYears(); 
      getBodyStyles();
      getDriveTypes();
-      
+
+     
+console.log(steps)
     },[]); // Pass empty array to only run once on mount.
   
 
+    React.useEffect(() => {
+     
+ if(localStorage.token == null)
+ steps.splice( 2, 0, "Contact Details");
+else{
+  var index = steps.indexOf("Contact Details");
+if (index !== -1) steps.splice(index, 1);
+}
+ 
+ 
+//  console.log(steps)
+     },[]); //
 
-
-
+     
 // Handle fields change
 const handleChange =  e => {
+  // validator.showMessages();
   console.log(e.target)
+  
   const field = (!e.target.id)?e.target.name : e.target.id;
+
+//   setError({
+//     ...error,
+//     [field] :false
+//   })
+  console.log(steps[activeStep] === "Contact details")
+console.log(isContactStep)
+  if(isContactStep){
+    console.log("inside contact step")
+    setValues({ 
+      ...values,
+      user:{...values.user, [field] : e.target.value }});
+  }else
   setValues({ 
     ...values,
     [field] : e.target.value });
-  console.log("wizard state : advert :")
+// saveStepwise(field,e.target.value)
+    console.log("wizard state : advert :")
   console.log(values)
+
   switch(field){
     case "make":
       getModelByMakeYear(e.target.value);
@@ -248,7 +356,13 @@ const handleChange =  e => {
 };
 
 React.useEffect(() => {
-   
+  console.log("localstorage")
+   const preval = JSON.parse(localStorage.getItem('sellform'))
+console.log("should execure once in begining ........")
+if(preval != null)
+setValues(preval)
+   console.log (preval)
+
  },[]); // Pass empty array to only run once on mount.
 
 
@@ -263,23 +377,31 @@ React.useEffect(() => {
     }
   }, [values]);
 
+  // const validator = () => new SimpleReactValidator();
 
+// const [validator,setValidator]= React.useState(false)
+//   const validatorListener  =(result) =>{
+//     setValidator( !result );
+// }
   const getStepContent = (step) => {
     switch (step) {
       case 0:
         return <VehicleForm handleChange={handleChange}
-        values={values} list={list} />;
+        values={values} list={list} errors={errors} validator={validator} />;
       case 1:
         return <ListingForm handleChange={handleChange}
-        values={values} />;
+        values={values} errors={errors} validator={validator} />;
       case 2:
-        return <Review />;
+        return (!props.isAuthenticated)?<Contact setUser={props.setUser} 
+        values={values} handleChange={handleChange} errors={errors} validator={validator} /> : <Review />;
+      case 3:
+        return <Review />  
       default:
         throw new Error('Unknown step');
     }
   };
 
-
+ 
 
   return (
     <React.Fragment>

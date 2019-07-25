@@ -17,6 +17,9 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './../components/sidebar/listIems';
 import Footer from "./Footer"
+import logo from "../assets/images/logo.png"
+import MenuSide from '../components/MenuSide';
+// import { useSelector } from 'react-redux'
 
 
 const drawerWidth = 240;
@@ -100,6 +103,12 @@ const useStyles = makeStyles(theme => ({
   },
   salogan: {
     fontSize: "0.50rem !important",
+  },
+  logoimg : {
+    height: 42
+  },
+  logo:{
+    padding:5
   }
 }));
 
@@ -112,7 +121,8 @@ export default function Dashboard(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  // const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+  
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -127,16 +137,20 @@ export default function Dashboard(props) {
           >
             <MenuIcon />
           </IconButton>
+          <IconButton className={classes.logo} aria-label="Home"  color="primary">
+          <img className={classes.logoimg} alt="complex" src={logo} />
+      </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Auto360x &nbsp;&nbsp;<Typography  variant="caption" display="block" className={classes.salogan} gutterBottom>
         SEE IT DRIVE IT BUY IT
       </Typography>
           </Typography>
-          <IconButton color="inherit">
+          {/* <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
             </Badge>
-          </IconButton>
+          </IconButton> */}
+          <MenuSide   />
         </Toolbar>
       </AppBar>
       <Drawer

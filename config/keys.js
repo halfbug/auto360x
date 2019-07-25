@@ -5,5 +5,8 @@ module.exports = {
     api_key: "671755859622817", 
     api_secret: "8uU3X_xD3xqErS0Jnx7gnrcK7aU"},
     carmakemodeldb : { Tocken : "1gGosHOuHCXRCadP8Rl0rHnAQB6hpsVurQS7OPgcuY2ygduXPctXPKnoU46g" }, 
+    userRoles : {sadmin: "Super Admin", admin: "Administrator",individual: "Individual",
+    dealer : "Dealer",anonoymous :"Anonymous"},
+    jwtSecret : "Auto360xjwt"
 }
 

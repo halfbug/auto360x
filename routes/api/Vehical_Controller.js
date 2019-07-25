@@ -28,7 +28,7 @@ router.get('/:id?', (req,res) => {
     console.log(query)
     Vehicle.find(query, function (err, vehicle) {})
     .sort({ date : -1 })
-    .then(vehicles => res.send({vehicles}));
+    .then(vehicles => res.send(vehicles));
 // res.send("this")
 });
 
@@ -36,6 +36,13 @@ router.get('/:id?', (req,res) => {
 // @desc  Create A Post
 // @access Public
 router.post('/',(req,res) => {
+
+
+// Simple validation
+if(!req.body.make && !req.body.model && !req.body.price && !req.body.zipcode ) {
+  return res.status(400).json({ msg: 'Please fill the required fields requied fields are make, model, price and zipcode' });
+}
+    
     console.log(req.body);
    const newVehicle = new Vehicles({
 
@@ -48,9 +55,39 @@ console.log( "sending... to mongo db....");
     res.json(vehicle);
     // listing detail update here
     
-   } ).catch((err)=> res.json(err));
+   } ).catch((err)=> res.status(400).json({ msg: "Please enter correct information"}));
 
 });
 
+// @route   DELETE api/vehicle/:id
+// @desc    Delete A Vehicle
+// @access  Public
+router.delete('/:id', (req, res) => {
+    Vehicle.findById(req.params.id)
+      .then(vehicle => vehicle.remove().then(() => res.json({ success: true })))
+      .catch(err => res.status(404).json({ success: false, msg: "Vehicle not found!" }));
+  });
+
+// @route   UPDATE api/vehicle/:id
+// @desc    Update A Vehicle
+// @access  Public
+router.put('/:id', (req, res) => {
+    const fieldsToUpdate = Object.keys(req.body)
+    const fieldsInModel = ['make', 'seller_type', 'license_plate', 'transmission', 'engine', 'milage_km', 'owner', 'model', 'price', 'package', 'zip', 'interior_color', 'exterior_color', 'is_active', 'style', 'posted_by', 'description', 'year', 'front_view', 'back_view', 'side_view', 'interior_view', 'condition', 'drivetype']
+    const isUpdateAllowed = fieldsToUpdate.every((field) => fieldsInModel.includes(field))
+
+    if(!isUpdateAllowed){
+        return res.status(400).json({ msg: 'Invalid field!'})
+    }
+  
+    Vehicle.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then((vehicle) => {
+        if(!vehicle){
+            throw Error("Vehicle not found!")
+        }
+        res.json(vehicle)
+    })
+    .catch(err => res.status(404).json({ success: false, msg: 'Please enter correct information' }));
+  });
 
 module.exports = router

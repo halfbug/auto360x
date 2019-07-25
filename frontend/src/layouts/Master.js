@@ -15,7 +15,7 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './../components/sidebar/listIems';
+import { adminListItems , secondaryadminListItems } from './../components/sidebar/listIems';
 import Footer from "./Footer"
 
 const drawerWidth = 240;
@@ -146,9 +146,9 @@ export default function Dashboard(props) {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <List>{adminListItems}</List>
         <Divider />
-        <List>{secondaryListItems}</List>
+        <List>{secondaryadminListItems}</List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

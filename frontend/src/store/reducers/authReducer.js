@@ -1,65 +1,57 @@
+import {
+  USER_LOADED,
+  USER_LOADING,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL
+} from '../actions/types';
 
-const initState = {
-  authError: null,
-  isloged : false
-}
-
-const authReducer = (state = initState, action) => {
-  switch(action.type){
-    case 'LOGIN_ERROR':
-      console.log('login error');
-      return {
-        ...state,
-        authError: 'Login failed',
-        isloged : false
-      }
-
-      
-      case 'LOGIN_ANONYMOUSLY_ERROR':
-      console.log('signInAnonymously error');
-      return {
-        ...state,
-        authError: 'signInAnonymously failed',
-        isloged : false
-      }
-    case 'LOGIN_SUCCESS':
-      console.log('login success');
-      return {
-        ...state,
-        authError: null,
-        isloged : true
-      }
-
-      
-      case 'LOGIN_ANONYMOUSLY_SUCCESS':
-      console.log('signInAnonymously success');
-      return {
-        ...state,
-        authError: null,
-        isloged : true
-      }
-
-    case 'SIGNOUT_SUCCESS':
-      console.log('signout success');
-      return {...state, isloged : false};
-
-    case 'SIGNUP_SUCCESS':
-      console.log('signup success')
-      return {
-        ...state,
-        authError: null
-      }
-
-    case 'SIGNUP_ERROR':
-      console.log('signup error')
-      return {
-        ...state,
-        authError: action.err.message
-      }
-
-    default:
-      return state
-  }
+const initialState = {
+  token: localStorage.getItem('token'),
+  isAuthenticated: null,
+  isLoading: false,
+  user: null
 };
 
-export default authReducer;
+export default function(state = initialState, action) {
+  switch (action.type) {
+    case USER_LOADING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case USER_LOADED:
+      return {
+        ...state,
+        isAuthenticated: true,
+        isLoading: false,
+        user: action.payload
+      };
+    case LOGIN_SUCCESS:
+    case REGISTER_SUCCESS:
+      localStorage.setItem('token', action.payload.token);
+      return {
+        ...state,
+        ...action.payload,
+        isAuthenticated: true,
+        isLoading: false
+      };
+    case AUTH_ERROR:
+    case LOGIN_FAIL:
+    case LOGOUT_SUCCESS:
+    case REGISTER_FAIL:
+      localStorage.removeItem('token');
+      return {
+        ...state,
+        token: null,
+        user: null,
+        isAuthenticated: false,
+        isLoading: false
+      };
+    default:
+      return state;
+  }
+}

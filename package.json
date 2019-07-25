@@ -10,9 +10,9 @@
     "client-install": "npm install --prefix frontend",
     "start": "node server.js",
     "server": "nodemon server.js",
-    "client" : "npm start --prefix frontend",
-    "dev" : "concurrently \"npm run server \"  \" npm run client\"",
-    "heroku-postbuild" : "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server \"  \" npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "repository": {
     "type": "git",
@@ -27,13 +27,23 @@
   "homepage": "https://github.com/halfbug/auto360x#readme",
   "dependencies": {
     "axios": "^0.19.0",
+    "bcryptjs": "^2.4.3",
     "cloudinary": "^1.14.0",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-form-data": "^2.0.8",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
     "mongoose": "^5.5.13",
-    "react-hook-thunk-reducer": "0.0.3"
+    "nodemailer": "^6.3.0",
+    "react-form-validator-core": "^0.6.4",
+    "react-hook-thunk-reducer": "0.0.3",
+    "react-material-ui-form-validator": "^2.0.9",
+    "react-number-format": "^4.0.8",
+    "react-recaptcha": "^2.3.10",
+    "simple-react-validator": "^1.2.0",
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

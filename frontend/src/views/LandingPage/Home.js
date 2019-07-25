@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 import { Redirect , withRouter } from "react-router-dom";
 import { compose } from "redux";
 
-import HeroUnit from "./../../components/HeroUnit"
+import HeroUnit from "./../../components/HeroUnit" 
 import SearchBar from "./../../components/SearchBar"
 import Carousel from "./../../components/Carousel2"
 import car1 from "./../../assets/carousel/1.jpg"

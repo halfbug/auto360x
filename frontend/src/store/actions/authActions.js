@@ -1,93 +1,157 @@
-import firebase from "firebaseConfig";
-const firebasedb = firebase.database().ref();
-// get me the table named user-details
-// if it does not exist, firebase will
-// automatically create it
-//const userDetailsRef = databaseRef.child("user-details");
+import axios from 'axios';
+import { returnErrors } from './errorActions';
 
-export const signIn = (credentials) => {
-  return (dispatch) => {
-    // const firebase = firebasedb;
-    firebase.auth().signInWithEmailAndPassword(
-      credentials.email,
-      credentials.password
-    ).then(() => {
-      dispatch({ type: 'LOGIN_SUCCESS' });
-    }).catch((err) => {
-      dispatch({ type: 'LOGIN_ERROR', err });
-    });
+import {
+  USER_LOADED,
+  USER_LOADING,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT_SUCCESS,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL
+} from './types';
 
-  }
-}
+// Check token & load user
+export const loadUser = () => (dispatch, getState) => {
+  // User loading
+  dispatch({ type: USER_LOADING });
 
-export const signInAnonymously  = () => {
-  return (dispatch, getState, {getFirebase}) => {
-    const firebase = getFirebase();
-    
-    firebase.auth().signInAnonymously().then(() => {
-      dispatch({ type: 'LOGIN_ANONYMOUSLY_SUCCESS' });
-    }).catch((err) => {
-      dispatch({ type: 'LOGIN_ANONYMOUSLY_ERROR', err });
-    });
-
-  }
-}
-
-export const signOut = () => {
-  return (dispatch, getState, {getFirebase}) => {
-    const firebase = getFirebase();
-
-    firebase.auth().signOut().then(() => {
-      dispatch({ type: 'SIGNOUT_SUCCESS' })
-    });
-  }
-}
-
-export const signUp = (newUser) => {
-  return (dispatch, getState, {getFirebase, getFirestore}) => {
-    const firebase = getFirebase();
-    const firestore = getFirestore();
-
-    firebase.auth().createUserWithEmailAndPassword(
-      newUser.email, 
-      newUser.password
-    ).then(resp => {
-      return firestore.collection('users').doc(resp.user.uid).set({
-        firstName: newUser.firstName,
-        lastName: newUser.lastName,
-        initials: newUser.firstName[0] + newUser.lastName[0]
+  axios
+    .get('/api/auth/user', tokenConfig(getState))
+    .then(res =>
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data
+      })
+    )
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({
+        type: AUTH_ERROR
       });
-    }).then(() => {
-      dispatch({ type: 'SIGNUP_SUCCESS' });
-    }).catch((err) => {
-      dispatch({ type: 'SIGNUP_ERROR', err});
     });
-  }
-}
+};
 
-export const anonymousTopermanentUser = (newUser) => {
-  return (dispatch, getState, {getFirebase, getFirestore}) => {
-    const firebase = getFirebase();
-    // const firestore = getFirestore();
+// Register User
+export const register = (user) => (dispatch) => new Promise((resolve, reject)=>{
+  // Headers 
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
 
-    // firebase.auth().createUserWithEmailAndPassword(
-    //   newUser.email, 
-    //   newUser.password
-    // ).then(resp => {
-      var credential = firebase.auth.EmailAuthProvider.credential(newUser.email, newUser.password);
-      console.log("Anonoymous User")
-      return firebase.auth().currentUser.linkAndRetrieveDataWithCredential(credential).then(function(usercred) {
-        var user = usercred.user;
-        console.log("Anonymous account successfully upgraded", user);
-        dispatch({ type: 'CONVERSION_SUCCESS' });
-      }, function(error) {
-        console.log("Error upgrading anonymous account", error);
-        dispatch({ type: 'CONVERSION_ERROR', error});
+  // Request body
+  const body = JSON.stringify(user);
+
+  axios
+    .post('/api/users/register', body, config)
+    .then(res =>{
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data
+      })
+      resolve(res.data)
+    })
+    .catch(err => {
+      dispatch(
+        returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL')
+      );
+      dispatch({
+        type: REGISTER_FAIL
       });
-    // }).then(() => {
-    //   dispatch({ type: 'CONVERSION_SUCCESS' });
-    // }).catch((err) => {
-    //   dispatch({ type: 'CONVERSION_ERROR', err});
-    // });
+      reject(err)
+    });
+});
+
+// Login User
+export const login = ({ email, password }) => dispatch => new Promise((resolve, reject)=>{
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  // Request body
+  const body = JSON.stringify({ email, password });
+
+  axios
+    .post('/api/auth', body, config)
+    .then(res => {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+      });
+      // resolve(res.data)
+    })
+    .catch(err => {
+      dispatch(
+        returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
+      );
+      dispatch({
+        type: LOGIN_FAIL
+      });
+      reject(err)
+    });
+});
+
+// Logout User
+export const logout = () => {
+  return {
+    type: LOGOUT_SUCCESS
+  };
+};
+
+// login form token stored.
+export const loginFromToken = () => dispatch => {
+  
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'x-code-auth' : localStorage.getItem("token")
+    }
+  };
+
+  
+  axios
+    .get('/api/auth/tokenlogin', config)
+    .then(res =>
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+      })
+    )
+    .catch(err => {
+      dispatch(
+        returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
+      );
+      dispatch({
+        type: LOGIN_FAIL
+      });
+    });
+  
+  
+};
+
+// Setup config/headers and token
+export const tokenConfig = getState => {
+  // Get token from localstorage
+  const token = getState().auth.token;
+
+  // Headers
+  const config = {
+    headers: {
+      'Content-type': 'application/json'
+    }
+  };
+
+  // If token, add to headers
+  if (token) {
+    config.headers['x-auth-token'] = token;
   }
-}
+
+  return config;
+};

@@ -11,6 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Sell from './../../store/reducers/sellReducer';
 import { makeStyles } from '@material-ui/core/styles';
+import {FormatPrice, FormatZipCode} from '../../components/FormatedFields';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ListingForm(props) {
-   const { values, handleChange } = props;
+   const { values, handleChange , validator, errors} = props;
    const classes = useStyles();
   // function handleChange(event) {
   //   event.persist();
@@ -41,7 +42,10 @@ export default function ListingForm(props) {
   // React.useEffect(() => {
   //   // props.saveAdvertHof({values})
   // });
+// console.log(errors)
+// console.log(validator.fields.vin_num)
 
+validator.purgeFields();
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -49,7 +53,7 @@ export default function ListingForm(props) {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} >
-        <FormControl component="fieldset" >
+        <FormControl component="fieldset" error={errors.seller_type} >
         <FormLabel component="legend">Seller Type</FormLabel>
         <RadioGroup
           aria-label="seller_type"
@@ -57,6 +61,7 @@ export default function ListingForm(props) {
           id="seller_type"
           required
           row
+          value={values.seller_type}
           onChange={handleChange}
         >
           <FormControlLabel value="individual" 
@@ -74,53 +79,80 @@ export default function ListingForm(props) {
           
           
         </RadioGroup>
+        <FormHelperText id="component-error-text" error>
+         
+           { validator.message('seller_type', values['seller_type'], 'required',{element: false})}
+          </FormHelperText>
+        
       </FormControl>
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="Vin Number" 
-          label="Vin Number" fullWidth onChange={handleChange} />
+          <TextField required id="vin_num" error={errors.vin_num}
+          label="Vin Number" fullWidth value={values.vin_num} onChange={handleChange} 
+          helperText={validator.message('vin_num', values.vin_num, 'required|max:17',{element: false})}
+ 
+          />
         </Grid>
         {/* <Grid item xs={12} md={6}>
           <TextField required id="registration_year" label="Registration Year" fullWidth />
         </Grid> */}
         <Grid item xs={12} md={6}>
           <TextField
-            required
+            
             id="owner"
             label="Owner"
             helperText="if you are first or sencond owner of the car"
             fullWidth
             onChange={handleChange}
+            value={values.owner}
+            
           />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="zipcode" 
+          <TextField required id="zipcode" error={(!validator.fieldValid('zipcode') && validator.messagesShown) }
           label="Zip Code"
-          helperText="Where is this car currently located?"
+         // helperText="Where is this car currently located?"
+         helperText={validator.message('zipcode', values.zipcode, 'required|max:5|min:5',{element: false})}
            fullWidth
            onChange={handleChange}
+           value={values.zipcode}
+           InputProps={{
+          inputComponent: FormatZipCode,
+        }}
             />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField required id="price"
-           label="Enter your Car Price ( USD )" fullWidth />
+          error={errors.price}
+            name="price"
+           label="Price ( USD )" fullWidth
+           value={values.price}
+           onChange={handleChange}
+           helperText={validator.message('price', values.price, 'required',{element: false})}
+           InputProps={{
+          inputComponent: FormatPrice,
+          
+        }}
+            />
         </Grid>
         
         <Grid item xs={12} md={12}>
           <TextField
-            
+            error={errors.description}
             id="description"
             label="Description"
             rowsMax="4"
             multiline
-            helperText="Describe your car in more detaial"
+            helperText={validator.errorMessages.description === null ? "Describe your car in more detaial" : validator.message('description', values.discription, 'alpha_num_dash_space|max:250',{element: false}) } 
             fullWidth
             onChange={handleChange}
+            value={values.description}
+            
           />
         </Grid>
         
         <Grid item xs={12} md={12}>
-        <FormControl component="fieldset" 
+        <FormControl component="fieldset" error={errors.package}
         >
         <FormLabel component="legend">Select Add Package</FormLabel>
         <RadioGroup
@@ -128,6 +160,7 @@ export default function ListingForm(props) {
           name="package"
           id = "package"
           onChange={handleChange}
+          value={values.package}
         >
           <FormControlLabel
             value="packid"
@@ -155,12 +188,15 @@ export default function ListingForm(props) {
           />
           
         </RadioGroup>
-        <FormHelperText> </FormHelperText>
+        <FormHelperText id="component-error-text" error>
+         
+           { validator.message('package', values['package'], 'required',{element: false})}
+          </FormHelperText>
       </FormControl>
       </Grid>
         
       <Grid item xs={12}>
-      <FormControl component="fieldset" >
+      <FormControl component="fieldset" error={errors.condition}>
         <FormLabel component="legend">Condition</FormLabel>
         <RadioGroup
           aria-label="Condition"
@@ -175,15 +211,23 @@ export default function ListingForm(props) {
           <FormControlLabel value="Used" control={<Radio />} label="Used" />
           
         </RadioGroup>
+         <FormHelperText id="component-error-text" error>
+         
+           { validator.message('condition', values['condition'], 'required',{element: false})}
+          </FormHelperText>
       </FormControl>
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel
-            control={<Checkbox color="secondary" name="tandc" value="yes" />}
+            control={<Checkbox color="secondary" name="terms and conditions" value="yes" />}
             label="Agreed to Terms & Conditions" onChange={handleChange}
           />
+          <FormHelperText id="component-error-text" error>
+         
+         { validator.message('terms and conditions', values['terms and conditions'], 'required',{element: false})}
+        </FormHelperText>
         </Grid>
-      </Grid>
+      </Grid> 
     </React.Fragment>
   );
 }

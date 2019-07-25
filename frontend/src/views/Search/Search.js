@@ -91,7 +91,7 @@ export default function Search(props) {
           console.log(res);
           // list["makes"]=res.data
           setVehicles({
-           data:res.data.vehicles
+           data:res.data
           })
           setIsLoading(false);
         // forceUpdate();
