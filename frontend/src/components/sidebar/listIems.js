@@ -133,53 +133,7 @@ export const mainListItems = (
       <ListItemText primary="News & Reviews" />
     </ListItem>
 
-<<<<<<< HEAD
-=======
-    <Link component={RouterLink} color="inherit" to="/admin/package">
-      <ListItem button>
-        <ListItemIcon>
-          <Avatar className="Pinkgradient">
-            <LayersIcon />
-          </Avatar>
-        </ListItemIcon>
-        <ListItemText primary="Packages" />
-      </ListItem>
-    </Link>
-
-    <Link component={RouterLink} color="inherit" to="/admin/viewNews">
-      <ListItem button>
-        <ListItemIcon>
-          <Avatar className="Pinkgradient">
-            <LayersIcon />
-          </Avatar>
-        </ListItemIcon>
-        <ListItemText primary="News" />
-      </ListItem>
-    </Link>
-
-    <Link component={RouterLink} color="inherit" to="/admin/viewUser">
-      <ListItem button>
-        <ListItemIcon>
-          <Avatar className="Pinkgradient">
-            <LayersIcon />
-          </Avatar>
-        </ListItemIcon>
-        <ListItemText primary="Users" />
-      </ListItem>
-    </Link>
->>>>>>> c34d0c7a9455437cd960b8b32d041bfc0420c0bd
-
-    <Link component={RouterLink} color="inherit" to="/admin/viewVehicle">
-      <ListItem button>
-        <ListItemIcon>
-          <Avatar className="Pinkgradient">
-            <LayersIcon />
-          </Avatar>
-        </ListItemIcon>
-        <ListItemText primary="Vehicles" />
-      </ListItem>
-    </Link>
-
+    
   </div>
 );
 
@@ -225,7 +179,7 @@ export const secondaryListItems = (
 export const secondaryadminListItems = (
   <div>
     <ListSubheader inset></ListSubheader>
-    
+     
     <Link component={RouterLink} color="inherit" to="/">
     <ListItem button>
       <ListItemIcon>

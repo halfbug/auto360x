@@ -36,11 +36,12 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "mongoose": "^5.5.13",
-    "react-form-validator-core": "^0.6.4",
     "nodemailer": "^6.3.0",
+    "react-form-validator-core": "^0.6.4",
     "react-hook-thunk-reducer": "0.0.3",
     "react-material-ui-form-validator": "^2.0.9",
     "react-number-format": "^4.0.8",
+    "react-recaptcha": "^2.3.10",
     "simple-react-validator": "^1.2.0",
     "sweetalert": "^2.1.2"
   },
