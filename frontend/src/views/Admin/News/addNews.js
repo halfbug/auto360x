@@ -158,6 +158,7 @@ class AddNews extends Component {
                                 name="content"
                                 label="Content"
                                 multiline
+                                rowsMax="4"
                                 onChange={this.onChange}
                                 fullWidth
                             />
@@ -227,7 +228,7 @@ class AddNews extends Component {
                                 Upload Photo
                             </Typography>
                             <input
-                                //style={{  }}
+                                 accept="image/*"
                                 type="file"
                                 id="newsimage"
                                 onChange={this.fileSelectedHandler}
@@ -258,7 +259,7 @@ class AddNews extends Component {
                     </Grid>
                 </form>
                 <Grid item xs={12} sm={12}>
-                    <Button variant="contained" color="primary" style={{marginTop: "10px"}} onClick={() => {this.props.history.push('/viewNews')}}>
+                    <Button variant="contained" color="primary" style={{marginTop: "10px"}} onClick={() => {this.props.history.push('/admin/viewNews')}}>
                         Go back
                     </Button>
                 </Grid>

@@ -14,7 +14,7 @@ import { addPackage } from '../../../store/actions/packageActions';
 
 class AddPackage extends Component {
   state = {
-    checkedA: false,
+    is_active: false,
     title: '',
     price: 0,
     start_date: '2017-05-24',
@@ -37,7 +37,7 @@ class AddPackage extends Component {
   };
 
   handleChange = name => event => {
-   // console.log(this.state.checkedA)
+    // console.log(this.state.is_active)
     this.setState({ ...this.state, [name]: event.target.checked });
 
   };
@@ -45,18 +45,20 @@ class AddPackage extends Component {
   onSubmit = e => {
     e.preventDefault();
     const newPackage = {
-      is_active: this.state.checkedA,
+      is_active: this.state.is_active,
       title: this.state.title,
       price: this.state.price,
-      start_date: moment( this.state.start_date).format("YYYY-MM-DD"),
-      end_date: moment( this.state.end_date).format("YYYY-MM-DD"),
+      start_date: moment(this.state.start_date).format("YYYY-MM-DD"),
+      end_date: moment(this.state.end_date).format("YYYY-MM-DD"),
       description: this.state.description
     };
 
     // Add item via addItem action
-    this.props.addPackage(newPackage);
+    this.props.addPackage(newPackage)
+    // .then(res => console.log(res))
+    // .catch(err => console.log(err))
     // this.setState({
-    //   checkedA: false,
+    //   is_active: false,
     //   title: '',
     //   price: '',
     //   start_date: '2017-05-24',
@@ -64,16 +66,16 @@ class AddPackage extends Component {
     //   description: '',
     // })
     //window.location.reload()
-  // this.forceUpdate()
+    // this.forceUpdate()
     //console.log("package added", this.state)
 
   };
-  
+
 
   render() {
     return (
       <Fragment>
-        <Typography variant="h6" gutterBottom style={{textAlign: "center"}}>
+        <Typography variant="h6" gutterBottom style={{ textAlign: "center" }}>
           Add Package
         </Typography>
         <form onSubmit={this.onSubmit}>
@@ -132,6 +134,8 @@ class AddPackage extends Component {
                 id="description"
                 name="description"
                 label="Description"
+                multiline
+                rowsMax="4"
                 onChange={this.onChange}
                 fullWidth
               />
@@ -140,7 +144,7 @@ class AddPackage extends Component {
               <FormGroup row>
                 <FormControlLabel
                   control={
-                    <Checkbox checked={this.state.checkedA} onChange={this.handleChange('checkedA')} value="checkedA" />
+                    <Checkbox checked={this.state.is_active} onChange={this.handleChange('is_active')} value="is_active" />
                   }
                   label="Is active"
                 />

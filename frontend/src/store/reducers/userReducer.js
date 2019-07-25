@@ -44,7 +44,7 @@ import {
       case UPDATE_USER:
           return {
             ...state,
-            users: [action.payload]
+            users: [ ...state.users, action.payload]
           };
       case USER_LOADING:
         return {

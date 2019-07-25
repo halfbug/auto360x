@@ -66,13 +66,13 @@ class AddUser extends Component {
             avatarImage: e.target.files[0],
             avatarSize: e.target.files[0].size,
             avatarType: e.target.files[0].type,
-            
+
         })
         console.log(e.target.files[0])
         console.log(e.target.files[0].name)
         console.log(e.target.files[0].size)
         console.log(e.target.files[0].type)
-      //  console.log(e.target.id)
+        //  console.log(e.target.id)
     }
 
     logoSelectedHandler = e => {
@@ -80,19 +80,19 @@ class AddUser extends Component {
             company_logoImage: e.target.files[0],
             logoSize: e.target.files[0].size,
             logoType: e.target.files[0].type,
-            
+
         })
         console.log(e.target.files[0])
         console.log(e.target.files[0].name)
         console.log(e.target.files[0].size)
         console.log(e.target.files[0].type)
-      //  console.log(e.target.id)
+        //  console.log(e.target.id)
     }
 
     onSubmit = e => {
         const { password, avatarSize, avatarType, logoSize, logoType } = this.state
         e.preventDefault();
-        if(password.length < 6){
+        if (password.length < 6) {
             swal("Password must be atleast 6 characters long")
         }
         else if ((avatarType && logoType) !== ('image/jpeg' || 'image/jpg' || 'image/png')) {
@@ -131,7 +131,7 @@ class AddUser extends Component {
                     console.log(res)
                     console.log("pre setState id : " + res.data[0].public_id)
                     console.log("finished Progress : " + res.data[0].url)
-    
+
                     this.setState({
                         company_logo: res.data[0].url
                     })
@@ -153,16 +153,16 @@ class AddUser extends Component {
                         company_name: this.state.company_name,
                         company_logo: this.state.company_logo
                     };
-                     // Add user via addItem action
+                    // Add user via addItem action
 
                     this.props.addUser(newUser);
-                    console.log("user added", this.state)    
+                    console.log("user added", this.state)
 
-                }) .catch(err => {
+                }).catch(err => {
                     swal("Error adding user!")
                     console.log(err)
                 })
-          })
+            })
                 .catch(err => {
                     swal("Error adding user!")
                     console.log(err)
@@ -221,7 +221,7 @@ class AddUser extends Component {
                                 Avatar
                             </Typography>
                             <input
-                                //style={{  }}
+                                 accept="image/*"
                                 type="file"
                                 name="avatarImage"
                                 onChange={this.avatarSelectedHandler}
@@ -312,6 +312,8 @@ class AddUser extends Component {
                                 id="description"
                                 name="description"
                                 label="Description"
+                                multiline
+                                rowsMax="4"
                                 onChange={this.onChange}
                                 fullWidth
                             />
@@ -336,7 +338,7 @@ class AddUser extends Component {
                                 Company logo
                             </Typography>
                             <input
-                                //style={{  }}
+                                 accept="image/*"
                                 type="file"
                                 name="company_logoImage"
                                 onChange={this.logoSelectedHandler}
@@ -357,7 +359,7 @@ class AddUser extends Component {
                     </Grid>
                 </form>
                 <Grid item xs={12} sm={12}>
-                    <Button variant="contained" color="primary" style={{ marginTop: "10px" }} onClick={() => { this.props.history.push('/viewUser') }}>
+                    <Button variant="contained" color="primary" style={{ marginTop: "10px" }} onClick={() => { this.props.history.push('/admin/viewUser') }}>
                         Go back
                     </Button>
                 </Grid>

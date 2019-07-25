@@ -24,25 +24,25 @@ class UpdatePackage extends Component {
     static propTypes = {
         pkg: PropTypes.object.isRequired,
         updatePackage: PropTypes.func.isRequired
-      };   
-      
-  onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-    // console.log("text changed")
-    // console.log(this.state.start_date)
-    // console.log(moment( this.state.start_date).format("YYYY-MM-DD"))
-    // console.log(this.state.end_date)
-    // console.log(moment( this.state.end_date).format("YYYY-MM-DD"))
-  };
+    };
 
-  handleChange = name => event => {
-   // console.log(this.state.checkedA)
-    this.setState({ ...this.state, [name]: event.target.checked });
+    onChange = e => {
+        this.setState({ [e.target.name]: e.target.value });
+        // console.log("text changed")
+        // console.log(this.state.start_date)
+        // console.log(moment( this.state.start_date).format("YYYY-MM-DD"))
+        // console.log(this.state.end_date)
+        // console.log(moment( this.state.end_date).format("YYYY-MM-DD"))
+    };
 
-  };
+    handleChange = name => event => {
+        // console.log(this.state.checkedA)
+        this.setState({ ...this.state, [name]: event.target.checked });
 
-  componentWillMount(){
-    const pkg = this.props.history.location.state.pkg
+    };
+
+    componentWillMount() {
+        const pkg = this.props.history.location.state.pkg
         this.setState({
             is_active: pkg.is_active,
             title: pkg.title,
@@ -51,36 +51,36 @@ class UpdatePackage extends Component {
             end_date: moment(pkg.end_date).format("YYYY-MM-DD"),
             description: pkg.description,
         })
-      //  console.log("pre update", this.state.i)
-  }
+        //  console.log("pre update", this.state.i)
+    }
 
-  onSubmit = e => {
-    e.preventDefault();
-    const id = this.props.history.location.state.pkg._id
-    const updatedPackage = {
-      is_active: this.state.is_active,
-      title: this.state.title,
-      price: this.state.price,
-      start_date: moment( this.state.start_date).format("YYYY-MM-DD"),
-      end_date: moment( this.state.end_date).format("YYYY-MM-DD"),
-      description: this.state.description
-    };
+    onSubmit = e => {
+        e.preventDefault();
+        const id = this.props.history.location.state.pkg._id
+        const updatedPackage = {
+            is_active: this.state.is_active,
+            title: this.state.title,
+            price: this.state.price,
+            start_date: moment(this.state.start_date).format("YYYY-MM-DD"),
+            end_date: moment(this.state.end_date).format("YYYY-MM-DD"),
+            description: this.state.description
+        };
 
-    // Update package via updatePackage action
-    this.props.updatePackage(id, updatedPackage);
-   // this.props.history.push('/packageManagement')
-    //window.location.reload()
-    //console.log("package added")
-  }
+        // Update package via updatePackage action
+        this.props.updatePackage(id, updatedPackage);
+        // this.props.history.push('/packageManagement')
+        //window.location.reload()
+        //console.log("package added")
+    }
 
     render() {
-      //  console.log(this.props.history.location.state)
-       // const pkg = this.props.history.location.state.pkg
+        //  console.log(this.props.history.location.state)
+        // const pkg = this.props.history.location.state.pkg
         const { is_active, title, price, start_date, end_date, description } = this.state
-     //  console.log(this.state)
+        //  console.log(this.state)
         return (
             <Fragment>
-                <Typography variant="h6" gutterBottom style={{ textAlign: "center" }}>
+                <Typography variant="h6" gutterBottom style={{ textAlign: "center", marginBottom: "20px" }}>
                     Update Package
                 </Typography>
                 <form onSubmit={this.onSubmit}>
@@ -141,6 +141,8 @@ class UpdatePackage extends Component {
                                 id="description"
                                 name="description"
                                 label="Description"
+                                multiline
+                                rowsMax="4"
                                 defaultValue={description}
                                 onChange={this.onChange}
                                 fullWidth
@@ -159,14 +161,14 @@ class UpdatePackage extends Component {
                         <Grid item xs={12} sm={12}>
                             <label htmlFor="outlined-button">
                                 <Button type="submit" variant="outlined" >
-                                    Update Package 
+                                    Update 
                                 </Button>
                             </label>
                         </Grid>
                     </Grid>
                 </form>
                 <Grid item xs={12} sm={12}>
-                    <Button variant="contained" color="primary" style={{marginTop: "10px"}} onClick={() => {this.props.history.push('/package')}}>
+                    <Button variant="contained" color="primary" style={{ marginTop: "10px" }} onClick={() => { this.props.history.push('/admin/package') }}>
                         Go back
                     </Button>
                 </Grid>
@@ -178,6 +180,6 @@ class UpdatePackage extends Component {
 
 const mapStateToProps = (state) => ({
     pkg: state.pkg
-  })
-  
-  export default connect(mapStateToProps, { updatePackage })(UpdatePackage)
+})
+
+export default connect(mapStateToProps, { updatePackage })(UpdatePackage)

@@ -6,6 +6,8 @@ import packageReducer from './packageReducer'
 import errorReducer from './errorReducer'
 import newsReducer from './newsReducer'
 import userReducer from './userReducer'
+import vehicleReducer from './vehicleReducer'
+import clientQueryReducer from './clientQueryReducer'
 // import { firestoreReducer } from 'redux-firestore';
 // import { firebaseReducer } from 'react-redux-firebase'
 
@@ -15,7 +17,9 @@ const rootReducer = combineReducers({
   pkg: packageReducer,
   error: errorReducer,
   news: newsReducer,
-  user: userReducer
+  user: userReducer,
+  vehicle: vehicleReducer,
+  clientQuery: clientQueryReducer
   // firestore: firestoreReducer,
   // firebase: firebaseReducer
 });

@@ -14,6 +14,7 @@ const detail_routes = require('./routes/api/Detail_Controller')
 const users_routes = require('./routes/api/User_Controller')
 const messages_routes = require('./routes/api/Message_Controller')
 const auth_routes = require('./routes/api/Auth_Controller')
+const clientQueries_routes = require('./routes/api/ClientQueries_Controller')
 
 
 const app = express();
@@ -52,6 +53,8 @@ app.use('/api/detail', detail_routes);
 app.use('/api/users', users_routes)
 app.use('/api/messages', messages_routes)
 app.use('/api/auth', auth_routes)
+app.use('/api/clientQueries', clientQueries_routes)
+
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
     // Set static folder

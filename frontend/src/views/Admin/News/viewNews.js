@@ -22,7 +22,7 @@ class ViewNews extends Component {
     }
 
     onNewsClick = (index, news) => {
-        this.props.history.push({pathname: '/newsDetails', state: {index, news} })
+        this.props.history.push({pathname: '/admin/newsDetails', state: {index, news} })
     }
 
     onDeleteClick = (id) => {
@@ -37,7 +37,7 @@ class ViewNews extends Component {
                     <Typography variant="h6" gutterBottom style={{ marginTop: "30px", fontSize: "25px",  paddingTop: "10px", textAlign: "center" }}>
                          News
                     </Typography>
-                    <Button variant="contained" style={{marginLeft: "80%", marginBottom: "20px"}} onClick={() => {this.props.history.push('/addNews')}}>
+                    <Button variant="contained" style={{marginLeft: "80%", marginBottom: "20px"}} onClick={() => {this.props.history.push('/admin/addNews')}}>
                         Add News  <AddIcon />
                     </Button>
                     <hr/>

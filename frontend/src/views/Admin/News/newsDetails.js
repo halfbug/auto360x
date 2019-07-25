@@ -20,7 +20,7 @@ class NewsDetails extends Component {
 
     
     onEditClick = (index, news) => {
-        this.props.history.push({pathname: '/updateNews', state: {index, news} })
+        this.props.history.push({pathname: '/admin/updateNews', state: {index, news} })
     }
 
     render() {
