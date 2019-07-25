@@ -62,7 +62,7 @@ export default function Wizard(props) {
   const [values,setValues] = React.useState({});
   const isContactStep = (steps[activeStep] === "Contact Details")?true:false;
  const {validator}=props; 
- const [errors,setErrors]=React.useState({listing:[],vehicle:[]})
+ const [errors,setErrors]=React.useState({})
  
  const stepkey =()=>{
   let vrname = steps[activeStep].split(" ")
@@ -82,11 +82,8 @@ export default function Wizard(props) {
   
  }
   const handleNext = () => {
-    validator.showMessages();
-    const skey = stepkey();
-
-    values[skey].each()
-
+   
+  if (validator.allValid()) {
     setActiveStep(activeStep + 1);
 
    if ((steps.length - 1 ) === activeStep){
@@ -111,7 +108,44 @@ export default function Wizard(props) {
     localStorage.setItem('sellform', JSON.stringify(values));
     
    }
-   
+  }
+  else {
+
+    validator.showMessages();
+    const skey = stepkey();
+console.log(validator.getErrorMessages())
+const emsges = validator.getErrorMessages();
+let errlist = {}
+for(var fname in emsges){
+  console.log(emsges[fname])
+  console.log(skey)
+      // if ( emsges[fname] != null ) {
+      //   console.log("inside if : "+fname)
+      console.log(errors)
+  errlist[fname]=!(validator.fields[fname])
+      // }
+      // else{
+      //   console.log("inside else : "+fname)
+      //   setErrors({
+      //     ...errors,
+      //     [skey]:{ ...errors[skey], [fname]:false}
+      //   })
+      // }
+    }
+console.log(errors)
+
+// if(values.seller_type == null)
+// errlist['seller_type'] = true;
+// else{
+// validator.fields['seller_type'] = true;
+// console.log(validator.fields['seller_type'] )
+// }
+setErrors({
+  ...errors,
+  ...errlist
+})
+    forceUpdate();
+  }
 
     // console.log(state)
   };
@@ -287,18 +321,18 @@ const handleChange =  e => {
 //     ...error,
 //     [field] :false
 //   })
-//   console.log(steps[activeStep] === "Contact details")
-// console.log(isContactStep)
-//   if(isContactStep){
-//     console.log("inside contact step")
-//     setValues({ 
-//       ...values,
-//       user:{...values.user, [field] : e.target.value }});
-//   }else
-//   setValues({ 
-//     ...values,
-//     [field] : e.target.value });
-saveStepwise(field,e.target.value)
+  console.log(steps[activeStep] === "Contact details")
+console.log(isContactStep)
+  if(isContactStep){
+    console.log("inside contact step")
+    setValues({ 
+      ...values,
+      user:{...values.user, [field] : e.target.value }});
+  }else
+  setValues({ 
+    ...values,
+    [field] : e.target.value });
+// saveStepwise(field,e.target.value)
     console.log("wizard state : advert :")
   console.log(values)
 
@@ -353,13 +387,13 @@ React.useEffect(() => {
     switch (step) {
       case 0:
         return <VehicleForm handleChange={handleChange}
-        values={values} list={list} validator={validator} />;
+        values={values} list={list} errors={errors} validator={validator} />;
       case 1:
         return <ListingForm handleChange={handleChange}
         values={values} errors={errors} validator={validator} />;
       case 2:
         return (!props.isAuthenticated)?<Contact setUser={props.setUser} 
-        values={values} handleChange={handleChange} validator={validator} /> : <Review />;
+        values={values} handleChange={handleChange} errors={errors} validator={validator} /> : <Review />;
       case 3:
         return <Review />  
       default:

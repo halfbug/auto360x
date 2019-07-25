@@ -42,8 +42,10 @@ export default function ListingForm(props) {
   // React.useEffect(() => {
   //   // props.saveAdvertHof({values})
   // });
-console.log(validator.message('vin_num', values.vin_num, 'required|max:17'))
-console.log(validator.fieldValid('vin_num'))
+// console.log(errors)
+// console.log(validator.fields.vin_num)
+
+validator.purgeFields();
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -51,7 +53,7 @@ console.log(validator.fieldValid('vin_num'))
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} >
-        <FormControl component="fieldset" >
+        <FormControl component="fieldset" error={errors.seller_type} >
         <FormLabel component="legend">Seller Type</FormLabel>
         <RadioGroup
           aria-label="seller_type"
@@ -77,12 +79,17 @@ console.log(validator.fieldValid('vin_num'))
           
           
         </RadioGroup>
+        <FormHelperText id="component-error-text" error>
+         
+           { validator.message('seller_type', values['seller_type'], 'required',{element: false})}
+          </FormHelperText>
+        
       </FormControl>
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="vin_num" error={errors.listing.vin_num }
+          <TextField required id="vin_num" error={errors.vin_num}
           label="Vin Number" fullWidth value={values.vin_num} onChange={handleChange} 
-          helperText={validator.message('vin_num', values.vin_num, 'required|max:17')}
+          helperText={validator.message('vin_num', values.vin_num, 'required|max:17',{element: false})}
  
           />
         </Grid>
@@ -91,19 +98,21 @@ console.log(validator.fieldValid('vin_num'))
         </Grid> */}
         <Grid item xs={12} md={6}>
           <TextField
-            required
+            
             id="owner"
             label="Owner"
             helperText="if you are first or sencond owner of the car"
             fullWidth
             onChange={handleChange}
             value={values.owner}
+            
           />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="zipcode" 
+          <TextField required id="zipcode" error={(!validator.fieldValid('zipcode') && validator.messagesShown) }
           label="Zip Code"
-          helperText="Where is this car currently located?"
+         // helperText="Where is this car currently located?"
+         helperText={validator.message('zipcode', values.zipcode, 'required|max:5|min:5',{element: false})}
            fullWidth
            onChange={handleChange}
            value={values.zipcode}
@@ -114,32 +123,36 @@ console.log(validator.fieldValid('vin_num'))
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField required id="price"
+          error={errors.price}
             name="price"
            label="Price ( USD )" fullWidth
            value={values.price}
            onChange={handleChange}
+           helperText={validator.message('price', values.price, 'required',{element: false})}
            InputProps={{
           inputComponent: FormatPrice,
+          
         }}
             />
         </Grid>
         
         <Grid item xs={12} md={12}>
           <TextField
-            
+            error={errors.description}
             id="description"
             label="Description"
             rowsMax="4"
             multiline
-            helperText="Describe your car in more detaial"
+            helperText={validator.errorMessages.description === null ? "Describe your car in more detaial" : validator.message('description', values.discription, 'alpha_num_dash_space|max:250',{element: false}) } 
             fullWidth
             onChange={handleChange}
             value={values.description}
+            
           />
         </Grid>
         
         <Grid item xs={12} md={12}>
-        <FormControl component="fieldset" 
+        <FormControl component="fieldset" error={errors.package}
         >
         <FormLabel component="legend">Select Add Package</FormLabel>
         <RadioGroup
@@ -175,12 +188,15 @@ console.log(validator.fieldValid('vin_num'))
           />
           
         </RadioGroup>
-        <FormHelperText> </FormHelperText>
+        <FormHelperText id="component-error-text" error>
+         
+           { validator.message('package', values['package'], 'required',{element: false})}
+          </FormHelperText>
       </FormControl>
       </Grid>
         
       <Grid item xs={12}>
-      <FormControl component="fieldset" >
+      <FormControl component="fieldset" error={errors.condition}>
         <FormLabel component="legend">Condition</FormLabel>
         <RadioGroup
           aria-label="Condition"
@@ -195,15 +211,23 @@ console.log(validator.fieldValid('vin_num'))
           <FormControlLabel value="Used" control={<Radio />} label="Used" />
           
         </RadioGroup>
+         <FormHelperText id="component-error-text" error>
+         
+           { validator.message('condition', values['condition'], 'required',{element: false})}
+          </FormHelperText>
       </FormControl>
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel
-            control={<Checkbox color="secondary" name="tandc" value="yes" />}
+            control={<Checkbox color="secondary" name="terms and conditions" value="yes" />}
             label="Agreed to Terms & Conditions" onChange={handleChange}
           />
+          <FormHelperText id="component-error-text" error>
+         
+         { validator.message('terms and conditions', values['terms and conditions'], 'required',{element: false})}
+        </FormHelperText>
         </Grid>
-      </Grid>
+      </Grid> 
     </React.Fragment>
   );
 }

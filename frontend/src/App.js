@@ -33,7 +33,11 @@ import UpdateNews from './views/Admin/News/updateNews'
 import AddUser from './views/Admin/Users/addUser'
 import ViewUser from './views/Admin/Users/viewUser'
 import UpdateUser from './views/Admin/Users/updateUser'
-
+import {theme} from './config/themeCnfg'
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import About from './views/LandingPage/About'
+import Terms from './views/LandingPage/Terms'
+import Logout from './views/Auth/SignOut'
 
 
 export class App extends React.Component {
@@ -45,6 +49,7 @@ export class App extends React.Component {
     return (
        <BrowserRouter>
       <div className="App">
+      <MuiThemeProvider theme={theme}>
         <Switch>
         <AppRoute exact path="/signIn" layout={Plane} component={SignIn} />
         <AppRoute exact path="/signUp" layout={Plane} component={SignUp} />
@@ -53,6 +58,9 @@ export class App extends React.Component {
         <AppRoute exact path="/sell" layout={Public} component={Wizard} />
         <AppRoute exact path="/search/:make?:view?" layout={Public} component={Search} />
         <AppRoute exact path="/vehicle/:id" layout={Public} component={Detail} />
+        <AppRoute exact path="/about" layout={Public} component={About} />
+        <AppRoute exact path="/terms" layout={Public} component={Terms} />
+        <AppRoute exact path="/logout" layout={Public} component={Logout} />
 
         <AppRoute exact path="/package" layout={Master} component={PacakageManagement} />
         <AppRoute exact path="/updatePackage" layout={Master} component={UpdatePackage} />
@@ -66,7 +74,7 @@ export class App extends React.Component {
         {/* <AppRoute exact path="/company" layout={Master} component={IndexCompany} /> */}
           
         </Switch>
-        
+      </MuiThemeProvider>
       </div>
       </BrowserRouter>
     )

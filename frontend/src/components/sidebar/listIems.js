@@ -137,18 +137,25 @@ export const secondaryListItems = (
       <ListItemText primary="Home" />
     </ListItem>
     </Link>
+
+    <Link component={RouterLink} color="inherit" to="/about">
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="About us" />
     </ListItem>
+    </Link>
+
+    <Link component={RouterLink} color="inherit" to="/terms">
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Terms & Conditions" />
     </ListItem>
+    </Link>
+    
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />

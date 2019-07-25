@@ -74,12 +74,7 @@ const featurez = [
   'Power Driver Seat',
   'Power Liftgate',
   'Navigation System',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
+  
 ];
 
 
@@ -253,9 +248,11 @@ export default function VehicleForm(props) {
     setOpen(false);
   }
  
-
-  const { values, handleChange, list } = props;
+//errors={errors} validator={validator}
+  const { values, handleChange, list , errors, validator } = props;
   // console.log( list)
+
+  validator.purgeFields();
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -264,7 +261,7 @@ export default function VehicleForm(props) {
       <Grid container spacing={3}>
         <Grid item xs={12} >
           
-          <FormControl className={classes.formControl} >
+          <FormControl className={classes.formControl} error={errors.make} >
         <InputLabel htmlFor="make">Make</InputLabel>
         <Select 
         name="make"
@@ -285,13 +282,13 @@ export default function VehicleForm(props) {
           ))}
           
         </Select>
-        <FormHelperText>Select the make of your vehicle</FormHelperText>
+        <FormHelperText error> { validator.message('make', values['make'], 'required',{element: false})}</FormHelperText>
       </FormControl>
 
 
         </Grid>
         <Grid item xs={12} sm={6}>
-        <FormControl className={classes.formControl} >
+        <FormControl className={classes.formControl} error={errors.year} >
         <InputLabel htmlFor="year">Year</InputLabel>
         <Select 
         name="year"
@@ -312,11 +309,11 @@ export default function VehicleForm(props) {
           ))}
           
         </Select>
-        <FormHelperText>Select the year </FormHelperText>
+        <FormHelperText> { validator.message('year', values['year'], 'required',{element: false})} </FormHelperText>
       </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
-        <FormControl className={classes.formControl} >
+        <FormControl className={classes.formControl} error={errors.model} >
         <InputLabel htmlFor="model">Model</InputLabel>
         <Select 
         name="model"
@@ -337,11 +334,11 @@ export default function VehicleForm(props) {
           ))}
           
         </Select>
-        <FormHelperText>Select the model </FormHelperText>
+        <FormHelperText error > { validator.message('model', values['model'], 'required',{element: false})}</FormHelperText>
       </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
-        <FormControl className={classes.formControl} >
+        <FormControl className={classes.formControl}  >
         <InputLabel htmlFor="trim">Trim</InputLabel>
         <Select 
         name="trim"
@@ -461,22 +458,24 @@ export default function VehicleForm(props) {
 
         <Grid item xs={12} sm={6}>
           <TextField onChange={handleChange} 
-            required
+            error={errors.exterior_color}
             id="exterior_color"
             name="exterior_color"
             label="Exterior Color"
             fullWidth
             value={values.exterior_color}
+            helperText={validator.message('exterior color', values.exterior_color, 'alpha|max:50',{element: false})}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField onChange={handleChange} 
-            required
+            error={errors.interior_color}
             id="interior_color"
             name="interior_color"
             label="Interior Color"
             fullWidth
             value={values.interior_color}
+            helperText={validator.message('Interior Color', values.interior_color, 'alpha_num_space|max:50',{element: false})}
           />
         </Grid>
         <Grid item xs={12} sm={12}>

@@ -9,7 +9,7 @@ import SimpleReactValidator from 'simple-react-validator';
 
  
 
-export class index extends Component {
+export class StoreTracker extends Component {
 
     state = {
           msg: null,
@@ -94,4 +94,4 @@ const mapStateToProps = state => ({
   export default connect(
     mapStateToProps,
     mapDispatchToProps // { loginFromToken, clearErrors , addSell, register }
-  )(index)
+  )(StoreTracker)

@@ -13,6 +13,9 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
+import logo from "../assets/images/logo.png"
+import ErrorBox from './ErrorBox'
+
 
 const styles = theme => ({
   main: {
@@ -36,6 +39,8 @@ const styles = theme => ({
   avatar: {
     margin: theme.spacing.unit,
     backgroundColor: theme.palette.secondary.main,
+    height: 60,
+    width:60
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -50,6 +55,9 @@ const styles = theme => ({
   extendedIcon: {
     marginRight: theme.spacing(1),
   },
+  logoimg:{
+    height: 40
+  }
 });
 
 function LoginBox(props) {
@@ -60,13 +68,15 @@ function LoginBox(props) {
       <CssBaseline />
       <Paper className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+        <img className={classes.logoimg} alt="complex" src={logo} />
         </Avatar>
         <Grid container spacing={3}>
       <Grid item xs={12}>
       <Typography component="h1" variant="h5"  align="center">
           Sign in
         </Typography>
+        {(props.errormsg != null)? <ErrorBox message={props.errormsg} />:
+        ""}
         </Grid>
         <Grid item xs={12}>
       

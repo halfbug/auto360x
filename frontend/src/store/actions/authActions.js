@@ -66,7 +66,7 @@ export const register = (user) => (dispatch) => new Promise((resolve, reject)=>{
 });
 
 // Login User
-export const login = ({ email, password }) => dispatch => {
+export const login = ({ email, password }) => dispatch => new Promise((resolve, reject)=>{
   // Headers
   const config = {
     headers: {
@@ -79,12 +79,13 @@ export const login = ({ email, password }) => dispatch => {
 
   axios
     .post('/api/auth', body, config)
-    .then(res =>
+    .then(res => {
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data
-      })
-    )
+      });
+      // resolve(res.data)
+    })
     .catch(err => {
       dispatch(
         returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
@@ -92,8 +93,9 @@ export const login = ({ email, password }) => dispatch => {
       dispatch({
         type: LOGIN_FAIL
       });
+      reject(err)
     });
-};
+});
 
 // Logout User
 export const logout = () => {

@@ -7,22 +7,16 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import { red } from '@material-ui/core/colors';
 
-
-
-import { connect } from "react-redux";
-import { Redirect , withRouter } from "react-router-dom";
-import { compose } from "redux";
-
-import HeroUnit from "./../../components/HeroUnit" 
-import SearchBar from "./../../components/SearchBar"
-import Carousel from "./../../components/Carousel2"
-import car1 from "./../../assets/carousel/1.jpg"
 
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+    marginTop: 20,
+    
   },
   paper: {
     padding: theme.spacing(2),
@@ -33,17 +27,7 @@ const useStyles = makeStyles(theme => ({
   fixedHeight: {
     height: 240,
   },
-  mainFeaturedPost: {
-    position: 'relative',
-    backgroundColor: theme.palette.grey[800],
-    color: theme.palette.common.white,
-    marginBottom: theme.spacing(4),
-    backgroundImage:  `url(${car1})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-        flexBasis: '100%',
-  },
+  
   overlay: {
     position: 'absolute',
     top: 0,
@@ -59,25 +43,36 @@ const useStyles = makeStyles(theme => ({
      
     },
   },
+  gray:{
+      marginTop: 24,
+      marginBottom: 24,
+      marginRight:0,
+      marginLeft:0,
+      borderRadius: 4,
+      backgroundColor: "#f5f5f5",
+      padding:"12px 18px",
+      width : "70%",
+      color: red
+  }
 }));
 
-export default function Home(props) {
+export default function ErrorBox(props) {
       //  if (!this.props.auth.isloged) {
     //   return <Redirect to="/signin" />;
     // }
     const classes = useStyles();
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    
     
     return (
-      <div>
-     
-     <SearchBar />
-     <Carousel /> 
+        <div className={classes.root}>
+      
+      <Box className={classes.gray}>
+      <Typography variant="body2" >
+     {props.message}
+      </Typography>
+      </Box>
        
-      <HeroUnit>
-     
-      </HeroUnit>
-      </div>
+       </div>
     )
   }
 

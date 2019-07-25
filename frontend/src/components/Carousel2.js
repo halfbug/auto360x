@@ -5,6 +5,7 @@ import Pagination from './Pagination';
 import car1 from "./../assets/carousel/1.png"
 import car2 from "./../assets/carousel/2.png"
 import car3 from "./../assets/carousel/3.png"
+import car6 from "./../assets/carousel/6.png"
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
@@ -19,18 +20,21 @@ const styles = {
     minHeight: 400,
     color: '#fff',
    
-    backgroundSize: '500px 300px',
+   // backgroundSize: '500px 300px',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'top',
         flexBasis: '100%',
   },
   slide1: {
+    backgroundImage:  `url(${car6})`,
+ },
+  slide2: {
      backgroundImage:  `url(${car1})`,
   },
-  slide2: {
+  slide3: {
      backgroundImage:  `url(${car2})`,
   },
-  slide3: {
+  slide4: {
      backgroundImage:  `url(${car3})`,
   },
   boxstyle : {
@@ -95,8 +99,20 @@ class Carousel2 extends React.Component {
         </Box>
 
           </div>
+          <div style={Object.assign({}, styles.slide, styles.slide4)}>
+            
+          <Box color="text.primary" style={Object.assign({}, styles.boxstyle)} >
+          <Typography variant="h4" gutterBottom>
+          Buy a Car
+      </Typography>
+      <Typography variant="subtitle1" gutterBottom>
+      See It Drive It Buy It
+      </Typography>
+        </Box>
+
+          </div>
         </AutoPlaySwipeableViews>
-        <Pagination dots={3} index={index} onChangeIndex={this.handleChangeIndex} />
+        <Pagination dots={4} index={index} onChangeIndex={this.handleChangeIndex} />
       </div>
     );
   }

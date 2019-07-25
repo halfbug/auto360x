@@ -14,15 +14,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 export default function Contact(props) {
-  const {handleChange,values } = props;
+  const {handleChange, values, errors, validator } = props;
   const classes = useStyles();
-  console.log(values.saler_type)
+  // console.log(values.saler_type)
+  // validator.purgeFields();
   return (
+    
     <React.Fragment>
-    <PersonalDetail gutterBottom handleChange={handleChange} values={values}/>
-    <Divider variant="middle"  className={classes.divder} handleChange={handleChange} />
+    <PersonalDetail gutterBottom handleChange={handleChange} values={values} 
+    errors={errors} validator={validator} />
+    <Divider variant="middle"  className={classes.divder}  />
     {(values.seller_type === "dealer")?
-    <CompanyDetail values={values} handleChange={handleChange}  />
+    <CompanyDetail values={values} handleChange={handleChange} errors={errors} validator={validator} />
     :""}
     </React.Fragment>
   );

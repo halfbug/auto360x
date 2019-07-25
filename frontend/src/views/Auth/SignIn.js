@@ -9,7 +9,7 @@ export class SignIn extends Component {
   state = {
     email : "",
     password : "",
-    msg : ""
+    msg : null
   };
 
   static propTypes = {
@@ -19,6 +19,25 @@ export class SignIn extends Component {
     clearErrors: PropTypes.func.isRequired
   };
 
+  componentDidUpdate(prevProps) {
+    const { error, isAuthenticated } = this.props;
+    if (error !== prevProps.error) {
+      // Check for register error
+      if (error.id === 'LOGIN_FAIL') {
+        this.setState({ msg: error.msg.msg });
+      } else {
+        this.setState({ msg: null });
+      }
+    }
+
+    // // If authenticated, close modal
+   
+      if (isAuthenticated) {
+        this.props.history.push(`/`)
+      }
+    
+  }
+  
   handleChange =  e => {
     console.log(e.target)
     const field = (!e.target.id)?e.target.name : e.target.id;
@@ -32,12 +51,28 @@ export class SignIn extends Component {
       e.preventDefault();
       console.log("inside handle click")
       
-      console.log(this.state)
+      const { email, password } = this.state;
+
+    const user = {
+      email,
+      password
+    };
+
+    // Attempt to login
+    this.props.login(user).then((res)=>{
+      console.log("logedin");
+    this.props.history.push(`/`)
+  });
+    
       }
+
+
   render() {
+    
     return (
       <div>
-       <LoginBox handleChange={this.handleChange} handleClick={this.handleClick} /> 
+
+       <LoginBox handleChange={this.handleChange} handleClick={this.handleClick} errormsg={this.state.msg}/> 
       </div>
     )
   }
