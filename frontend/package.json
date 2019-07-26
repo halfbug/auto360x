@@ -20,7 +20,14 @@
     "recharts": "^1.6.2",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-    "sweetalert": "^2.1.2"
+    "sweetalert": "^2.1.2",
+    "react-form-validator-core": "^0.6.4",
+    
+    "react-material-ui-form-validator": "^2.0.9",
+    "react-number-format": "^4.0.8",
+    
+    "simple-react-validator": "^1.2.0"
+    
     
   },
   "scripts": {
