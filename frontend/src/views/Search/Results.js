@@ -4,44 +4,6 @@ import Pagination from "material-ui-flat-pagination";
 import Box from "@material-ui/core/Box";
 import Grid from '@material-ui/core/Grid';
 
-const searchResults = [
-{
-title : "A new car for sale",
-make : "Audi",
-model: "AS",
-year : "2019",
-id: "092304239400234"
-},
-{
-    title : "A new car for sale",
-    make : "Audi",
-    model: "AS",
-    year : "2019",
-    id: "092304239400234"
-    },
-    {
-        title : "A new car for sale",
-        make : "Audi",
-        model: "AS",
-        year : "2019",
-        id: "092304239400234"
-        },{
-          title : "A new car for sale",
-          make : "Audi",
-          model: "AS",
-          year : "2019",
-          id: "092304239400234"
-          },
-        {
-          title : "A new car for sale",
-          make : "Audi",
-          model: "AS",
-          year : "2019",
-          id: "092304239400234"
-          },
-
-];
-
 const Results = (props) => {
     const [offset, setOffset] = React.useState(3);
     const handleClick=(offset)=> {

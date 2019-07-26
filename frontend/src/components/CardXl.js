@@ -38,7 +38,7 @@ console.log(data)
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={`https://res.cloudinary.com/auto360x/image/upload/c_scale,w_300/v1562565154/${data.front_view}.jpg`}
+          image={data.front_view}
           title="Contemplative Reptile"
         />  
         <CardContent>

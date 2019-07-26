@@ -214,7 +214,9 @@ export default function VehicleForm(props) {
       
            loadImg(target, res.data[0].url)
       toggleProgress(target, "none")
-      values[target] = `${res.data[0].public_id}.${res.data[0].format}`;
+      values[target] = res.data[0].url
+      
+      //`${res.data[0].public_id}.${res.data[0].format}`;
        // props.handleChange()
     })
     .catch(err => console.log(err))

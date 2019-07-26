@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     margin: 'auto',
-    height: "100vh",
+    minHeight: "100vh",
     // maxWidth: 500,
   },
   image: {
@@ -61,11 +61,9 @@ export default function Main(props) {
         axios
             .get(`/api/vehicles/${id}`)
             .then(res => {
-              console.log(res);
+              console.log(res.data[0]);
               // list["makes"]=res.data
-              setVehicle({
-               data:res.data.vehicles
-              })
+              setVehicle(res.data[0])
               setIsLoading(false);
             // forceUpdate();
             })
@@ -108,14 +106,14 @@ export default function Main(props) {
         <Grid item xs={12} >
         <Typography variant="h5" gutterBottom>
         
-        {vehicle.data[0].year} {vehicle.data[0].make} {vehicle.data[0].model} {vehicle.data[0].trim}  {vehicle.data[0].style}  {vehicle.data[0].drivetype}
+        {vehicle.year} {vehicle.make} {vehicle.model} {vehicle.trim}  {vehicle.style}  {vehicle.drivetype}
         
       </Typography>
           </Grid>
           <Grid item xs={12} lg={6} >
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt={vehicle.data[0].make} 
-              src={`https://res.cloudinary.com/auto360x/image/upload/c_scale,w_600/v1562565154/${vehicle.data[0].front_view}`} />
+              <img className={classes.img} alt={vehicle.make} 
+              src={vehicle.front_view} />
             </ButtonBase>
           </Grid>
          
@@ -135,7 +133,7 @@ export default function Main(props) {
               </Grid>
             </Grid>
             <Grid item xs={6} lg={6}>
-              <Typography variant="body2" color="textSecondary">{vehicle.data[0].price} </Typography>
+              <Typography variant="body2" color="textSecondary">{vehicle.price} </Typography>
             </Grid>
             <Grid item xs={6} lg={6} container direction="column" spacing={2}>
               <Grid item xs>
@@ -146,7 +144,7 @@ export default function Main(props) {
               </Grid>
             </Grid>
             <Grid item xs={6} lg={6}>
-              <Typography variant="body2" color="textSecondary">{vehicle.data[0].make} </Typography>
+              <Typography variant="body2" color="textSecondary">{vehicle.make} </Typography>
             </Grid>
             <Grid item xs={6} lg={6} container direction="column" spacing={2}>
               <Grid item xs>
@@ -157,7 +155,7 @@ export default function Main(props) {
               </Grid>
             </Grid>
             <Grid item xs={6} lg={6}>
-              <Typography color="textSecondary" variant="body2">{vehicle.data[0].model} </Typography>
+              <Typography color="textSecondary" variant="body2">{vehicle.model} </Typography>
             </Grid>
             <Grid item xs={6} lg={6} container direction="column" spacing={2}>
               <Grid item xs>
@@ -168,7 +166,7 @@ export default function Main(props) {
               </Grid>
             </Grid>
             <Grid item xs={6} lg={6}>
-              <Typography color="textSecondary" variant="body2">{vehicle.data[0].trim} </Typography>
+              <Typography color="textSecondary" variant="body2">{vehicle.trim} </Typography>
             </Grid>
             <Grid item xs={6} lg={6} container direction="column" spacing={2}>
               <Grid item xs>
@@ -179,7 +177,7 @@ export default function Main(props) {
               </Grid>
             </Grid>
             <Grid item xs={6} lg={6}>
-              <Typography color="textSecondary" variant="body2">{vehicle.data[0].year} </Typography>
+              <Typography color="textSecondary" variant="body2">{vehicle.year} </Typography>
             </Grid>
             <Grid item xs={6} lg={6} container direction="column" spacing={2}>
               <Grid item xs>
@@ -190,7 +188,7 @@ export default function Main(props) {
               </Grid>
             </Grid>
             <Grid item xs={6} lg={6}>
-              <Typography color="textSecondary" variant="body2">{vehicle.data[0].style} </Typography>
+              <Typography color="textSecondary" variant="body2">{vehicle.style} </Typography>
             </Grid>
             <Grid item xs={6} lg={6} container direction="column" spacing={2}>
               <Grid item xs>
@@ -201,21 +199,21 @@ export default function Main(props) {
               </Grid>
             </Grid>
             <Grid item xs={6} lg={6}>
-              <Typography color="textSecondary" variant="body2">{vehicle.data[0].condition} </Typography>
+              <Typography color="textSecondary" variant="body2">{vehicle.condition} </Typography>
             </Grid>
             
           </Grid>
               </Grid>
             </Grid>
             <Grid item xs={1}>
-            <Button variant="outlined" color="primary" className={classes.button} gutterBottom>
+            <Button variant="outlined" color="primary" className={classes.button} >
             <MailIcon className={classes.extendedIcon} /> Message
       </Button>
-      <Button variant="outlined" color="primary" className={classes.button} gutterBottom>
+      <Button variant="outlined" color="primary" className={classes.button} >
       <FavoriteIcon className={classes.extendedIcon} /> Save
       </Button>
 
-      <Button variant="outlined" color="primary" className={classes.button} gutterBottom>
+      <Button variant="outlined" color="primary" className={classes.button} >
       <ShareIcon className={classes.extendedIcon} /> Share
       </Button>
             </Grid>
